@@ -1,9 +1,10 @@
 import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
-import { UsuarioGuardService } from './guards/usuario-guard.service';
+import { AuthGuard } from './guards/auth.guard';
+
 
 export const canActivate = (
-  authGuard: UsuarioGuardService = inject(UsuarioGuardService)
+  authGuard: AuthGuard = inject(AuthGuard)
 ) => authGuard.isLoggedIn();
 
 export const routes: Routes = [
