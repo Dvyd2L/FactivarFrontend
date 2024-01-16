@@ -4,11 +4,12 @@ import { IUserPayload } from '@app/interfaces/user';
 import { AuthService } from '@app/services/auth/auth.service';
 import { SocialAuthService } from '@app/services/auth/social-auth.service';
 import { UserService } from '@app/services/user.service';
+import { BotonAccesosComponent } from '../boton-accesos/boton-accesos.component';
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, BotonAccesosComponent],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css',
   providers: [AuthService, SocialAuthService, UserService],

@@ -8,8 +8,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './boton-accesos.component.css'
 })
 export class BotonAccesosComponent {
-@Input() texto: string = 'continuar';
-
-
-
+  @Input() texto: string = 'continuar';
 }
