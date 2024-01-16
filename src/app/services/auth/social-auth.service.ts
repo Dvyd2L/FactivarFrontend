@@ -41,12 +41,15 @@ export class SocialAuthService {
     console.log({ googleProfile });
 
     this.userService.updateUser({
-      email: googleProfile.email,
-      rol: 2,
-      avatarUrl: googleProfile.picture,
-      id: googleProfile.sub,
-      nombre: googleProfile.name,
-      apellidos: googleProfile.family_name,
+      Email: googleProfile.email,
+      Role: 'User',
+      Thumbprint: googleProfile.picture,
+      Sid: googleProfile.sub,
+      Name: googleProfile.name,
+      Surname: googleProfile.family_name,
+      exp: googleProfile.exp,
+      iss: googleProfile.iss,
+      aud: googleProfile.aud,
       token: this.getIdToken(),
     });
   }

@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LockCheckboxComponent } from '../lock-checkbox/lock-checkbox.component';
 import { FormsModule } from '@angular/forms';
 
@@ -10,10 +10,17 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './password-input.component.css'
 })
 export class PasswordInputComponent {
-  @Output() password = '';
+  @Input() placeholder = 'Contraseña';
   showPassword: boolean = false;
-
+  password = '';
+  @Output() passwordValueChange = new EventEmitter<string>();
+  
   showHidePassword(checked: boolean) {
-    this.showPassword = checked;
+    this.showPassword = !this.showPassword;
+    // this.showPassword = checked;
+  }
+
+  emitPassword() {
+    this.passwordValueChange.emit(this.password);
   }
 }

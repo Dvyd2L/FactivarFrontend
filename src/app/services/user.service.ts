@@ -30,6 +30,10 @@ export class UserService {
   public getUser() {
     return this.user;
   }
+  
+  public getToken(): string | null {
+    return this.userValue && this.userValue.token ? this.userValue.token : null;
+  }
 
   public getAvatar(): any {
     const token = this.getToken() ?? '';
@@ -41,7 +45,7 @@ export class UserService {
 
   public updateUser(user: IUserPayload) {
     StorageHelper.setItem(this.storageUser, user, true);
-    sessionStorage.setItem(this.storageUser, JSON.stringify(user))
+    // sessionStorage.setItem(this.storageUser, JSON.stringify(user))
 
     this.currentUserSubject.next(user);
   }
@@ -50,9 +54,5 @@ export class UserService {
     StorageHelper.removeItem(this.storageUser, true);
 
     this.currentUserSubject.next(null!);
-  }
-
-  private getToken(): string | null {
-    return this.userValue && this.userValue.token ? this.userValue.token : null;
   }
 }

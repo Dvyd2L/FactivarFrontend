@@ -6,13 +6,23 @@ export interface IUserBase {
 }
 
 export interface IUserPayload {
-  id: string;
-  email: Email;
-  nombre: string;
-  apellidos: string;
-  telefono?: number | string;
-  avatarUrl?: string | URL;
-  rol: number | string
+  // id: string;
+  // email: Email;
+  // nombre: string;
+  // apellidos: string;
+  // telefono?: number | string;
+  // avatarUrl?: string | URL;
+  // rol: number | string
+  Sid: string,
+  Email: string,
+  Name: string,
+  Surname: string,
+  Role: string,
+  Thumbprint:string
+  MobilePhone?: string,
+  exp: number,
+  iss: string,
+  aud: string
   token: string
 }
 
@@ -38,6 +48,10 @@ export interface ILoginUser
 export interface IUserChangePassword extends Omit<ILoginUser, 'password'> {
   oldPassword?: string;
   newPassword: string;
+}
+
+export interface ILoginResponse {
+  token:string
 }
 
 export type Email = `${string}@${string}.${string}` | string;

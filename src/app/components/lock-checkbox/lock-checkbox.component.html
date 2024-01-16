@@ -1,7 +1,8 @@
 <input
   id="inpLock"
   type="checkbox"
-  (change)="onChange($event)"
+  [checked]="isChecked"
+  (change)="onChange()"
   />
 <label class="btn-lock" for="inpLock">
   <svg width="36" height="40" viewBox="0 0 36 40">

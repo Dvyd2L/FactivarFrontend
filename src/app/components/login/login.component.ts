@@ -35,6 +35,9 @@ export class LoginComponent {
   // showHidePassword(checked: boolean) {
   //   this.showPassword = checked;
   // }
+  setPassword(value:string) {
+    this.infoLogin.password = value;
+  }
 
   constructor(
     private router: Router,
@@ -43,21 +46,23 @@ export class LoginComponent {
   ) {}
 
   login() {
-    this.authService.login(this.infoLogin).subscribe({
-      next: (data) => {
-        sessionStorage.setItem(environment.storage.user, JSON.stringify(data));
-        this.router.navigateByUrl('clientes');
-      },
-      error: (err) => {
-        console.warn(err);
+    console.log(this.infoLogin)
+    this.authService.login(this.infoLogin)
+    // .subscribe({
+    //   next: (data) => {
+    //     sessionStorage.setItem(environment.storage.user, JSON.stringify(data));
+    //     this.router.navigateByUrl('clientes');
+    //   },
+    //   error: (err) => {
+    //     console.warn(err);
 
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: err.error.msg,
-        });
-      },
-    });
+    //     this.messageService.add({
+    //       severity: 'error',
+    //       summary: 'Error',
+    //       detail: err.error.msg,
+    //     });
+    //   },
+    // });
   }
 
   loginWithGoogle() {

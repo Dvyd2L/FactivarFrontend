@@ -121,7 +121,7 @@
         <span class="form-text text-danger"> Email obligatorio </span>}
       </div>
 
-      <app-password-input class="mb-3"/>
+      <app-password-input class="mb-3" (passwordValueChange)="setPassword($event)"/>
       <!-- <div class="form-group mb-3">
         <label for="password" class="sr-only">Password</label>
         <input

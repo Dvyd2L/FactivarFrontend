@@ -6,69 +6,98 @@ import { Observable, tap } from 'rxjs';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { ILoginUser, IRegisterUser, IUserPayload } from '@app/interfaces/user';
+import {
+  ILoginResponse,
+  ILoginUser,
+  IRegisterUser,
+  IUserPayload,
+} from '@app/interfaces/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private urlAPI: string;
 
-  public constructor(private http: HttpClient, private userService: UserService, private router: Router) {
+  public constructor(
+    private http: HttpClient,
+    private userService: UserService,
+    private router: Router
+  ) {
     this.urlAPI = environment.urlAPI + 'auth';
   }
 
-  public login(credenciales?: ILoginUser): Observable<string> {
-    return this.http
-      .post<string>(`${this.urlAPI}/login`, credenciales)
-      .pipe(
-        tap((data) => {
+  // public login(credenciales?: ILoginUser): Observable<string> {
+  //   return this.http
+  //     .post<string>(`${this.urlAPI}/login`, credenciales)
+  //     .pipe(
+  //       tap((data) => {
 
-          const helper = new JwtHelperService;
-          const payload = helper.decodeToken(data) as IUserPayload
+  //         const helper = new JwtHelperService;
+  //         const payload = helper.decodeToken(data) as IUserPayload
+
+  //         this.userService.updateUser({
+  //           id: payload.id,
+  //           email: payload.email,
+  //           token: data,
+  //           rol: payload.rol,
+  //           nombre:payload.nombre,
+  //           apellidos:payload.apellidos,
+  //           avatarUrl:payload.avatarUrl,
+  //         });
+  //       })
+  //     );
+  // }
+  public login(credenciales?: ILoginUser) {
+    return this.http
+      .post<ILoginResponse>(`${this.urlAPI}/login`, credenciales)
+      .subscribe({
+        next: (data) => {
+          const helper = new JwtHelperService();
+          const payload = helper.decodeToken(data.token) as IUserPayload;
 
           this.userService.updateUser({
-            id: payload.id,
-            email: payload.email,
-            token: data,
-            rol: payload.rol,
-            nombre:payload.nombre,
-            apellidos:payload.apellidos,
-            avatarUrl:payload.avatarUrl,
+            ...payload,
+            token: data.token,
           });
-        })
-      );
+          console.log({ payload });
+          console.log({ data });
+          this.router.navigate(['/clientes']);
+        },
+        error: (err) => {
+          console.error(err);
+        },
+        complete: () => {},
+      });
   }
 
-  public loginWithGoogle(idToken?: string): Observable<string> {
+  public loginWithGoogle(idToken?: string) {
     return this.http
-      .post<string>(`${this.urlAPI}/google-authenticate`, idToken)
-      .pipe(
-        tap((data) => {
-
-          const helper = new JwtHelperService;
-          const payload = helper.decodeToken(data) as IUserPayload
+      .post<ILoginResponse>(`${this.urlAPI}/google-authenticate`, idToken)
+      .subscribe({
+        next: (data) => {
+          const helper = new JwtHelperService();
+          const payload = helper.decodeToken(data.token) as IUserPayload;
 
           this.userService.updateUser({
-            id: payload.id,
-            email: payload.email,
-            token: data,
-            rol: payload.rol,
-            nombre:payload.nombre,
-            apellidos:payload.apellidos,
-            avatarUrl:payload.avatarUrl,
+            ...payload,
+            token: data.token,
           });
-        })
-      );
+          
+          this.router.navigate(['/clientes']);
+        },
+        error: (err) => {
+          console.error(err);
+        },
+        complete: () => {},
+      });
   }
 
   public logout({ email }: { email: string }) {
-    return this.http.post(`${this.urlAPI}/logout`, { email }).pipe(
-      tap(() => {
-        this.userService.clearUser();
-        this.router.navigate(['/login']);
-      })
-    );
+    this.userService.clearUser();
+    this.router.navigate(['/login']);
+
+    return this.http.post(`${this.urlAPI}/logout`, { email });
   }
 
   public register(registro: IRegisterUser): Observable<IRegisterUser> {
@@ -93,8 +122,8 @@ export class AuthService {
   public refreshToken(): Observable<IUserPayload> {
     const currentUser = this.userService.userValue;
     //const token = currentUser.refreshToken;  ARREGLAR ESTO
-    const token = currentUser.token; 
-  
+    const token = currentUser.token;
+
     return this.http
       .post<IUserPayload>(`${this.urlAPI}/auth/refreshtoken`, { token })
       .pipe(
@@ -107,7 +136,7 @@ export class AuthService {
         })
       );
   }
-  
+
   public clearStorage() {
     this.userService.clearUser();
     this.router.navigate(['/login']);

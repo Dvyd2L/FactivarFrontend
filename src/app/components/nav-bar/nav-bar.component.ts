@@ -41,7 +41,7 @@ export class NavBarComponent implements OnInit {
     if (this.socialAuthService.getProfile()) {
       this.socialAuthService.logout();
     } else {
-      this.authService.logout({ email: this.user.email });
+      this.authService.logout({ email: this.user.Email });
     }
   }
 }

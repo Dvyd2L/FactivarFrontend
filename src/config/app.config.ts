@@ -8,9 +8,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { ErrorInterceptor } from '@app/interceptors/error.interceptor';
 import { routes } from '@app/routes';
-import { JwtInterceptor } from '@auth0/angular-jwt';
+// import { JwtInterceptor } from '@auth0/angular-jwt';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TokenInterceptor } from '@app/interceptors/token.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,7 +25,7 @@ export const appConfig: ApplicationConfig = {
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
+      useClass: TokenInterceptor,
       multi: true,
     },
     {

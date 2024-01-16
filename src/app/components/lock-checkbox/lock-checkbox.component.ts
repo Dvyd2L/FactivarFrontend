@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  Input,
   Output,
 } from '@angular/core';
 
@@ -12,10 +13,11 @@ import {
   styleUrl: './lock-checkbox.component.css',
 })
 export class LockCheckboxComponent {
+  @Input() isChecked = false;
   @Output() lockCheckboxChange: EventEmitter<boolean> =
     new EventEmitter<boolean>();
 
-  onChange(event: Event) {
-    this.lockCheckboxChange.emit(!(event.target as HTMLInputElement)?.checked);
+  onChange() {
+    this.lockCheckboxChange.emit(!this.isChecked);
   }
 }

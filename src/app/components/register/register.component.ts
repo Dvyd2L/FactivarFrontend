@@ -32,6 +32,14 @@ export class RegisterComponent {
   };
   password: string = '';
 
+  setPassword(input:string) {
+    this.infoRegister.password = input;
+  }
+
+  setRepeatPassword(input:string) {
+    this.password = input;
+  }
+  
   constructor(
     private router: Router,
     private authService: AuthService,

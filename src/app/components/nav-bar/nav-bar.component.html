@@ -45,10 +45,10 @@
       <div class="d-flex">
         @if (user) {
             <p class="me-2 mt-2 textoGrande">
-            Bienvenido, <b>{{ user.nombre }}</b>
+            Bienvenido, <b>{{ user.Name }}</b>
           </p>
-          <img class="avatar" [src]="user.avatarUrl" alt="Avatar de {{ user.nombre }}">
-  
+          <img class="avatar" [src]="user.Thumbprint" alt="Avatar de {{ user.Name }}">
+         
           <!-- Boton de salida -->
           <button class="Btn"  type="button" (click)="cerrarSesion()">
             <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 
