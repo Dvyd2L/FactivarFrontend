@@ -1,0 +1,130 @@
+<div class="row">
+  <div class="col-2 form-label">Cant.</div>
+
+  <div class="col-3 form-label">Descripción</div>
+
+  <div class="col-2 form-label">Precio unitario</div>
+
+  <div class="col-2 form-label">Importe</div>
+
+  <div class="col-2 form-label">Impuesto</div>
+
+  <div class="col-1"></div>
+</div>
+
+<div id="items">
+  <input
+    type="hidden"
+    name="invoice[items_attributes][0][id]"
+    id="invoice_items_attributes_0_id"
+    value="225899972"
+    autocomplete="off"
+  />
+
+  <div class="row mb-3" id="row_item_225899972">
+    <div class="col-2 form-group">
+      <input
+        type="text"
+        name="invoice[items_attributes][0][quantity]"
+        id="invoice_items_attributes_0_quantity"
+        value="1.0"
+        placeholder="Cant."
+        class="form-control form-control-sm quantity"
+        tabindex="225899972"
+        maxlength="100"
+      />
+    </div>
+
+    <div class="col-3 form-group">
+      <textarea
+        name="invoice[items_attributes][0][description]"
+        id="invoice_items_attributes_0_description"
+        placeholder="Descripción"
+        class="form-control form-control-sm description"
+        rows="2"
+        tabindex="225899972"
+        maxlength="5000"
+      ></textarea>
+    </div>
+
+    <div class="col-2 form-group">
+      <input
+        type="text"
+        name="invoice[items_attributes][0][price]"
+        id="invoice_items_attributes_0_price"
+        value="0.0"
+        placeholder="Precio unitario"
+        class="form-control form-control-sm price"
+        tabindex="225899972"
+        maxlength="100"
+      />
+    </div>
+
+    <div class="col-2 form-group">
+      <input
+        type="text"
+        name="invoice[items_attributes][0][amount]"
+        id="invoice_items_attributes_0_amount"
+        value="0.0"
+        placeholder="Importe"
+        class="form-control form-control-sm amount"
+        tabindex="225899972"
+        maxlength="100"
+      />
+    </div>
+
+    <div class="col-2 form-group">
+      <input
+        type="hidden"
+        name="invoice[items_attributes][0][tax_rate_id]"
+        id="invoice_items_attributes_0_tax_rate_id"
+        autocomplete="off"
+      />
+
+      <input
+        type="hidden"
+        name="invoice[items_attributes][0][tax_rate_id_2]"
+        id="invoice_items_attributes_0_tax_rate_id_2"
+        autocomplete="off"
+      />
+
+      <button
+        type="button"
+        id="invoice_items_attributes_0_tax_rate_name"
+        class="btn btn-info btn-sm show-modal tax-rate-name w-100"
+        data-index="0"
+        data-item-id="225899972"
+        data-locale="es"
+      >
+        Añadir impu...
+      </button>
+    </div>
+
+    <div class="col-1 form-group text-nowrap" style="margin-top: 7px">
+      <input
+        type="hidden"
+        name="invoice[items_attributes][0][_destroy]"
+        id="invoice_items_attributes_0__destroy"
+        autocomplete="off"
+      />
+
+      <i
+        class="fas fa-times-circle delete-item acts-as-link text-danger fs-5"
+        title="Borrar artículo"
+      ></i>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <button
+        name="button"
+        type="button"
+        class="btn btn-info btn-sm w-100"
+        id="add-item"
+        (click)="removeArticle()"
+      >
+        Eliminar artículo
+      </button>
+    </div>
+  </div>
+</div>

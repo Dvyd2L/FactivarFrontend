@@ -1,0 +1,387 @@
+<div class="container-xl">
+  <div class="row pb-4">
+    <div class="col-lg-10 col-md-11 mx-auto">
+      <div class="text-center">
+        <h1 class="fs-2 my-4">Factura nueva</h1>
+      </div>
+
+      <div class="px-4">
+        <div class="p-4 guest-page">
+          <form
+            class="edit_invoice"
+            id="invoice-form"
+            action="/invoices/122095219?locale=es"
+            accept-charset="UTF-8"
+            data-remote="true"
+            method="post"
+          >
+            <input
+              type="hidden"
+              name="_method"
+              value="patch"
+              autocomplete="off"
+            /><input
+              type="hidden"
+              name="authenticity_token"
+              value="v0qYJiuwvKburbbLzzVMRE24p_eKF2fRd1fpYUYCtw1CPVPoBtaF-1A3LDDAeBteZaGn0W_2Y6lpIlK2aHxuVw"
+              autocomplete="off"
+            />
+
+            <input
+              type="hidden"
+              name="invoice[invoice_type]"
+              id="invoice_type"
+              value="ADVANCED"
+              autocomplete="off"
+            />
+
+            <input
+              type="hidden"
+              name="redirect_page"
+              id="redirect_page"
+              value=""
+              autocomplete="off"
+            />
+
+            <input
+              type="hidden"
+              name="save_clicked"
+              id="save_clicked"
+              value=""
+              autocomplete="off"
+            />
+
+            <input
+              type="hidden"
+              name="ref"
+              id="ref"
+              value=""
+              autocomplete="off"
+            />
+
+            <input
+              type="hidden"
+              name="last_updated_item_id"
+              id="last_updated_item_id"
+              value=""
+              autocomplete="off"
+            />
+            <input
+              type="hidden"
+              name="last_updated_object_id"
+              id="last_updated_object_id"
+              value=""
+              autocomplete="off"
+            />
+
+            <div class="row">
+              <div class="col-8">
+                <label for="invoice_from" class="form-label"
+                  ><i class="fa fa-user icon"></i>&nbsp;&nbsp;De</label
+                >
+                <textarea
+                  class="form-control form-control-sm"
+                  placeholder="Su Empresa o Nombre, y Dirección"
+                  rows="5"
+                  style="height: 8em"
+                  tabindex="1"
+                  maxlength="5000"
+                  name="invoice[from]"
+                  id="invoice_from"
+                ></textarea>
+              </div>
+
+              <div class="col-4 col-md-3 offset-md-1">
+                <div id="logo" class="mt-2 position-relative">
+                  <br />
+
+                  <input
+                    type="hidden"
+                    name="invoice[logo_id]"
+                    id="invoice_logo_id"
+                    autocomplete="off"
+                  />
+
+                  <button
+                    type="button"
+                    class="show-modal-logo btn btn-info p-4 btn-sm w-100"
+                  >
+                    Seleccionar logo
+                    <br />
+                    <img
+                      src="https://images.invoicehome.com/all-logos.png"
+                      width="16"
+                      height="16"
+                    />
+                    <br />
+                    Galería de logos
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="row my-3">
+              <div class="col-8">
+                <label for="invoice_billing" class="form-label"
+                  ><i class="fa fa-female icon"></i
+                  ><i class="fa fa-male icon"></i>&nbsp;&nbsp;Facturar a</label
+                >
+                <textarea
+                  class="form-control form-control-sm"
+                  placeholder="Dirección de facturación de su cliente"
+                  rows="5"
+                  style="height: 8em"
+                  tabindex="2"
+                  maxlength="5000"
+                  name="invoice[billing]"
+                  id="invoice_billing"
+                ></textarea>
+              </div>
+
+              <div class="col-4 col-md-3 offset-md-1">
+                <label for="invoice_number" class="form-label"
+                  ><i class="fa fa-search icon"></i>&nbsp;N° de factura</label
+                >
+                <input
+                  class="form-control form-control-sm"
+                  placeholder="Número Factura"
+                  tabindex="4"
+                  maxlength="100"
+                  size="100"
+                  type="text"
+                  value="100"
+                  name="invoice[number]"
+                  id="invoice_number"
+                /><br />
+
+                <label for="invoice_date_issued" class="form-label"
+                  >Fecha</label
+                >
+                <input
+                  class="form-control form-control-sm datepicker hasDatepicker"
+                  placeholder="dd.mm.aa"
+                  tabindex="5"
+                  maxlength="100"
+                  autocomplete="off"
+                  size="100"
+                  type="text"
+                  value="10.01.2024"
+                  name="invoice[date_issued_string]"
+                  id="invoice_date_issued_string"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-8">
+                <label for="invoice_shipping" class="form-label"
+                  ><i class="fa fa-plane icon"></i>&nbsp;&nbsp;Enviar a</label
+                >
+                <textarea
+                  class="form-control form-control-sm"
+                  placeholder="Dirección de envío de su cliente (opcional)"
+                  rows="5"
+                  style="height: 8em"
+                  tabindex="3"
+                  maxlength="5000"
+                  name="invoice[shipping]"
+                  id="invoice_shipping"
+                ></textarea>
+              </div>
+
+              <div class="col-4 col-md-3 offset-md-1">
+                <label for="invoice_po_number" class="form-label"
+                  >N° de pedido</label
+                >
+                <input
+                  class="form-control form-control-sm"
+                  placeholder="Pedido (opcional)"
+                  tabindex="6"
+                  maxlength="100"
+                  size="100"
+                  type="text"
+                  name="invoice[po_number]"
+                  id="invoice_po_number"
+                /><br />
+
+                <label for="invoice_due_date" class="form-label"
+                  >Fecha vencimiento</label
+                >
+                <input
+                  class="form-control form-control-sm datepicker hasDatepicker"
+                  placeholder="dd.mm.aa (opcional)"
+                  tabindex="7"
+                  maxlength="100"
+                  autocomplete="off"
+                  size="100"
+                  type="text"
+                  value="10.01.2024"
+                  name="invoice[due_date_string]"
+                  id="invoice_due_date_string"
+                />
+              </div>
+            </div>
+
+            <hr />
+
+            <app-articulo-factura (pacos)="removeArticle()" />
+
+            <ng-template #articuloFactura> </ng-template>
+
+            <div class="row">
+              <div class="col-12">
+                <button
+                  name="button"
+                  type="button"
+                  class="btn btn-info btn-sm w-100"
+                  id="add-item"
+                  (click)="addArticle()"
+                >
+                  Añadir artículo nuevo
+                </button>
+              </div>
+            </div>
+
+            <hr />
+
+            <div id="total">
+              <div class="row mt-4">
+                <div class="col-6 col-md-3 offset-md-6 fs-6 fw-bold">
+                  Subtotal
+                </div>
+                <div class="col-6 col-md-3 text-end fs-6 fw-bold">0,00</div>
+              </div>
+
+              <div class="row my-4">
+                <div class="col-6 col-md-3 offset-md-6 fs-5 fw-bold">
+                  TOTAL
+                  <a
+                    class="currency-formats show-modal-currency-format text-decoration-dotted"
+                    title="Cambiar moneda"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    >EUR&nbsp;<sup style="font-size: 50%; top: -0.7em"
+                      >Editar</sup
+                    ></a
+                  >
+                </div>
+
+                <input
+                  type="hidden"
+                  name="invoice[currency]"
+                  id="invoice_currency"
+                  value="EUR"
+                  autocomplete="off"
+                />
+
+                <input
+                  type="hidden"
+                  name="invoice[currency_format]"
+                  id="invoice_currency_format"
+                  value="%n %s"
+                  autocomplete="off"
+                />
+
+                <div class="col-6 col-md-3 text-end fs-5 fw-bold">
+                  <a
+                    class="currency-formats show-modal-currency-format dotted text-decoration-dotted"
+                    title="Cambiar moneda"
+                    data-toggle="tooltip"
+                    data-placement="left"
+                  >
+                    0,00 €
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-8">
+                <label for="invoice_footer_1" class="form-label me-1"
+                  ><i class="fas fa-pencil-alt icon"></i
+                ></label>
+
+                <a
+                  class="show-footer-label-modal text-decoration-dotted form-label"
+                >
+                  <span id="footer_label"> Condiciones y forma de pago </span
+                  >&nbsp;<sup
+                    style="font-size: 10px; top: -0.5em; font-weight: 700"
+                    >Editar</sup
+                  >
+                </a>
+
+                <textarea
+                  class="form-control form-control-sm"
+                  placeholder="Opcional"
+                  rows="5"
+                  style="height: 8em"
+                  tabindex="-1"
+                  maxlength="5000"
+                  name="invoice[footer_1]"
+                  id="invoice_footer_1"
+                >
+El pago se efectuará en 15 días</textarea
+                >
+              </div>
+
+              <div class="col-4 col-md-3 offset-md-1">
+                <div id="signature" class="mt-2 position-relative">
+                  <br />
+
+                  <input
+                    type="hidden"
+                    name="invoice[signature_id]"
+                    id="invoice_signature_id"
+                    autocomplete="off"
+                  />
+
+                  <button
+                    type="button"
+                    class="show-modal-signature btn btn-info btn-sm w-100"
+                    style="padding: 1.7rem !important"
+                  >
+                    Añadir Su Firma
+                    <br />
+                    <i class="fas fa-signature fs-5 icon-signature py-2"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="modal" tabindex="-1" id="tax-rates-modal">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h6 class="modal-title">Añadir impuesto</h6>
+                  <button
+                    type="button"
+                    class="btn-close choose-last-tax"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+
+                <div class="modal-body">
+                  <div id="tax-rates"></div>
+
+                  <div id="new-tax-rate"></div>
+                </div>
+
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-link"
+                    data-bs-dismiss="modal"
+                  >
+                    Cerrar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
