@@ -6,6 +6,7 @@ import { ICliente } from 'src/app/interfaces/cliente.interface';
 import { ClientesService } from '@app/services/clientes.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-clientes',
@@ -29,7 +30,6 @@ export class ClientesComponent implements OnInit {
     direccion: '',
     telefono: '',
     email: '',
-    fechaAlta: new Date(),
   };
 
   constructor(
@@ -49,8 +49,10 @@ export class ClientesComponent implements OnInit {
         this.clientes = data;
       },
       error: (err) => {
-        this.visibleError = true;
-        this.mensajeError = err.error.error;
+        if (err instanceof HttpErrorResponse) {
+          this.visibleError = true;
+          this.mensajeError = err.message;
+        }
       },
     });
   }
@@ -64,10 +66,12 @@ export class ClientesComponent implements OnInit {
           this.getClientes();
         },
         error: (err) => {
-          console.error(err);
+          console.error({ err });
 
-          this.visibleError = true;
-          this.mensajeError = err.error.error;
+          if (err instanceof HttpErrorResponse) {
+            this.visibleError = true;
+            this.mensajeError = err.message;
+          }
         },
       });
     } else {
@@ -80,8 +84,12 @@ export class ClientesComponent implements OnInit {
           this.editar = false;
         },
         error: (err) => {
-          this.visibleError = true;
-          this.mensajeError = err.error.error;
+          console.error({ err });
+
+          if (err instanceof HttpErrorResponse) {
+            this.visibleError = true;
+            this.mensajeError = err.message;
+          }
         },
       });
     }
@@ -112,12 +120,12 @@ export class ClientesComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Sí',
       rejectLabel: 'No',
-      acceptButtonStyleClass:"btn btn-danger mx-1 p-button-text",
+      acceptButtonStyleClass: 'btn btn-danger mx-1 p-button-text',
       // acceptButtonStyleClass:"p-button-danger p-button-text",
-      rejectButtonStyleClass:"btn btn-primary mx-1 p-button-text",
+      rejectButtonStyleClass: 'btn btn-primary mx-1 p-button-text',
       // rejectButtonStyleClass:"p-button-text p-button-text",
-      acceptIcon:"none",
-      rejectIcon:"none",
+      acceptIcon: 'none',
+      rejectIcon: 'none',
       accept: () => {
         this.messageService.add({
           severity: 'info',
@@ -152,8 +160,10 @@ export class ClientesComponent implements OnInit {
         this.getClientes();
       },
       error: (err) => {
-        this.visibleError = true;
-        this.mensajeError = err.error.error;
+        if (err instanceof HttpErrorResponse) {
+          this.visibleError = true;
+          this.mensajeError = err.message;
+        }
       },
     });
   }

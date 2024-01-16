@@ -18,16 +18,16 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideOAuthClient(),
-    importProvidersFrom(BrowserModule, BrowserAnimationsModule),
+    importProvidersFrom(BrowserModule, BrowserAnimationsModule, TokenInterceptor),
     {
       provide: LOCALE_ID /** imported from @angular/core */,
       useValue: 'es-ES' /** default locale fixed to es-ES */,
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true,
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: TokenInterceptor,
+    //   multi: true,
+    // },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,

@@ -35,6 +35,7 @@ export class UserService {
     return this.userValue && this.userValue.token ? this.userValue.token : null;
   }
 
+  // creo k es inutil
   public getAvatar(): any {
     const token = this.getToken() ?? '';
     const helper = new JwtHelperService();
@@ -45,14 +46,11 @@ export class UserService {
 
   public updateUser(user: IUserPayload) {
     StorageHelper.setItem(this.storageUser, user, true);
-    // sessionStorage.setItem(this.storageUser, JSON.stringify(user))
-
     this.currentUserSubject.next(user);
   }
 
   public clearUser() {
     StorageHelper.removeItem(this.storageUser, true);
-
     this.currentUserSubject.next(null!);
   }
 }

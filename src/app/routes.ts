@@ -39,7 +39,7 @@ export const routes: Routes = [
       import('./components/clientes/clientes.component').then(
         (c) => c.ClientesComponent
       ),
-    // canActivate: [() => canActivate()],
+    canActivate: [() => canActivate()],
   },
   // {
   //   path: 'facturas',
@@ -47,7 +47,7 @@ export const routes: Routes = [
   //     import('./components/facturas/facturas.component').then(
   //       (c) => c.FacturasComponent
   //     ),
-  //   canActivate: [() => canActivate()],
+    // canActivate: [() => canActivate()],
   // },
   {
     path: 'proveedores',
@@ -55,7 +55,7 @@ export const routes: Routes = [
       import('./components/proveedores/proveedores.component').then(
         (c) => c.ProveedoresComponent
       ),
-    // canActivate: [() => canActivate()],
+    canActivate: [() => canActivate()],
   },
   {
     path: 'facturas',
@@ -63,7 +63,7 @@ export const routes: Routes = [
       import('./components/factura-avanzado/factura-avanzado.component').then(
         (c) => c.FacturaAvanzadoComponent
       ),
-    // canActivate: [() => canActivate()],
+    canActivate: [() => canActivate()],
   },
 
   // 404NotFound
