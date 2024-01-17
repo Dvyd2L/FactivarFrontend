@@ -68,9 +68,9 @@ export const routes: Routes = [
   },
 
   // 404NotFound
-  { path: '**', redirectTo: '/404', pathMatch: 'full' },
+  // { path: '**', redirectTo: '/404', pathMatch: 'full' },
   {
-    path: '404',
+    path: '**',
     loadComponent: () =>
       import('./components/not-found/not-found.component').then(
         (c) => c.NotFoundComponent
