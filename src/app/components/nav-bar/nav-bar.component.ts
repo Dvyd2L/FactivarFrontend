@@ -18,7 +18,7 @@ export class NavBarComponent implements OnInit {
   user!: IUserPayload;
   
   constructor(
-    private userService: UserService,
+    private userService: UserService<IUserPayload>,
     private socialAuthService: SocialAuthService,
     private authService: AuthService
   ) {}

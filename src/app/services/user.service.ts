@@ -8,11 +8,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
-  private currentUserSubject: BehaviorSubject<IUserPayload>;
-  private user: Observable<IUserPayload>;
+export class UserService<T extends {token:string}> {
+  private currentUserSubject: BehaviorSubject<T>;
+  private user: Observable<T>;
 
-  public get userValue(): IUserPayload {
+  public get userValue(): T {
     return this.currentUserSubject.value;
   }
 
@@ -21,16 +21,16 @@ export class UserService {
   }
 
   public constructor() {
-    const storedUser = StorageHelper.getItem<IUserPayload>(this.storageUser, true);
+    const storedUser = StorageHelper.getItem<T>(this.storageUser, true);
 
-    this.currentUserSubject = new BehaviorSubject<IUserPayload>(storedUser!);
+    this.currentUserSubject = new BehaviorSubject<T>(storedUser!);
     this.user = this.currentUserSubject.asObservable();
   }
 
-  public getUser() {
+  public getUser(): Observable<T> {
     return this.user;
   }
-  
+
   public getToken(): string | null {
     return this.userValue && this.userValue.token ? this.userValue.token : null;
   }
@@ -44,7 +44,7 @@ export class UserService {
     return token === '' ? token : tokenDecoded['thumbprint']!;
   }
 
-  public updateUser(user: IUserPayload) {
+  public updateUser(user: T) {
     StorageHelper.setItem(this.storageUser, user, true);
     this.currentUserSubject.next(user);
   }

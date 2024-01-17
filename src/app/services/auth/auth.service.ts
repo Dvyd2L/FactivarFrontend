@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-// import { ILogin, ILoginResponse, Email, IRegister, IUser } from '@app/interfaces/login.interface';
 import { environment } from '@environments/environment.development';
 import { Observable, tap } from 'rxjs';
 import { UserService } from '../user.service';
@@ -21,33 +20,12 @@ export class AuthService {
 
   public constructor(
     private http: HttpClient,
-    private userService: UserService,
+    private userService: UserService<IUserPayload>,
     private router: Router
   ) {
     this.urlAPI = environment.urlAPI + 'auth';
   }
 
-  // public login(credenciales?: ILoginUser): Observable<string> {
-  //   return this.http
-  //     .post<string>(`${this.urlAPI}/login`, credenciales)
-  //     .pipe(
-  //       tap((data) => {
-
-  //         const helper = new JwtHelperService;
-  //         const payload = helper.decodeToken(data) as IUserPayload
-
-  //         this.userService.updateUser({
-  //           id: payload.id,
-  //           email: payload.email,
-  //           token: data,
-  //           rol: payload.rol,
-  //           nombre:payload.nombre,
-  //           apellidos:payload.apellidos,
-  //           avatarUrl:payload.avatarUrl,
-  //         });
-  //       })
-  //     );
-  // }
   public login(credenciales?: ILoginUser) {
     return this.http
       .post<ILoginResponse>(`${this.urlAPI}/login`, credenciales)

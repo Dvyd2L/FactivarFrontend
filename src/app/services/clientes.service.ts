@@ -5,6 +5,7 @@ import { ICliente } from '../interfaces/cliente.interface';
 import { environment } from 'src/environments/environment';
 import { IProveedor } from '../interfaces/proveedores.interface';
 import { UserService } from './user.service';
+import { IUserPayload } from '@app/interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class ClientesService {
 
   public constructor(
     private http: HttpClient,
-    private userService: UserService
+    private userService: UserService<IUserPayload>
   ) {}
 
   public getClientes(): Observable<ICliente[]> {

@@ -7,12 +7,13 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserService } from '@app/services/user.service';
+import { IUserPayload } from '@app/interfaces/user';
 
 @Injectable({ 
   providedIn: 'root' 
 })
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService<IUserPayload>) {}
 
   intercept(
     request: HttpRequest<any>,

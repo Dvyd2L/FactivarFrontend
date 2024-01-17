@@ -3,6 +3,7 @@ import { environment } from '@environments/environment.development';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { UserService } from '../user.service';
 import { IGoogleProfile } from '@app/interfaces/google-profile';
+import { IUserPayload } from '@app/interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +30,7 @@ export class SocialAuthService {
 
   constructor(
     private oauthService: OAuthService,
-    private userService: UserService
+    private userService: UserService<IUserPayload>
   ) {
     this.initGoogleLogin();
   }
@@ -38,7 +39,6 @@ export class SocialAuthService {
     this.oauthService.initLoginFlow();
 
     const googleProfile = this.getProfile() as IGoogleProfile;
-    console.log({ googleProfile });
 
     this.userService.updateUser({
       Email: googleProfile.email,
