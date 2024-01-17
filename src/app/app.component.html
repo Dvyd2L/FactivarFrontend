@@ -1,18 +1,20 @@
 @if (isHome()) {
 <app-home-page />
-<app-footer class="footer" />
+<app-footer class="factivar-footer" />
 } @else if (isLogin()) {
 <app-login />
 } @else if (isRegister()) {
 <app-register />
 } @else {
-<main class="layout">
-  <app-nav-bar class="header" />
+<main class="factivar-layout">
+  <header class="factivar-header" >
+    <app-nav-bar />
+  </header>
 
-  <div class="content">
+  <div class="factivar-content">
     <router-outlet />
   </div>
 
-  <app-footer class="footer" />
+  <app-footer class="factivar-footer" />
 </main>
 }

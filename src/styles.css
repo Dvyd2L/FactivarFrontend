@@ -1,6 +1,6 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 @import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
+@import "primeng/resources/primeng.css"; 
 
 /* VARIABLES PARA HOMEPAGE */
 :root {
@@ -103,8 +103,8 @@
   /* margin: 20px; */
   margin-left: auto;
   margin-right: auto;
-  margin-top: 200px;
-  margin-bottom: auto;
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
 
 /* Fondo de imagen (INVESTIGAR) */
@@ -208,29 +208,4 @@
 .btnCasa:hover svg {
   transform: scale(0.9);
   fill: #333333;
-}
-
-/* Responsive */
-/*móviles */
-@media only screen and (max-width: 767px) {
-  .video-container {
-    justify-content: center;
-    align-items: flex-start;
-    padding: 20px;
-  }
-}
-
-/* tablets */
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .video-container {
-    /* max-width: 80%; */
-    justify-content: flex-end;
-  }
-}
-
-/* portatil y televisiones */
-@media only screen and (min-width: 992px) {
-  /* .video-container {
-        max-width: 60%;
-      } */
 }
