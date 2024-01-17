@@ -11,6 +11,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ListasDeClienteComponent } from './components/listas-de-cliente/listas-de-cliente.component';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,7 @@ import { ListasDeClienteComponent } from './components/listas-de-cliente/listas-
     FooterComponent,
     ListasDeClienteComponent
   ],
+  providers: [MessageService],
 })
 export class AppComponent {
   title = 'Factivar';

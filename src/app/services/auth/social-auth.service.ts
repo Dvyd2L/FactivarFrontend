@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environment.development';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { UserService } from '../user.service';
 import { IGoogleProfile } from '@app/interfaces/google-profile';
 import { IUserPayload } from '@app/interfaces/user';
+import { AuthService } from './auth.service';
+import { GOOGLE_OAUTH_CONFIG } from 'src/config/tokens/oauth-conection.token';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +32,8 @@ export class SocialAuthService {
 
   constructor(
     private oauthService: OAuthService,
-    private userService: UserService<IUserPayload>
+    private userService: UserService<IUserPayload>,
+    // @Inject(GOOGLE_OAUTH_CONFIG) authConfig: AuthConfig,
   ) {
     this.initGoogleLogin();
   }

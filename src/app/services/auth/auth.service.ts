@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment.development';
 import { Observable, tap } from 'rxjs';
@@ -11,6 +11,7 @@ import {
   IRegisterUser,
   IUserPayload,
 } from '@app/interfaces/user';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,7 @@ export class AuthService {
   public constructor(
     private http: HttpClient,
     private userService: UserService<IUserPayload>,
+    private messageService: MessageService,
     private router: Router
   ) {
     this.urlAPI = environment.urlAPI + 'auth';
@@ -42,9 +44,7 @@ export class AuthService {
           console.log({ data });
           this.router.navigate(['/clientes']);
         },
-        error: (err) => {
-          console.error(err);
-        },
+        error: (err) => this.handleHttpError(err),
         complete: () => {},
       });
   }
@@ -54,19 +54,18 @@ export class AuthService {
       .post<ILoginResponse>(`${this.urlAPI}/google-authenticate`, idToken)
       .subscribe({
         next: (data) => {
-          const helper = new JwtHelperService();
-          const payload = helper.decodeToken(data.token) as IUserPayload;
+          // const helper = new JwtHelperService();
+          // const payload = helper.decodeToken(data.token) as IUserPayload;
 
           this.userService.updateUser({
-            ...payload,
+            // ...payload,
+            ...this.userService.userValue,
             token: data.token,
           });
-          
+
           this.router.navigate(['/clientes']);
         },
-        error: (err) => {
-          console.error(err);
-        },
+        error: (err) => this.handleHttpError(err),
         complete: () => {},
       });
   }
@@ -97,26 +96,40 @@ export class AuthService {
     return this.http.post<IRegisterUser>(`${this.urlAPI}/register`, formData);
   }
 
-  public refreshToken(): Observable<IUserPayload> {
+  public refreshToken() {
     const currentUser = this.userService.userValue;
     //const token = currentUser.refreshToken;  ARREGLAR ESTO
     const token = currentUser.token;
 
     return this.http
       .post<IUserPayload>(`${this.urlAPI}/auth/refreshtoken`, { token })
-      .pipe(
-        tap((user) => {
-          // login successful if there's a jwt token in the response
-          if (user && user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            this.userService.updateUser(user);
-          }
-        })
-      );
+      // .subscribe({
+      //   next: (data) => {
+      //     this.userService.updateUser({
+      //       ...data,
+      //     });
+
+      //     this.router.navigate(['/clientes']);
+      //   },
+      //   error: (err) => this.handleHttpError(err),
+      //   complete: () => {},
+      // });
   }
 
   public clearStorage() {
     this.userService.clearUser();
     this.router.navigate(['/login']);
+  }
+
+  private handleHttpError(error: HttpErrorResponse) {
+    console.error(error);
+
+    if (error instanceof HttpErrorResponse) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: error.error.msg,
+      });
+    }
   }
 }

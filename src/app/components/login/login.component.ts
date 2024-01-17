@@ -30,42 +30,19 @@ export class LoginComponent {
     email: '',
     password: '',
   };
-  // showPassword: boolean = false;
 
-  // showHidePassword(checked: boolean) {
-  //   this.showPassword = checked;
-  // }
-  setPassword(value:string) {
+  constructor(private authService: AuthService) {}
+
+  setPassword(value: string) {
     this.infoLogin.password = value;
   }
 
-  constructor(
-    private router: Router,
-    private authService: AuthService,
-    private messageService: MessageService
-  ) {}
-
   login() {
-    console.log(this.infoLogin)
-    this.authService.login(this.infoLogin)
-    // .subscribe({
-    //   next: (data) => {
-    //     sessionStorage.setItem(environment.storage.user, JSON.stringify(data));
-    //     this.router.navigateByUrl('clientes');
-    //   },
-    //   error: (err) => {
-    //     console.warn(err);
-
-    //     this.messageService.add({
-    //       severity: 'error',
-    //       summary: 'Error',
-    //       detail: err.error.msg,
-    //     });
-    //   },
-    // });
+    console.log(this.infoLogin);
+    this.authService.login(this.infoLogin);
   }
 
-  loginWithGoogle() {
-    this.authService.loginWithGoogle();
+  loginWithGoogle(idToken: string) {
+    this.authService.loginWithGoogle(idToken);
   }
 }
