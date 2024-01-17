@@ -18,15 +18,37 @@ export class ClientesService {
   ) {}
 
   public getClientes(): Observable<ICliente[]> {
-    const headers = this.setHeaders().headers;
+    const headers = this.setHeaders();
 
     return this.http.get<ICliente[]>(`${this.urlAPI}/clientes/all`, {
       headers,
     });
   }
 
+  public getClienteById(cif: string): Observable<ICliente> {
+    const headers = this.setHeaders();
+
+    return this.http.get<ICliente>(`${this.urlAPI}/clientes/${cif}`, {
+      headers,
+    });
+  }
+
+  public getClienteEntreFechas(
+    fechamin: string | Date,
+    fechamax: string | Date
+  ): Observable<ICliente[]> {
+    const headers = this.setHeaders();
+
+    return this.http.get<ICliente[]>(
+      `${this.urlAPI}/clientes/alta-entre-fechas/${fechamin}/${fechamax}`,
+      {
+        headers,
+      }
+    );
+  }
+
   public addCliente(cliente: ICliente): Observable<ICliente> {
-    const headers = this.setHeaders().headers;
+    const headers = this.setHeaders();
 
     return this.http.post<ICliente>(`${this.urlAPI}/clientes`, cliente, {
       headers,
@@ -34,20 +56,24 @@ export class ClientesService {
   }
 
   public updateCliente(cliente: ICliente): Observable<ICliente> {
-    const headers = this.setHeaders().headers;
-    
+    const headers = this.setHeaders();
+
     return this.http.put<ICliente>(
       `${this.urlAPI}/clientes/${cliente.cif}`,
       cliente,
       { headers }
-      );
-    }
-    
-    public deleteCliente(cif: string): Observable<ICliente> {
-    const headers = this.setHeaders().headers;
-    
-    return this.http.delete<ICliente>(`${this.urlAPI}/clientes/${cif}`, { headers });
+    );
   }
+
+  public deleteCliente(cif: string): Observable<ICliente> {
+    const headers = this.setHeaders();
+
+    return this.http.delete<ICliente>(`${this.urlAPI}/clientes/${cif}`, {
+      headers,
+    });
+  }
+
+  /***************** PROVEEDORES *****************/
 
   public getProveedor(): Observable<IProveedor[]> {
     return this.http.get<IProveedor[]>(`${this.urlAPI}/proveedor`);
@@ -70,11 +96,9 @@ export class ClientesService {
 
   private setHeaders() {
     return {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${this.userService.getToken()}`,
-      },
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${this.userService.getToken()}`,
     };
   }
 }

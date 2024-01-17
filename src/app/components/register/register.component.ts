@@ -61,7 +61,7 @@ export class RegisterComponent {
         this.router.navigateByUrl('login');
       },
       error: (err) => {
-        console.log(err);
+        console.error(err);
         this.messageService.add({
           severity: 'error',
           summary: 'Error',

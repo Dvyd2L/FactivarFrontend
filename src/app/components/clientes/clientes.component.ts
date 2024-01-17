@@ -7,11 +7,12 @@ import { ClientesService } from '@app/services/clientes.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DataTableComponent } from '../data-table/data-table.component';
 
 @Component({
   selector: 'app-clientes',
   standalone: true,
-  imports: [FormsModule, CommonModule, ConfirmDialogModule, ToastModule],
+  imports: [FormsModule, CommonModule, ConfirmDialogModule, ToastModule, DataTableComponent],
   templateUrl: './clientes.component.html',
   styleUrl: './clientes.component.css',
   providers: [ClientesService, ConfirmationService, MessageService],

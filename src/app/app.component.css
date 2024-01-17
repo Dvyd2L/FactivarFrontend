@@ -25,15 +25,11 @@
     align-items: center;
 
     border-radius: 1rem;
-    background-color: rgba(40, 40, 40, 0.2);
     backdrop-filter: blur(0.2rem);
 }
 
 .factivar-footer {
     grid-area: factivar-footer;
-
-    background-color: rgba(40, 40, 40, 0.2);
-    backdrop-filter: blur(0.2rem);
 }
 
 /* 
