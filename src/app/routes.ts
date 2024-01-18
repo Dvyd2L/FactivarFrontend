@@ -40,7 +40,7 @@ export const routes: Routes = [
       import('./components/clientes/clientes.component').then(
         (c) => c.ClientesComponent
       ),
-    canActivate: [() => canActivate()],
+    // canActivate: [() => canActivate()],
   },
   // {
   //   path: 'facturas',

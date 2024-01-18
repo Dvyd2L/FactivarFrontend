@@ -12,7 +12,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ListasDeClienteComponent } from './components/listas-de-cliente/listas-de-cliente.component';
 import { MessageService } from 'primeng/api';
-import { HexagonsComponent } from '@assets/hexagons/hexagons.component';
+import { HexagonsComponent } from '@app/components/hexagons/hexagons.component';
 
 @Component({
   selector: 'app-root',

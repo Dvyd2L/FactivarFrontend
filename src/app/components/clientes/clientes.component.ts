@@ -161,6 +161,8 @@ export class ClientesComponent implements OnInit {
         this.getClientes();
       },
       error: (err) => {
+        console.error({ err });
+        
         if (err instanceof HttpErrorResponse) {
           this.visibleError = true;
           this.mensajeError = err.message;
