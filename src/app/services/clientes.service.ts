@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICliente } from '../interfaces/cliente.interface';
@@ -19,59 +19,35 @@ export class ClientesService {
   ) {}
 
   public getClientes(): Observable<ICliente[]> {
-    const headers = this.setHeaders();
-
-    return this.http.get<ICliente[]>(`${this.urlAPI}/clientes/all`, {
-      headers,
-    });
+    return this.http.get<ICliente[]>(`${this.urlAPI}/clientes/all`);
   }
 
   public getClienteById(cif: string): Observable<ICliente> {
-    const headers = this.setHeaders();
-
-    return this.http.get<ICliente>(`${this.urlAPI}/clientes/${cif}`, {
-      headers,
-    });
+    return this.http.get<ICliente>(`${this.urlAPI}/clientes/${cif}`);
   }
 
   public getClienteEntreFechas(
     fechamin: string | Date,
     fechamax: string | Date
   ): Observable<ICliente[]> {
-    const headers = this.setHeaders();
-
     return this.http.get<ICliente[]>(
-      `${this.urlAPI}/clientes/alta-entre-fechas/${fechamin}/${fechamax}`,
-      {
-        headers,
-      }
+      `${this.urlAPI}/clientes/alta-entre-fechas/${fechamin}/${fechamax}`
     );
   }
 
   public addCliente(cliente: ICliente): Observable<ICliente> {
-    const headers = this.setHeaders();
-
-    return this.http.post<ICliente>(`${this.urlAPI}/clientes`, cliente, {
-      headers,
-    });
+    return this.http.post<ICliente>(`${this.urlAPI}/clientes`, cliente);
   }
 
   public updateCliente(cliente: ICliente): Observable<ICliente> {
-    const headers = this.setHeaders();
-
     return this.http.put<ICliente>(
-      `${this.urlAPI}/clientes`,/* /${cliente.cif} */
-      cliente,
-      { headers }
+      `${this.urlAPI}/clientes` /* /${cliente.cif} */,
+      cliente
     );
   }
 
   public deleteCliente(cif: string): Observable<ICliente> {
-    const headers = this.setHeaders();
-
-    return this.http.delete<ICliente>(`${this.urlAPI}/clientes/${cif}`, {
-      headers,
-    });
+    return this.http.delete<ICliente>(`${this.urlAPI}/clientes/${cif}`);
   }
 
   /***************** PROVEEDORES *****************/
@@ -95,11 +71,10 @@ export class ClientesService {
     return this.http.delete<IProveedor>(`${this.urlAPI}proveedor/${cif}`);
   }
 
-  private setHeaders() {
-    return {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      Authorization: `Bearer ${this.userService.getToken()}`,
-    };
-  }
+  // private setHeaders() {
+  //   return {
+  //     'Content-Type': 'application/json',
+  //     Accept: 'application/json'
+  //   };
+  // }
 }
