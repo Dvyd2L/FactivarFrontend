@@ -60,7 +60,7 @@ export class ClientesService {
     const headers = this.setHeaders();
 
     return this.http.put<ICliente>(
-      `${this.urlAPI}/clientes/${cliente.cif}`,
+      `${this.urlAPI}/clientes`,/* /${cliente.cif} */
       cliente,
       { headers }
     );
