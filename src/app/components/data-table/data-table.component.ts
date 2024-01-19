@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ICliente } from '@app/interfaces/cliente.interface';
@@ -9,7 +10,7 @@ import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-data-table',
   standalone: true,
-  imports: [FormsModule, TableModule, ToastModule],
+  imports: [DatePipe, FormsModule, TableModule, ToastModule],
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.css',
   providers: [MessageService, ConfirmationService, ClientesService],
