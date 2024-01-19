@@ -118,6 +118,7 @@
           <th>DIRECCIÓN</th>
           <th>TELÉFONO</th>
           <th>EMAIL</th>
+          <th>FECHA DE ALTA</th>
         </tr>
       </thead>
 
@@ -129,6 +130,7 @@
           <td>{{ cliente.direccion }}</td>
           <td>{{ cliente.telefono }}</td>
           <td>{{ cliente.email }}</td>
+          <td>{{ cliente.fechaAlta | date }}</td>
           <td>
             <button class="btn btn-primary" (click)="edit(cliente)">
               Modificar
