@@ -4,7 +4,7 @@ import { NgSwitch, NgSwitchDefault, NgSwitchCase } from '@angular/common';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { FacturaAvanzadoComponent } from './components/factura-avanzado/factura-avanzado.component';
 import { FacturasComponent } from './components/facturas/facturas.component';
-import { HomePageComponent } from './components/home-page/home-page.component';
+import { HomePageComponent } from './components/home-page2/home-page.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -13,6 +13,7 @@ import { ToastModule } from 'primeng/toast';
 import { ListasDeClienteComponent } from './components/listas-de-cliente/listas-de-cliente.component';
 import { MessageService } from 'primeng/api';
 import { HexagonsComponent } from '@app/components/hexagons/hexagons.component';
+import { Footer2Component } from './components/footer2/footer2.component';
 
 @Component({
   selector: 'app-root',
@@ -32,7 +33,8 @@ import { HexagonsComponent } from '@app/components/hexagons/hexagons.component';
     HomePageComponent,
     FooterComponent,
     ListasDeClienteComponent,
-    HexagonsComponent
+    HexagonsComponent,
+    Footer2Component,
   ],
   providers: [MessageService],
 })

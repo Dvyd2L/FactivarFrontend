@@ -50,6 +50,9 @@
 
 .ricias {
     display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
 }
 
 /* hover effect on button width */
