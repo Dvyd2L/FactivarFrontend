@@ -102,6 +102,63 @@
         </button>
       </form>
     </div>
+    <div class="col-4">
+      <div class="form-group">
+        <label>Buscar por CIF</label>
+        <input
+          type="text"
+          class="form-control"
+          name="buscarCif"
+          [(ngModel)]="cliente.cif"
+          #BuscarCif="ngModel"
+          placeholder="Introduce el CIF del cliente"
+        />
+        @if (!BuscarCif.valid && BuscarCif.touched) {
+        <span class="form-text text-danger">
+          Introducir el CIF es obligatorio
+        </span>
+        }
+        <button class="btn btn-primary" (click)="buscarPorCif()">Buscar</button>
+      </div>
+
+      <div class="form-group">
+        <label for="fechaInicio">Busqueda por fecha de inicio</label>
+        <input
+          id="fechaInicio"
+          type="date"
+          class="form-control"
+          name="fechaInicio"
+          [value]="fechaInicio"
+          #fechaInicio
+          placeholder="Fecha de inicio"
+        />
+        <!-- [(ngModel)]="fechaInicio" -->
+        <!-- @if (!fechaInicio.valid && fechaInicio.touched) {
+        <span class="form-text text-danger">
+          Introducir la fecha de inicio es obligatorio
+        </span>
+      } -->
+        <label for="fechaFin">Fecha de fin</label>
+        <input
+          id="fechaFin"
+          type="date"
+          class="form-control"
+          name="fechaFin"
+          [value]="fechaFin"
+          placeholder="Fecha de fin"
+          #fechaFin
+        />
+        <!-- [(ngModel)]="fechaFin" -->
+        <!-- @if (!fechaFin.valid && fechaFin.touched) {
+    <span class="form-text text-danger">
+      Introducir la fecha de fin es obligatorio
+    </span>
+    } -->
+        <button class="btn btn-primary" (click)="buscarEntreFechas()">
+          Buscar
+        </button>
+      </div>
+    </div>
   </div>
 
   <hr />
@@ -153,6 +210,6 @@
     </table>
   </div>
 </section>
-<app-data-table/>
+<app-data-table />
 <p-toast />
 <p-confirmDialog />

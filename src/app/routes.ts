@@ -17,6 +17,7 @@ export const routes: Routes = [
       import('./components/home-page/home-page.component').then(
         (c) => c.HomePageComponent
       ),
+      title: 'Inicio | Factivar'
   },
   {
     path: 'login',
@@ -24,6 +25,7 @@ export const routes: Routes = [
       import('./components/login/login.component').then(
         (c) => c.LoginComponent
       ),
+      title: 'Login | Factivar'
   },
   {
     path: 'register',
@@ -31,6 +33,7 @@ export const routes: Routes = [
       import('./components/register/register.component').then(
         (c) => c.RegisterComponent
       ),
+      title: 'Register | Factivar'
   },
 
   // Rutas protegidas por el guard
@@ -41,6 +44,7 @@ export const routes: Routes = [
         (c) => c.ClientesComponent
       ),
     // canActivate: [() => canActivate()],
+    title: 'Clientes | Factivar'
   },
   // {
   //   path: 'facturas',
@@ -57,6 +61,7 @@ export const routes: Routes = [
         (c) => c.ProveedoresComponent
       ),
     canActivate: [() => canActivate()],
+    title: 'Proveedores | Factivar'
   },
   {
     path: 'facturas',
@@ -65,6 +70,7 @@ export const routes: Routes = [
         (c) => c.FacturaAvanzadoComponent
       ),
     canActivate: [() => canActivate()],
+    title: 'Facturas | Factivar'
   },
 
   // 404NotFound

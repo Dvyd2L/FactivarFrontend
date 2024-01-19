@@ -1,32 +1,50 @@
-<header>
+<nav class="factivar-navbar">
+  <a class="navbar-brand cursiv" routerLink="/home" routerLinkActive="active">
+    <img
+      class="logo-factivar"
+      src="../../../assets/icons/factivar_text.svg"
+      alt="Logo Factivar"
+    />
+  </a>
+
   <div class="hexagon-menu">
-    <app-hexagon-item title="Inicio">
+    <app-hexagon-item
+      title="Inicio"
+      routerLink="/home"
+      routerLinkActive="active"
+      aria-label="Inicio"
+    >
       <!-- los slots se invocan con el nombre del select de ng-content sin el punto. -->
       <i class="fa fa-universal-access slot-icon"></i>
     </app-hexagon-item>
-    <app-hexagon-item title="Clientes">
+    <app-hexagon-item
+      title="Clientes"
+      routerLink="/clientes"
+      routerLinkActive="active"
+      aria-label="Clientes"
+    >
       <!-- los slots se invocan con el nombre del select de ng-content sin el punto. -->
       <i class="fa fa-bullseye slot-icon"></i>
     </app-hexagon-item>
-    <app-hexagon-item title="Facturas">
+    <app-hexagon-item
+      title="Facturas"
+      routerLink="/facturas"
+      routerLinkActive="active"
+      aria-label="Facturas"
+    >
       <!-- los slots se invocan con el nombre del select de ng-content sin el punto. -->
       <i class="fa fa-braille slot-icon"></i>
     </app-hexagon-item>
-    <app-hexagon-item title="Proveedores">
+    <app-hexagon-item
+      title="Proveedores"
+      routerLink="/proveedores"
+      routerLinkActive="active"
+      aria-label="Proveedores"
+    >
       <!-- los slots se invocan con el nombre del select de ng-content sin el punto. -->
       <i class="fa fa-id-badge slot-icon"></i>
     </app-hexagon-item>
-    <app-hexagon-item title="Ricias">
-      <!-- los slots se invocan con el nombre del select de ng-content sin el punto. -->
-      <i class="fa fa-life-ring slot-icon"></i>
-    </app-hexagon-item>
-    <app-hexagon-item title="QuePollas">
-      <!-- los slots se invocan con el nombre del select de ng-content sin el punto. -->
-      <i class="fa fa-clipboard slot-icon"></i>
-    </app-hexagon-item>
-    <app-hexagon-item title="Ineses">
-      <!-- los slots se invocan con el nombre del select de ng-content sin el punto. -->
-      <i class="fa fa-map-signs slot-icon"></i>
-    </app-hexagon-item>
   </div>
-</header>
+
+  <app-avatar />
+</nav>

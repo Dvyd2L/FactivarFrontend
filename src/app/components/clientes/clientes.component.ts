@@ -25,6 +25,8 @@ export class ClientesComponent implements OnInit {
   clientes: ICliente[] = [];
   visibleConfirm = false;
   editar = false;
+  fechaFin: Date | string = new Date();
+  fechaInicio: Date | string = new Date();
   cliente: ICliente = {
     cif: '',
     nombre: '',
@@ -54,6 +56,33 @@ export class ClientesComponent implements OnInit {
           this.visibleError = true;
           this.mensajeError = err.message;
         }
+      },
+    });
+  }
+
+  buscarPorCif() {
+    this.clientesService.getClienteById(this.cliente.cif).subscribe({
+      next: (data) => {
+        this.visibleError = false;
+        this.clientes = [data];
+      },
+      error: (err) => {
+        this.visibleError = true;
+        this.mensajeError = err.error.error;
+      },
+    });
+  }
+
+  buscarEntreFechas() {
+    console.log(this.fechaInicio, this.fechaFin);
+    this.clientesService.getClienteEntreFechas(this.fechaInicio, this.fechaFin).subscribe({
+      next: (data) => {
+        this.visibleError = false;
+        this.clientes = data;
+      },
+      error: (err) => {
+        this.visibleError = true;
+        this.mensajeError = err.error.error;
       },
     });
   }

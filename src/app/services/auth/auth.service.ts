@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from '@environments/environment.development';
 import { Observable, tap } from 'rxjs';
 import { UserService } from '../user.service';
@@ -17,16 +17,11 @@ import { MessageService } from 'primeng/api';
   providedIn: 'root',
 })
 export class AuthService {
-  private urlAPI: string;
-
-  public constructor(
-    private http: HttpClient,
-    private userService: UserService<IUserPayload>,
-    private messageService: MessageService,
-    private router: Router
-  ) {
-    this.urlAPI = environment.urlAPI + 'auth';
-  }
+  private urlAPI: string = environment.urlAPI + 'auth';
+  private http = inject(HttpClient);
+  private userService = inject(UserService<IUserPayload>);
+  private router = inject(Router)
+  // private messageService = inject(MessageService);
 
   public login(credenciales?: ILoginUser) {
     return this.http
@@ -44,7 +39,7 @@ export class AuthService {
           console.log({ data });
           this.router.navigate(['/clientes']);
         },
-        error: (err) => this.handleHttpError(err),
+        error: (err) => /* this.handleHttpError(err) */ console.error(err),
         complete: () => {},
       });
   }
@@ -65,7 +60,7 @@ export class AuthService {
 
           this.router.navigate(['/clientes']);
         },
-        error: (err) => this.handleHttpError(err),
+        error: (err) => /* this.handleHttpError(err) */ console.error(err),
         complete: () => {},
       });
   }
@@ -121,15 +116,15 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  private handleHttpError(error: HttpErrorResponse) {
-    console.error(error);
+  // private handleHttpError(error: HttpErrorResponse) {
+  //   console.error(error);
 
-    if (error instanceof HttpErrorResponse) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: error.error.msg,
-      });
-    }
-  }
+  //   if (error instanceof HttpErrorResponse) {
+  //     this.messageService.add({
+  //       severity: 'error',
+  //       summary: 'Error',
+  //       detail: error.error.msg,
+  //     });
+  //   }
+  // }
 }
