@@ -39,7 +39,7 @@ export const routes: Routes = [
       import('./components/clientes/clientes.component').then(
         (c) => c.ClientesComponent
       ),
-    // canActivate: [() => canActivate()],
+    // canActivate: [authGuard],
   },
   // {
   //   path: 'facturas',
@@ -47,7 +47,7 @@ export const routes: Routes = [
   //     import('./components/facturas/facturas.component').then(
   //       (c) => c.FacturasComponent
   //     ),
-    // canActivate: [() => canActivate()],
+    // canActivate: [authGuard],
   // },
   {
     path: 'proveedores',
