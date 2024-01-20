@@ -6,6 +6,7 @@ import { IGoogleProfile } from '@app/interfaces/google-profile';
 import { IUserPayload } from '@app/interfaces/user';
 import { AuthService } from './auth.service';
 import { GOOGLE_OAUTH_CONFIG } from 'src/config/tokens/oauth-conection.token';
+import { RolesEnum } from '@app/interfaces/enums/roles';
 
 @Injectable({
   providedIn: 'root',
@@ -45,7 +46,7 @@ export class SocialAuthService {
 
     this.userService.updateUser({
       Email: googleProfile.email,
-      Role: 'User',
+      Role: RolesEnum.User,
       Thumbprint: googleProfile.picture,
       Sid: googleProfile.sub,
       Name: googleProfile.name,

@@ -102,114 +102,64 @@
         </button>
       </form>
     </div>
-    <div class="col-4">
-      <div class="form-group">
-        <label>Buscar por CIF</label>
-        <input
-          type="text"
-          class="form-control"
-          name="buscarCif"
-          [(ngModel)]="cliente.cif"
-          #BuscarCif="ngModel"
-          placeholder="Introduce el CIF del cliente"
-        />
-        @if (!BuscarCif.valid && BuscarCif.touched) {
-        <span class="form-text text-danger">
-          Introducir el CIF es obligatorio
-        </span>
-        }
-        <button class="btn btn-primary" (click)="buscarPorCif()">Buscar</button>
-      </div>
-
-      <div class="form-group">
-        <label for="fechaInicio">Busqueda por fecha de inicio</label>
-        <input
-          id="fechaInicio"
-          type="date"
-          class="form-control"
-          name="fechaInicio"
-          [value]="fechaInicio"
-          #fechaInicio
-          placeholder="Fecha de inicio"
-        />
-        <!-- [(ngModel)]="fechaInicio" -->
-        <!-- @if (!fechaInicio.valid && fechaInicio.touched) {
-        <span class="form-text text-danger">
-          Introducir la fecha de inicio es obligatorio
-        </span>
-      } -->
-        <label for="fechaFin">Fecha de fin</label>
-        <input
-          id="fechaFin"
-          type="date"
-          class="form-control"
-          name="fechaFin"
-          [value]="fechaFin"
-          placeholder="Fecha de fin"
-          #fechaFin
-        />
-        <!-- [(ngModel)]="fechaFin" -->
-        <!-- @if (!fechaFin.valid && fechaFin.touched) {
-    <span class="form-text text-danger">
-      Introducir la fecha de fin es obligatorio
-    </span>
-    } -->
-        <button class="btn btn-primary" (click)="buscarEntreFechas()">
-          Buscar
-        </button>
-      </div>
+    
+    <div class="col-8">
+      <h3>Listado de Clientes</h3>
+  
+      <table class="table table-striped  table-hover">
+        <thead>
+          <tr>
+            <th scope="col">CIF</th>
+            <th scope="col">NOMBRE</th>
+            <th scope="col">DIRECCIÓN</th>
+            <th scope="col">TELÉFONO</th>
+            <th scope="col">EMAIL</th>
+            <th scope="col">FECHA DE ALTA</th>
+            <th></th>
+          </tr>
+        </thead>
+  
+        <tbody>
+          @for (cliente of clientes; track $index) {
+          <tr>
+            <th scope="row">
+              {{ cliente.cif }}
+              <button class="btn btn-dark" (click)="buscarPorCif(cliente.cif)">
+                <img src="../../../assets/icons/21_05_33_2121031.png" alt="icono lupa" height="20" width="20">
+                <!-- <i class="pi pi-search"></i> -->
+              </button>
+            </th>
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.direccion }}</td>
+            <td>{{ cliente.telefono }}</td>
+            <td>{{ cliente.email }}</td>
+            <td>{{ cliente.fechaAlta | date }}</td>
+            <td>
+              <button class="btn btn-primary" (click)="edit(cliente)">
+                Modificar
+              </button>
+              <!-- <button class="btn btn-danger" (click)="confirmDelete(cliente)">Eliminar</button> -->
+              <p-button
+                (click)="confirmDelete($event, cliente)"
+                icon="pi pi-times"
+                label="Eliminar"
+                styleClass="btn btn-danger"
+              />
+            </td>
+          </tr>
+          } @empty {
+          <tr>
+            <td colspan="6">Paco</td>
+          </tr>
+          }
+        </tbody>
+      </table>
     </div>
   </div>
-
-  <hr />
-
-  <!-- LISTA DE CLIENTES CON BOTON DE MODIFICARLOS -->
-  <div class="container">
-    <h3>Listado de Clientes</h3>
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th>CIF</th>
-          <th>NOMBRE</th>
-          <th>DIRECCIÓN</th>
-          <th>TELÉFONO</th>
-          <th>EMAIL</th>
-          <th>FECHA DE ALTA</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        @for (cliente of clientes; track $index) {
-        <tr>
-          <td>{{ cliente.cif }}</td>
-          <td>{{ cliente.nombre }}</td>
-          <td>{{ cliente.direccion }}</td>
-          <td>{{ cliente.telefono }}</td>
-          <td>{{ cliente.email }}</td>
-          <td>{{ cliente.fechaAlta | date }}</td>
-          <td>
-            <button class="btn btn-primary" (click)="edit(cliente)">
-              Modificar
-            </button>
-            <!-- <button class="btn btn-danger" (click)="confirmDelete(cliente)">Eliminar</button> -->
-            <p-button
-              (click)="confirmDelete($event, cliente)"
-              icon="pi pi-times"
-              label="Eliminar"
-              styleClass="btn btn-danger"
-            />
-          </td>
-        </tr>
-        } @empty {
-        <tr>
-          <td colspan="6">Paco</td>
-        </tr>
-        }
-      </tbody>
-    </table>
-  </div>
 </section>
+
+<hr />
+
 <app-data-table />
 <p-toast />
 <p-confirmDialog />

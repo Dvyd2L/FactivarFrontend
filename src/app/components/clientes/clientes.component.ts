@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ICliente } from 'src/app/interfaces/cliente.interface';
@@ -8,16 +8,28 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DataTableComponent } from '../data-table/data-table.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-clientes',
   standalone: true,
-  imports: [FormsModule, CommonModule, ConfirmDialogModule, ToastModule, DataTableComponent],
+  imports: [
+    FormsModule,
+    CommonModule,
+    ConfirmDialogModule,
+    ToastModule,
+    DataTableComponent,
+  ],
   templateUrl: './clientes.component.html',
   styleUrl: './clientes.component.css',
-  providers: [ClientesService, ConfirmationService, MessageService],
+  providers: [ClientesService, ConfirmationService, MessageService, Router],
 })
 export class ClientesComponent implements OnInit {
+  private router = inject(Router);
+  private clientesService = inject(ClientesService);
+  private confirmationService = inject(ConfirmationService);
+  private messageService = inject(MessageService);
+
   @ViewChild('formulario') formulario!: NgForm;
   email: any;
   visibleError = false;
@@ -25,8 +37,8 @@ export class ClientesComponent implements OnInit {
   clientes: ICliente[] = [];
   visibleConfirm = false;
   editar = false;
-  fechaFin: Date | string = new Date();
-  fechaInicio: Date | string = new Date();
+  fechaFin!: Date;
+  fechaInicio!: Date;
   cliente: ICliente = {
     cif: '',
     nombre: '',
@@ -35,14 +47,15 @@ export class ClientesComponent implements OnInit {
     email: '',
   };
 
-  constructor(
-    private clientesService: ClientesService,
-    private confirmationService: ConfirmationService,
-    private messageService: MessageService
-  ) {}
-
   ngOnInit(): void {
     this.getClientes();
+  }
+
+  setInitialDate(ev:Event) {
+    this.fechaInicio = new Date((ev.target as HTMLInputElement).value);
+  }
+  setEndingDate(ev:Event) {
+    this.fechaFin = new Date((ev.target as HTMLInputElement).value);
   }
 
   getClientes() {
@@ -60,31 +73,46 @@ export class ClientesComponent implements OnInit {
     });
   }
 
-  buscarPorCif() {
-    this.clientesService.getClienteById(this.cliente.cif).subscribe({
-      next: (data) => {
-        this.visibleError = false;
-        this.clientes = [data];
-      },
-      error: (err) => {
-        this.visibleError = true;
-        this.mensajeError = err.error.error;
-      },
-    });
+  buscarPorCif(cif:string) {
+    this.router.navigate([`clientes/${cif}`]);
+    // this.clientesService.getClienteById(this.cliente.cif).subscribe({
+    //   next: (data) => {
+    //     this.visibleError = false;
+    //     this.clientes = [data];
+    //   },
+    //   error: (err) => {
+    //     this.visibleError = true;
+    //     this.mensajeError = err.error.error;
+    //   },
+    // });
   }
 
   buscarEntreFechas() {
-    console.log(this.fechaInicio, this.fechaFin);
-    this.clientesService.getClienteEntreFechas(this.fechaInicio, this.fechaFin).subscribe({
-      next: (data) => {
-        this.visibleError = false;
-        this.clientes = data;
-      },
-      error: (err) => {
-        this.visibleError = true;
-        this.mensajeError = err.error.error;
-      },
-    });
+    this.router.navigate([
+      `clientes/${this.fechaInicio
+        .toLocaleDateString('es', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+        })
+        .replaceAll('/', '-')}/${this.fechaFin
+        .toLocaleDateString('es',{
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+        })
+        .replaceAll('/', '-')}`,
+    ]);
+    // this.clientesService.getClienteEntreFechas(this.fechaInicio, this.fechaFin).subscribe({
+    //   next: (data) => {
+    //     this.visibleError = false;
+    //     this.clientes = data;
+    //   },
+    //   error: (err) => {
+    //     this.visibleError = true;
+    //     this.mensajeError = err.error.error;
+    //   },
+    // });
   }
 
   guardar() {
@@ -191,7 +219,7 @@ export class ClientesComponent implements OnInit {
       },
       error: (err) => {
         console.error({ err });
-        
+
         if (err instanceof HttpErrorResponse) {
           this.visibleError = true;
           this.mensajeError = err.message;

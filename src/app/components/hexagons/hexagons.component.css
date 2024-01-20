@@ -1,4 +1,6 @@
 .factivar-navbar {
+  height: 100%;
+  width: 100%;
   padding: .1rem;
   /* background-color: rgb(0 0 0 / .5); */
   scale: .7;

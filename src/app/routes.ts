@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
 
-
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 
@@ -35,20 +34,21 @@ export const routes: Routes = [
   {
     path: 'clientes',
     title: 'Clientes | Factivar',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./components/clientes/clientes.component').then(
         (c) => c.ClientesComponent
       ),
-    // canActivate: [authGuard],
   },
-  // {
-  //   path: 'facturas',
-  //   loadComponent: () =>
-  //     import('./components/facturas/facturas.component').then(
-  //       (c) => c.FacturasComponent
-  //     ),
-    // canActivate: [authGuard],
-  // },
+  {
+    path: 'clientes/:pk',
+    title: 'Clientes | Factivar',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./components/detail-customer/detail-customer.component').then(
+        (c) => c.DetailCustomerComponent
+      ),
+  },
   {
     path: 'proveedores',
     title: 'Proveedores | Factivar',
