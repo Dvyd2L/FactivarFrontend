@@ -1,22 +1,16 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageHelper } from '@app/helpers/storage';
 import { environment } from '@environments/environment.development';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class AuthGuard {
-  constructor(private router: Router) {}
+export const authGuard = () => {
+  const router = inject(Router);
+  const user = StorageHelper.getItem(environment.storage.user, true);
 
-  isLoggedIn() {
-    const user = StorageHelper.getItem(environment.storage.user, true);
-
-    if (user) {
-      return true;
-    }
-
-    this.router.navigate(['login']);
-    return false;
+  if (user) {
+    return true;
   }
-}
+
+  router.navigate(['login']);
+  return false;
+};

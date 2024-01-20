@@ -1,11 +1,6 @@
-import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
-import { AuthGuard } from './guards/auth.guard';
+import { authGuard } from './guards/auth.guard';
 
-
-export const canActivate = (
-  authGuard: AuthGuard = inject(AuthGuard)
-) => authGuard.isLoggedIn();
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -13,38 +8,38 @@ export const routes: Routes = [
   // Rutas no protegidas por el guard
   {
     path: 'home',
+    title: 'Inicio | Factivar',
     loadComponent: () =>
       import('./components/home-page/home-page.component').then(
         (c) => c.HomePageComponent
       ),
-      title: 'Inicio | Factivar'
   },
   {
     path: 'login',
+    title: 'Login | Factivar',
     loadComponent: () =>
       import('./components/login/login.component').then(
         (c) => c.LoginComponent
       ),
-      title: 'Login | Factivar'
   },
   {
     path: 'register',
+    title: 'Register | Factivar',
     loadComponent: () =>
       import('./components/register/register.component').then(
         (c) => c.RegisterComponent
       ),
-      title: 'Register | Factivar'
   },
 
   // Rutas protegidas por el guard
   {
     path: 'clientes',
+    title: 'Clientes | Factivar',
     loadComponent: () =>
       import('./components/clientes/clientes.component').then(
         (c) => c.ClientesComponent
       ),
     // canActivate: [() => canActivate()],
-    title: 'Clientes | Factivar'
   },
   // {
   //   path: 'facturas',
@@ -56,27 +51,28 @@ export const routes: Routes = [
   // },
   {
     path: 'proveedores',
+    title: 'Proveedores | Factivar',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./components/proveedores/proveedores.component').then(
         (c) => c.ProveedoresComponent
       ),
-    canActivate: [() => canActivate()],
-    title: 'Proveedores | Factivar'
   },
   {
     path: 'facturas',
+    title: 'Facturas | Factivar',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./components/factura-avanzado/factura-avanzado.component').then(
         (c) => c.FacturaAvanzadoComponent
       ),
-    canActivate: [() => canActivate()],
-    title: 'Facturas | Factivar'
   },
 
   // 404NotFound
   // { path: '**', redirectTo: '/404', pathMatch: 'full' },
   {
     path: '**',
+    title: '404 | Factivar',
     loadComponent: () =>
       import('./components/not-found/not-found.component').then(
         (c) => c.NotFoundComponent
