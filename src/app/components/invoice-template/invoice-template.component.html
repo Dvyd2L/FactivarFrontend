@@ -39,15 +39,15 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4>
-                Ciudad, <a href="#">{{ i.fechaExpedicion.getDay() }}</a> de
-                <a href="#">{{ i.fechaExpedicion.getMonth() }}</a> de
-                <a href="#">{{ i.fechaExpedicion.getFullYear() }}</a>
+                Ciudad, <a href="#">{{ i.fechaExpedicion.split("-")[2] }}</a> de
+                <a href="#">{{ i.fechaExpedicion.split("-")[1] }}</a> de
+                <a href="#">{{ i.fechaExpedicion.split("-")[0] }}</a>
               </h4>
             </div>
             <div class="panel-body">
               <h4>
                 Comprador :
-                <a href="#">{{ i.clienteId }}</a>
+                <a href="#">{{ i.cliente?.nombre ?? "" }}</a>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 CIF/DNI :
                 <a href="#">{{ i.clienteId }}</a>
@@ -60,44 +60,50 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th style="text-align: center">
-              <h4>Cantidad</h4>
-            </th>
-            <th style="text-align: center">
+            <th scope="col" style="text-align: center">
               <h4>Concepto</h4>
             </th>
-            <th style="text-align: center">
+            <th scope="col" style="text-align: center">
+              <h4>Cantidad</h4>
+            </th>
+            <th scope="col" style="text-align: center">
               <h4>Precio unitario</h4>
             </th>
-            <th style="text-align: center">
+            <th scope="col" style="text-align: center">
+              <h4>Base imponible</h4>
+            </th>
+            <th scope="col" style="text-align: center">
               <h4>IVA</h4>
             </th>
-            <th style="text-align: center">
+            <th scope="col" style="text-align: center">
               <h4>Total</h4>
             </th>
           </tr>
         </thead>
         <tbody>
-          @for (item of i.articulos; track $index) {
+          @for (item of jsonParser(i.articulos); track $index) {
           <tr>
-            <td style="text-align: center">{{ item.unidades }}</td>
-            <td>
-              <a href="#">{{ item.descripcion }}</a>
+            <th scope="row">
+              <a href="#">{{ item.Descripcion }}</a>
+            </th>
+            <td style="text-align: center">{{ item.Unidades }}</td>
+            <td class="text-right">{{ item.PUnitario | currency : "EUR" }}</td>
+            <td class="text-right">{{ item.BImponible | currency : "EUR" }}</td>
+            <td class="text-right">{{ item.Iva }}%</td>
+            <td class="text-right">
+              {{ item.Unidades * item.PUnitario | currency : "EUR" }}
             </td>
-            <td class="text-right">{{ item.pUnitario }}</td>
-            <td class="text-right">{{ item.iva }}</td>
-            <td class="text-right">{{ item.unidades * item.pUnitario }}</td>
           </tr>
           }
           <tr>
-            <th colspan="4" style="text-align: right">Subtotal</th>
+            <th colspan="5" style="text-align: right">Subtotal</th>
             <td style="text-align: right">
-              <a href="#"> {{ i.importe }} </a>
+              <a href="#"> {{ i.importe | currency : "EUR" }} </a>
             </td>
           </tr>
           <tr>
-            <th colspan="5" style="text-align: right">
-              Total: <a href="#">{{ i.importe | currency }}</a>
+            <th colspan="6" style="text-align: right">
+              Total: <a href="#">{{ i.total | currency : "EUR" }}</a>
             </th>
           </tr>
         </tbody>

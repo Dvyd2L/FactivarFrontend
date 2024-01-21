@@ -12,4 +12,5 @@ import { getDataByPk } from '@app/services/data.service';
 })
 export class InvoiceTemplateComponent {
   invoice$ = getDataByPk<IFacturaResponse>('facturas');
+  jsonParser = (data:string) => { console.log('ricias'); const parsedData =  JSON.parse(data); console.log(parsedData); return parsedData; }
 }
