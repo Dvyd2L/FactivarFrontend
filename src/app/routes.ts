@@ -31,7 +31,7 @@ export const routes: Routes = [
   },
 
   // Rutas protegidas por el guard
-  {
+  { 
     path: 'clientes',
     title: 'Clientes | Factivar',
     canActivate: [authGuard],
@@ -65,6 +65,15 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./components/factura-avanzado/factura-avanzado.component').then(
         (c) => c.FacturaAvanzadoComponent
+      ),
+  },
+  {
+    path: 'facturas/:pk',
+    title: 'Factura:pk | Factivar',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./components/invoice-template/invoice-template.component').then(
+        (c) => c.InvoiceTemplateComponent
       ),
   },
 
