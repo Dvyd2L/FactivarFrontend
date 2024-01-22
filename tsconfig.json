@@ -32,7 +32,8 @@
       "@components/*": ["src/app/components/*"],
       "@guards/*": ["src/app/guards/*"],
       "@assets/*": ["src/assets/*"],
-    }
+    },
+    "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
