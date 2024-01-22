@@ -3,8 +3,8 @@
   <p class="me-2 mt-2 textoGrande">
     Bienvenido, <b>{{ user.Name }}</b>
   </p>
+  <p-avatar pBadge [image]="user.Thumbprint" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
   <img class="avatar" [src]="user.Thumbprint" alt="Avatar de {{ user.Name }}" />
-  <!-- <img class="avatar" src="../../../assets/FondoFinal.jpg" alt="Avatar de {{ user.Name }}" /> -->
 
   <!-- Boton de salida -->
   <button class="Btn-cerrar" type="button" (click)="cerrarSesion()">

@@ -4,11 +4,13 @@ import { IUserPayload } from '@app/interfaces/user';
 import { AuthService } from '@app/services/auth/auth.service';
 import { SocialAuthService } from '@app/services/auth/social-auth.service';
 import { UserService } from '@app/services/user.service';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 
 @Component({
   selector: 'app-avatar',
   standalone: true,
-  imports: [BotonAccesosComponent],
+  imports: [BotonAccesosComponent, AvatarModule],
   templateUrl: './avatar.component.html',
   styleUrl: './avatar.component.css',
   providers: [],

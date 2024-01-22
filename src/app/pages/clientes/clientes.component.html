@@ -102,11 +102,11 @@
         </button>
       </form>
     </div>
-    
+
     <div class="col-8">
       <h3>Listado de Clientes</h3>
-  
-      <table class="table table-striped  table-hover">
+
+      <table class="table table-striped table-hover">
         <thead>
           <tr>
             <th scope="col">CIF</th>
@@ -118,14 +118,19 @@
             <th></th>
           </tr>
         </thead>
-  
+
         <tbody>
           @for (cliente of clientes; track $index) {
           <tr>
             <th scope="row">
               {{ cliente.cif }}
               <button class="btn btn-dark" (click)="buscarPorCif(cliente.cif)">
-                <img src="../../../assets/icons/21_05_33_2121031.png" alt="icono lupa" height="20" width="20">
+                <img
+                  src="../../../assets/icons/21_05_33_2121031.png"
+                  alt="icono lupa"
+                  height="20"
+                  width="20"
+                />
                 <!-- <i class="pi pi-search"></i> -->
               </button>
             </th>
@@ -160,6 +165,9 @@
 
 <hr />
 
-<app-data-table />
+<app-data-table
+  (idSearch)="buscarPorCif($event)"
+  />
+  <!-- (idDelete)="confirmDelete($event, $event)" -->
 <p-toast />
 <p-confirmDialog />

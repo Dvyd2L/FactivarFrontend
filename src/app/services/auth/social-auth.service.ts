@@ -16,7 +16,7 @@ export class SocialAuthService {
     issuer: 'https://accounts.google.com',
     strictDiscoveryDocumentValidation: false,
     clientId: environment.googleClient.id,
-    redirectUri: window.location.origin + '/clientes',
+    redirectUri: window.location.origin,
     scope: 'openid profile email',
   };
 

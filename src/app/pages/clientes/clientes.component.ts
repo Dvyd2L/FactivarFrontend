@@ -54,6 +54,7 @@ export class ClientesComponent implements OnInit {
   setInitialDate(ev:Event) {
     this.fechaInicio = new Date((ev.target as HTMLInputElement).value);
   }
+
   setEndingDate(ev:Event) {
     this.fechaFin = new Date((ev.target as HTMLInputElement).value);
   }

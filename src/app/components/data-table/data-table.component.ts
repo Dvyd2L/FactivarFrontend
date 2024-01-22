@@ -1,21 +1,38 @@
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ICliente } from '@app/interfaces/cliente.interface';
 import { ClientesService } from '@app/services/clientes.service';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-data-table',
   standalone: true,
-  imports: [DatePipe, FormsModule, TableModule, ToastModule],
+  imports: [
+    DatePipe,
+    FormsModule,
+    DialogModule,
+    TableModule,
+    ToastModule,
+    ButtonModule,
+  ],
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.css',
-  providers: [MessageService, ConfirmationService, ClientesService],
+  providers: [MessageService, ConfirmationService, ClientesService, Router],
 })
 export class DataTableComponent {
+  private clientesService = inject(ClientesService);
+  private messageService = inject(MessageService);
+  private confirmationService = inject(ConfirmationService);
+
+  @Output() idSearch = new EventEmitter<string>();
+  @Output() idDelete = new EventEmitter<string>();
+  
   clientDialog: boolean = false;
   clients!: ICliente[];
   client!: ICliente;
@@ -23,11 +40,9 @@ export class DataTableComponent {
   submitted: boolean = false;
   statuses!: any[];
 
-  constructor(
-    private clientesService: ClientesService,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService
-  ) {}
+  eventHandler = (ev: Event) => (ev.target as HTMLInputElement).value;
+  emitIdSearch = (cif:string) => this.idSearch.emit(cif);
+  emitIdDelete = (cif:string) => this.idDelete.emit(cif);
 
   ngOnInit() {
     this.clientesService.getClientes().subscribe({
@@ -141,7 +156,7 @@ export class DataTableComponent {
 
       this.clients = [...this.clients];
       this.clientDialog = false;
-      this.client ={
+      this.client = {
         cif: '',
         direccion: '',
         email: '',

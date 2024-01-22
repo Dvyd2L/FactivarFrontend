@@ -19,7 +19,7 @@
     background-position: center;
     background-size: cover;
     background-clip: border-box;
-    background-color: lightslategray;
+    /* background-color: lightslategray; */
 }
 
 .factivar-header {

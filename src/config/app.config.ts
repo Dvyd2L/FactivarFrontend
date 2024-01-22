@@ -1,14 +1,14 @@
-import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
   ApplicationConfig,
   LOCALE_ID,
   importProvidersFrom,
 } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule, provideRouter } from '@angular/router';
+import { provideRouter } from '@angular/router';
 
 import { routes } from '@app/routes';
-import { OAuthModule, provideOAuthClient } from 'angular-oauth2-oidc';
+import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { authInterceptorFn } from '@app/interceptors/token-fn.interceptor';
 
