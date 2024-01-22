@@ -15,4 +15,15 @@ h6 {
   height: 29.7cm;
   background-color: whitesmoke;
   padding: 3rem;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.panel-info {
+  text-align: justify;
+
+  & > h6 {
+    text-wrap: pretty;
+  }
 }

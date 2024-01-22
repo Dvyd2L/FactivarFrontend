@@ -1,7 +1,6 @@
 @if (isHome()) {
 <app-home-page />
-<!-- <app-footer class="factivar-footer" /> -->
-<app-footer2 class="factivar-footer" />
+<app-footer class="factivar-footer" />
 } @else if (isLogin()) {
 <app-login />
 } @else if (isRegister()) {
@@ -9,7 +8,6 @@
 } @else {
 <main class="factivar-layout">
   <header class="factivar-header" >
-    <!-- <app-nav-bar /> -->
     <app-hexagons/>
   </header>
 
@@ -17,10 +15,6 @@
     <router-outlet />
   </div>
 
-  <!-- <app-footer class="factivar-footer" /> -->
-  <app-footer2 class="factivar-footer" />
+  <app-footer class="factivar-footer" />
 </main>
 }
-
-<!-- <app-factura-avanzado/> -->
-<!-- <app-listas-de-cliente/> -->

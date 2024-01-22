@@ -2,10 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { BotonAccesosComponent } from '../boton-accesos/boton-accesos.component';
+import { BotonAccesosComponent } from '../../components/boton-accesos/boton-accesos.component';
 import { AuthService } from '@app/services/auth/auth.service';
 import { IRegisterUser } from '@app/interfaces/user';
-import { PasswordInputComponent } from '../password-input/password-input.component';
+import { PasswordInputComponent } from '../../components/password-input/password-input.component';
 
 @Component({
   selector: 'app-register',

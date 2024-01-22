@@ -9,7 +9,7 @@ export const routes: Routes = [
     path: 'home',
     title: 'Inicio | Factivar',
     loadComponent: () =>
-      import('./components/home-page/home-page.component').then(
+      import('./pages/home-page/home-page.component').then(
         (c) => c.HomePageComponent
       ),
   },
@@ -17,7 +17,7 @@ export const routes: Routes = [
     path: 'login',
     title: 'Login | Factivar',
     loadComponent: () =>
-      import('./components/login/login.component').then(
+      import('./pages/login/login.component').then(
         (c) => c.LoginComponent
       ),
   },
@@ -25,7 +25,7 @@ export const routes: Routes = [
     path: 'register',
     title: 'Register | Factivar',
     loadComponent: () =>
-      import('./components/register/register.component').then(
+      import('./pages/register/register.component').then(
         (c) => c.RegisterComponent
       ),
   },
@@ -36,7 +36,7 @@ export const routes: Routes = [
     title: 'Clientes | Factivar',
     canActivate: [authGuard],
     loadComponent: () =>
-      import('./components/clientes/clientes.component').then(
+      import('./pages/clientes/clientes.component').then(
         (c) => c.ClientesComponent
       ),
   },
@@ -45,7 +45,7 @@ export const routes: Routes = [
     title: 'Clientes | Factivar',
     canActivate: [authGuard],
     loadComponent: () =>
-      import('./components/detail-customer/detail-customer.component').then(
+      import('./pages/detail-customer/detail-customer.component').then(
         (c) => c.DetailCustomerComponent
       ),
   },
@@ -63,7 +63,7 @@ export const routes: Routes = [
     title: 'Facturas | Factivar',
     canActivate: [authGuard],
     loadComponent: () =>
-      import('./components/factura-avanzado/factura-avanzado.component').then(
+      import('./pages/factura-avanzado/factura-avanzado.component').then(
         (c) => c.FacturaAvanzadoComponent
       ),
   },
@@ -72,7 +72,7 @@ export const routes: Routes = [
     title: 'Factura:pk | Factivar',
     canActivate: [authGuard],
     loadComponent: () =>
-      import('./components/invoice-template/invoice-template.component').then(
+      import('./pages/invoice-template/invoice-template.component').then(
         (c) => c.InvoiceTemplateComponent
       ),
   },
@@ -83,7 +83,7 @@ export const routes: Routes = [
     path: '**',
     title: '404 | Factivar',
     loadComponent: () =>
-      import('./components/not-found/not-found.component').then(
+      import('./pages/not-found/not-found.component').then(
         (c) => c.NotFoundComponent
       ),
   },

@@ -4,7 +4,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { ArticuloFacturaComponent } from '../articulo-factura/articulo-factura.component';
+import { ArticuloFacturaComponent } from '../../components/articulo-factura/articulo-factura.component';
 
 @Component({
   selector: 'app-factura-avanzado',

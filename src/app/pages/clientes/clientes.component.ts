@@ -7,7 +7,7 @@ import { ClientesService } from '@app/services/clientes.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { HttpErrorResponse } from '@angular/common/http';
-import { DataTableComponent } from '../data-table/data-table.component';
+import { DataTableComponent } from '../../components/data-table/data-table.component';
 import { Router } from '@angular/router';
 
 @Component({

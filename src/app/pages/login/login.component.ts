@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
-import { BotonAccesosComponent } from '../boton-accesos/boton-accesos.component';
+import { BotonAccesosComponent } from '../../components/boton-accesos/boton-accesos.component';
 import { ILoginUser } from '@app/interfaces/user';
 import { AuthService } from '@app/services/auth/auth.service';
 import { environment } from '@environments/environment';
-import { FacebookSigninComponent } from '../facebook-signin/facebook-signin.component';
-import { GoogleSigninComponent } from '../google-signin/google-signin.component';
-import { PasswordInputComponent } from '../password-input/password-input.component';
+import { FacebookSigninComponent } from '../../components/facebook-signin/facebook-signin.component';
+import { GoogleSigninComponent } from '../../components/google-signin/google-signin.component';
+import { PasswordInputComponent } from '../../components/password-input/password-input.component';
 
 @Component({
   selector: 'app-login',

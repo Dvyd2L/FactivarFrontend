@@ -1,6 +1,6 @@
 import { AsyncPipe, CurrencyPipe, JsonPipe, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { IFacturaResponse } from '@app/interfaces/factura.interface';
+import { IInvoice } from '@app/interfaces/factivar';
 import { getDataByPk } from '@app/services/data.service';
 
 @Component({
@@ -11,7 +11,5 @@ import { getDataByPk } from '@app/services/data.service';
   styleUrl: './invoice-template.component.css'
 })
 export class InvoiceTemplateComponent {
-  invoice$ = getDataByPk<IFacturaResponse>('facturas')
-
-  jsonParser = (data:string) => JSON.parse(data);
+  invoice$ = getDataByPk<IInvoice>('facturas');  
 }

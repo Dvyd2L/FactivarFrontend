@@ -1,20 +1,15 @@
-.span23 {
-  padding: 10px;
-}
-/* BOTON */
 .btn123 {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70%; /* Reducido el ancho */
-  overflow: hidden;
-  height: 2rem; /* Reducido la altura */
-  background-size: 300%;
-  backdrop-filter: blur(1rem);
-  border-radius: 2rem;
-  transition: 0.5s;
-  animation: gradient_301 5s ease infinite;
+
   border: double 10px transparent;
+  border-radius: 2rem;
+
+  background-size: 300%;
+  transition: 0.5s;
+  animation: gradient_301 alternate 2.5s ease infinite;
+  /* animation-direction: alternate; */
   background-image: linear-gradient(#21212100, #21212100),
     linear-gradient(
       137.48deg,
@@ -25,6 +20,7 @@
     );
   background-origin: border-box;
   background-clip: content-box, border-box;
+
   margin: auto;
   margin-top: 20px;
 }
@@ -70,7 +66,7 @@ strong {
   animation: none;
 }
 
-@keyframes gradient_301 {
+/* @keyframes gradient_301 {
   0% {
     background-position: 0% 50%;
   }
@@ -81,6 +77,11 @@ strong {
 
   100% {
     background-position: 0% 50%;
+  }
+} */
+@keyframes gradient_301 {
+  to {
+    background-position: 100% 50%;
   }
 }
 

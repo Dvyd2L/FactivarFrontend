@@ -1,7 +1,7 @@
 <ng-container *ngIf="invoice$ | async as i">
-  <!-- <pre>
+  <pre>
     {{ i | json }}   
-  </pre> -->
+  </pre>
   <article class="container invoice">
     <div class="row">
       <div class="col-xs-6">
@@ -14,11 +14,11 @@
           <div class="panel-heading">
             <h4>
               CIF :
-              <a href="#">{{ i.clienteId }}</a>
+              <a href="#">{{ i.cliente.cif }}</a>
             </h4>
             <h4>
-              AUTORIZACI&Oacute;N :
-              <a href="#">N&uacute;mero de Aut.</a>
+              DIRECCI&Oacute;N :
+              <a href="#">{{ i.cliente.direccion }}</a>
             </h4>
           </div>
           <div class="panel-body">
@@ -47,10 +47,10 @@
             <div class="panel-body">
               <h4>
                 Comprador :
-                <a href="#">{{ i.cliente?.nombre ?? "" }}</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#">{{ i.cliente.nombre }}</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 CIF/DNI :
-                <a href="#">{{ i.clienteId }}</a>
+                <a href="#">{{ i.cliente.cif }}</a>
               </h4>
             </div>
           </div>
@@ -81,22 +81,25 @@
           </tr>
         </thead>
         <tbody>
-          @for (item of jsonParser(i.articulos); track $index) {
+          @for (item of i.articulos; track $index) {
           <tr>
             <th scope="row">
-              <a href="#">{{ item.Descripcion }}</a>
+              <a href="#">{{ item.descripcion }}</a>
             </th>
-            <td style="text-align: center">{{ item.Unidades }}</td>
-            <td class="text-right">{{ item.PUnitario | currency : "EUR" }}</td>
-            <td class="text-right">{{ item.BImponible | currency : "EUR" }}</td>
-            <td class="text-right">{{ item.Iva }}%</td>
+            <td style="text-align: center">{{ item.unidades }}</td>
+            <td class="text-right">{{ item.pUnitario | currency : "EUR" }}</td>
+            <td class="text-right">{{ item.bImponible | currency : "EUR" }}</td>
+            <td class="text-right">{{ item.iva }}%</td>
             <td class="text-right">
-              {{ item.Unidades * item.PUnitario | currency : "EUR" }}
+              {{ item.unidades * item.pUnitario | currency : "EUR" }}
             </td>
           </tr>
           }
           <tr>
-            <th colspan="5" style="text-align: right">Subtotal</th>
+            <th colspan="4" style="text-align: right">Subtotal</th>
+            <td style="text-align: right">
+              <a href="#"> {{ i.iva | currency : "EUR" }} </a>
+            </td>
             <td style="text-align: right">
               <a href="#"> {{ i.importe | currency : "EUR" }} </a>
             </td>
@@ -114,11 +117,17 @@
           <a href=" "><img alt="" src="image/qr.png" /></a>
         </picture>
 
-        <section class="panel panel-info" style="text-align: right">
+        <section class="panel panel-info">
           <h6>
-            "LA ALTERACI&Oacute;N, FALSIFICACI&Oacute;N O
-            COMERCIALIZACI&Oacute;N ILEGAL DE ESTE DOCUMENTO ESTA PENADO POR LA
-            LEY"
+            "De acuerdo con el Reglamento General de Protección de Datos (RGPD),
+            los datos personales proporcionados en esta factura se procesarán
+            con el fin de gestionar la relación comercial y el cumplimiento de
+            las obligaciones legales. Los datos se conservarán durante el tiempo
+            necesario para cumplir con las obligaciones legales y no se cederán
+            a terceros, salvo obligación legal. Puede ejercer sus derechos de
+            acceso, rectificación, supresión, limitación del tratamiento,
+            portabilidad y oposición dirigiéndose al responsable del
+            tratamiento."
           </h6>
         </section>
       </div>
