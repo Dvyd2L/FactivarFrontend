@@ -24,14 +24,14 @@
   color: #fff;
   height: 100%;
   width: 100%;
-  background-image: url("src/assets/PruebaHome.png");
+  background-image: url("src/assets/MEJORSIII.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-attachment: scroll;
   background-blend-mode: soft-light;
   /* La tele hay que configurarla con la nueva imagen */
-  filter: saturate(160%) brightness(70%) contrast(180%);
+  filter: saturate(200%) brightness(70%) contrast(200%);
 }
 
 main {

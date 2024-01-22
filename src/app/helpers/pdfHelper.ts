@@ -1,16 +1,24 @@
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
-// tslint:disable-next-line:typedef
-export const downloadPDF = () => {
-  // Extraemos el
-  const DATA = document.getElementById('htmlData');
+/**
+ * 
+ * @param {string} htmlElementId id del elemento que contiene el contenido que deseamos convertir a pdf
+ * @returns 
+ */
+export const pdfHelper = (htmlElementId: string) => {
+  const $data = document.getElementById(htmlElementId);
   const doc = new jsPDF('p', 'pt', 'a4');
   const options = {
     background: 'white',
     scale: 3,
   };
-  html2canvas(DATA, options)
+
+  if (!$data) {
+    return;
+  }
+
+  html2canvas($data, options)
     .then((canvas) => {
       const img = canvas.toDataURL('image/PNG');
 
