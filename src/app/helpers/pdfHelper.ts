@@ -28,6 +28,7 @@ export const pdfHelper = (htmlElementId: string) => {
       const imgProps = (doc as any).getImageProperties(img);
       const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      
       doc.addImage(
         img,
         'PNG',

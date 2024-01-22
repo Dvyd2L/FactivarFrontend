@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { StorageHelper } from '@app/helpers/storage';
-import { RolesEnum } from '@app/interfaces/enums/roles';
+import { RolesEnum } from '@app/interfaces/enums/roles.enum';
 import { IUserPayload } from '@app/interfaces/user';
 
 export const adminGuard: CanActivateFn = () => {

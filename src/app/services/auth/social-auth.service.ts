@@ -6,7 +6,7 @@ import { IGoogleProfile } from '@app/interfaces/google-profile';
 import { IUserPayload } from '@app/interfaces/user';
 import { AuthService } from './auth.service';
 import { GOOGLE_OAUTH_CONFIG } from 'src/config/tokens/oauth-conection.token';
-import { RolesEnum } from '@app/interfaces/enums/roles';
+import { RolesEnum } from '@app/interfaces/enums/roles.enum';
 
 @Injectable({
   providedIn: 'root',

@@ -1,3 +1,5 @@
+import { CuotasIvaEnum } from "./enums/cuotas-iva.enum";
+
 export interface IInvoice {
   numeroFactura: number;
   importe: number;
@@ -25,7 +27,7 @@ export interface IProduct {
   unidades: number;
   pUnitario: number;
   bImponible: number;
-  iva: number;
+  iva: CuotasIvaEnum;
   cuotaIva: number;
-  importe: number;
+  importe: number; // revisar
 }
