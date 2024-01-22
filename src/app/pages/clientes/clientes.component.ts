@@ -9,6 +9,7 @@ import { ToastModule } from 'primeng/toast';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DataTableComponent } from '../../components/data-table/data-table.component';
 import { Router } from '@angular/router';
+import { LoaderComponent } from '@app/components/loader/loader.component';
 
 @Component({
   selector: 'app-clientes',
@@ -19,10 +20,16 @@ import { Router } from '@angular/router';
     ConfirmDialogModule,
     ToastModule,
     DataTableComponent,
+    LoaderComponent,
   ],
   templateUrl: './clientes.component.html',
   styleUrl: './clientes.component.css',
-  providers: [ClientesService, ConfirmationService, MessageService, Router],
+  providers: [
+    ClientesService,
+    ConfirmationService,
+    MessageService,
+    Router,
+  ],
 })
 export class ClientesComponent implements OnInit {
   private router = inject(Router);
@@ -51,11 +58,11 @@ export class ClientesComponent implements OnInit {
     this.getClientes();
   }
 
-  setInitialDate(ev:Event) {
+  setInitialDate(ev: Event) {
     this.fechaInicio = new Date((ev.target as HTMLInputElement).value);
   }
 
-  setEndingDate(ev:Event) {
+  setEndingDate(ev: Event) {
     this.fechaFin = new Date((ev.target as HTMLInputElement).value);
   }
 
@@ -74,7 +81,7 @@ export class ClientesComponent implements OnInit {
     });
   }
 
-  buscarPorCif(cif:string) {
+  buscarPorCif(cif: string) {
     this.router.navigate([`clientes/${cif}`]);
     // this.clientesService.getClienteById(this.cliente.cif).subscribe({
     //   next: (data) => {
@@ -97,7 +104,7 @@ export class ClientesComponent implements OnInit {
           day: '2-digit',
         })
         .replaceAll('/', '-')}/${this.fechaFin
-        .toLocaleDateString('es',{
+        .toLocaleDateString('es', {
           year: 'numeric',
           month: '2-digit',
           day: '2-digit',
