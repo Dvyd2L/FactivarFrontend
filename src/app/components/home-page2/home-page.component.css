@@ -30,8 +30,8 @@
   background-position: 50% 50%;
   background-attachment: scroll;
   background-blend-mode: soft-light;
-
-  /* filter: saturate(160%) brightness(70%) contrast(180%); */
+  /* La tele hay que configurarla con la nueva imagen */
+  filter: saturate(160%) brightness(70%) contrast(180%);
 }
 
 main {
@@ -48,7 +48,7 @@ header {
 
 .cuerpoHomePage {
   position: relative;
-  
+
   top: 0;
   height: 100%;
   width: 100%;
@@ -66,8 +66,7 @@ header {
     background-position: 50% 100%;
     /* background-color: transparent; */
     height: 100vh;
-    opacity: 60%;
-    /* opacity: 0; */
+    opacity: 0;
   }
 }
 @keyframes hide-navbar {
