@@ -6,7 +6,8 @@ import html2canvas from 'html2canvas';
  * @param {string} htmlElementId id del elemento que contiene el contenido que deseamos convertir a pdf
  * @returns 
  */
-export const pdfHelper = (htmlElementId: string) => {
+export const pdfHelper = (htmlElementId: string, config?: { filename?:string }) => {
+  const { filename } = config ?? {};
   const $data = document.getElementById(htmlElementId);
   const doc = new jsPDF('p', 'pt', 'a4');
   const options = {
@@ -42,6 +43,6 @@ export const pdfHelper = (htmlElementId: string) => {
       return doc;
     })
     .then((docResult) => {
-      docResult.save(`${new Date().toISOString()}_tutorial.pdf`);
+      docResult.save(filename ?? `${new Date().toISOString()}_tutorial.pdf`);
     });
 };

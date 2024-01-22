@@ -3,6 +3,7 @@ import { HexagonItemComponent } from '@app/components/hexagon-item/hexagon-item.
 import { AvatarComponent } from '../avatar/avatar.component';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
+import { FactivarBrandComponent } from '../factivar-brand/factivar-brand.component';
 
 @Component({
   selector: 'app-hexagons',
@@ -15,6 +16,7 @@ import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
     ThemeToggleComponent,
     RouterLink,
     RouterLinkActive,
+    FactivarBrandComponent,
   ],
   providers: [],
 })
