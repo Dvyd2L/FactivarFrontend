@@ -1,3 +1,4 @@
+
 <nav class="factivar-navbar">
   <a class="navbar-brand cursiv" routerLink="/home" routerLinkActive="active">
     <img
@@ -9,20 +10,12 @@
 
   <div class="hexagon-menu">
     <app-hexagon-item
-      title="Inicio"
-      routerLink="/home"
-      routerLinkActive="active"
-      aria-label="Inicio"
+    title="Clientes"
+    routerLink="/clientes"
+    routerLinkActive="active"
+    aria-label="Clientes"
     >
-      <!-- los slots se invocan con el nombre del select de ng-content sin el punto. -->
-      <i class="fa fa-universal-access slot-icon"></i>
-    </app-hexagon-item>
-    <app-hexagon-item
-      title="Clientes"
-      routerLink="/clientes"
-      routerLinkActive="active"
-      aria-label="Clientes"
-    >
+
       <!-- los slots se invocan con el nombre del select de ng-content sin el punto. -->
       <i class="fa fa-bullseye slot-icon"></i>
     </app-hexagon-item>
@@ -48,3 +41,4 @@
 
   <app-avatar />
 </nav>
+

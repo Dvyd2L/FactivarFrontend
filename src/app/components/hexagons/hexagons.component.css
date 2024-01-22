@@ -1,6 +1,4 @@
 .factivar-navbar {
-  height: 100%;
-  width: 100%;
   padding: .1rem;
   /* background-color: rgb(0 0 0 / .5); */
   scale: .7;
@@ -30,4 +28,20 @@
   color: #ff0037;
   /* color: var(--hexagon-item-bg-color); */
   transition: 0.6s;
+}
+
+@media (width >= 300px) {
+  .hexagon-menu {
+    flex-wrap: wrap;
+  }
+}
+@media (width < 1000px) {
+  .hexagon-menu {
+    flex-wrap: wrap;
+  }
+}
+@media (640px <= width < 300px) {
+  .hexagon-menu {
+    flex-wrap: wrap;
+  }
 }
