@@ -1,5 +1,6 @@
 import { AsyncPipe, CurrencyPipe, JsonPipe, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { BtnGrowComponent } from '@app/components/btn-grow/btn-grow.component';
 import { FactivarBrandComponent } from '@app/components/factivar-brand/factivar-brand.component';
 import { pdfHelper } from '@app/helpers/pdfHelper';
 import { IInvoice } from '@app/interfaces/factivar';
@@ -8,7 +9,7 @@ import { getDataByPk } from '@app/services/data.service';
 @Component({
   selector: 'app-invoice-template',
   standalone: true,
-  imports: [NgIf, AsyncPipe, JsonPipe, CurrencyPipe, FactivarBrandComponent],
+  imports: [NgIf, AsyncPipe, JsonPipe, CurrencyPipe, FactivarBrandComponent, BtnGrowComponent],
   templateUrl: './invoice-template.component.html',
   styleUrl: './invoice-template.component.css',
 })

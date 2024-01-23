@@ -9,7 +9,10 @@ import { Component } from '@angular/core';
 })
 export class ThemeToggleComponent {
   toggle = () => {
-    const $root = document.getRootNode();
-    $root;
+    const $body = document.body;
+
+    $body.getAttribute('data-bs-theme') === 'dark'
+      ? $body.setAttribute('data-bs-theme', 'light')
+      : $body.setAttribute('data-bs-theme', 'dark');
   };
 }
