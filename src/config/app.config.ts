@@ -1,4 +1,4 @@
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import {
   ApplicationConfig,
   LOCALE_ID,
@@ -11,6 +11,7 @@ import { routes } from '@app/routes';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { authInterceptorFn } from '@app/interceptors/token-fn.interceptor';
+import { errorInterceptorFn } from '@app/interceptors/error-fn.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [

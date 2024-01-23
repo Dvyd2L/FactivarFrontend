@@ -1,6 +1,5 @@
 import {
   Component,
-  ComponentFactoryResolver,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
@@ -17,37 +16,11 @@ export class FacturaAvanzadoComponent {
   @ViewChild('articuloFactura', { read: ViewContainerRef })
   articuloFactura!: ViewContainerRef;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
-
   addArticle() {
-    const factory = this.componentFactoryResolver.resolveComponentFactory(
-      ArticuloFacturaComponent
-    );
-    this.articuloFactura.createComponent(factory);
+    this.articuloFactura.createComponent(ArticuloFacturaComponent);
   }
 
   removeArticle() {
     this.articuloFactura.remove();
-  }
-
-  // Codigo para hacer los pdf
-  public downloadPDF(): void {
-    // let DATA = this.content.nativeElement;
-
-    // html2canvas(DATA)
-    //   .then((canvas) => {
-    //     let fileWidth = 208;
-    //     let fileHeight = (canvas.height * fileWidth) / canvas.width;
-
-    //     const FILEURI = canvas.toDataURL('image/png');
-    //     let PDF = new jspdf('p', 'mm', 'a4');
-    //     let position = 0;
-    //     PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
-
-    //     PDF.save('angular-demo.pdf');
-    //   })
-    //   .catch((error) => {
-    //     console.error('Hubo un error al generar el PDF:', error);
-    //   });
   }
 }

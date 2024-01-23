@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { filter, catchError, take, switchMap, finalize } from 'rxjs/operators';
@@ -9,10 +9,9 @@ import { IUserPayload } from '@app/interfaces/user';
   providedIn: 'root' 
 })
 export class ErrorInterceptor implements HttpInterceptor {
+  private authService = inject(AuthService);
   isRefreshingToken = false;
   tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null!);
-
-  constructor(private authService: AuthService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(

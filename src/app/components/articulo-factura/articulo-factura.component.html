@@ -7,7 +7,7 @@
 
   <div class="col-2 form-label">Importe</div>
 
-  <div class="col-2 form-label">Impuesto</div>
+  <div class="col-2 form-label">Tipo de IVA</div>
 
   <div class="col-1"></div>
 </div>
@@ -70,6 +70,7 @@
         class="form-control form-control-sm amount"
         tabindex="225899972"
         maxlength="100"
+        readonly
       />
     </div>
 
@@ -88,16 +89,13 @@
         autocomplete="off"
       />
 
-      <button
-        type="button"
-        id="invoice_items_attributes_0_tax_rate_name"
-        class="btn btn-info btn-sm show-modal tax-rate-name w-100"
-        data-index="0"
-        data-item-id="225899972"
-        data-locale="es"
-      >
-        Añadir impu...
-      </button>
+      <select class="form-control" id="iva" name="iva">
+        <option value="0">0%</option>
+        <option value="4">4%</option>
+        <option value="5">5%</option>
+        <option value="10">10%</option>
+        <option value="21">21%</option>
+      </select>
     </div>
 
     <div class="col-1 form-group text-nowrap" style="margin-top: 7px">
