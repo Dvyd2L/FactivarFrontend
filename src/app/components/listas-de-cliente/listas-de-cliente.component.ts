@@ -5,6 +5,9 @@ import { ICliente } from '@app/interfaces/cliente.interface';
 import { ClientesService } from '@app/services/clientes.service';
 import { ConfirmationService } from 'primeng/api';
 
+/**
+ * Componente para mostrar y gestionar listas de clientes.
+ */
 @Component({
   selector: 'app-listas-de-cliente',
   standalone: true,
@@ -37,10 +40,16 @@ export class ListasDeClienteComponent implements OnInit {
     private clientesService: ClientesService
   ) {}
 
+  /**
+   * Método que se ejecuta al inicializar el componente.
+   */
   ngOnInit(): void {
     this.getClientes();
   }
 
+  /**
+   * Obtiene la lista de clientes.
+   */
   getClientes() {
     // this.clientesService.getClientes().subscribe({
     //   next: (data) => {
@@ -54,6 +63,9 @@ export class ListasDeClienteComponent implements OnInit {
     // });
   }
 
+  /**
+   * Busca un cliente por su CIF.
+   */
   buscarPorCif() {
     this.clientesService.getClienteById(this.cliente.cif).subscribe({
       next: (data) => {
@@ -67,6 +79,9 @@ export class ListasDeClienteComponent implements OnInit {
     });
   }
 
+  /**
+   * Busca clientes entre dos fechas.
+   */
   buscarEntreFechas() {
     console.log(this.fechaInicio, this.fechaFin);
     this.clientesService.getClienteEntreFechas(this.fechaInicio, this.fechaFin).subscribe({
@@ -81,6 +96,10 @@ export class ListasDeClienteComponent implements OnInit {
     });
   }
 
+  /**
+   * Modifica un cliente.
+   * @param cliente El cliente a modificar.
+   */
   modificarCliente(cliente: ICliente) {
     // const clienteModificado: ICliente = { ...cliente };
 

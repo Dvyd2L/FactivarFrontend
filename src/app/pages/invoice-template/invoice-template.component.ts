@@ -1,3 +1,6 @@
+/**
+ * Componente para la plantilla de la factura.
+ */
 import { AsyncPipe, CurrencyPipe, JsonPipe, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { BtnGrowComponent } from '@app/components/btn-grow/btn-grow.component';
@@ -14,17 +17,33 @@ import { getDataByPk } from '@app/services/data.service';
   styleUrl: './invoice-template.component.css',
 })
 export class InvoiceTemplateComponent implements OnInit {
+  /**
+   * Observable que contiene los datos de la factura.
+   */
   invoice$ = getDataByPk<IInvoice>('facturas');
+
+  /**
+   * Configuración para la generación del PDF.
+   */
   pdfConfig = {
     filename: '',
   };
 
+  /**
+   * Función para descargar el PDF.
+   */
   downloadPDF = pdfHelper;
 
+  /**
+   * Método que se ejecuta al inicializar el componente.
+   */
   ngOnInit(): void {
     this.getPk();
   }
 
+  /**
+   * Obtiene la clave primaria de la factura y actualiza la configuración del PDF.
+   */
   getPk() {
     this.invoice$.subscribe({
       next: (data) =>

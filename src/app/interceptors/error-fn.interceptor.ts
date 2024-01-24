@@ -1,3 +1,8 @@
+/**
+ * Interceptor de errores. Esta función intercepta las solicitudes HTTP,
+ * maneja los errores que puedan ocurrir y, en caso de un error 401,
+ * llama a la función handle401Error para manejarlo.
+ */
 import {
   HttpErrorResponse,
   HttpEvent,

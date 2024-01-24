@@ -1,3 +1,6 @@
+/**
+ * Componente que representa una colección de hexágonos.
+ */
 import { Component } from '@angular/core';
 import { HexagonItemComponent } from '@app/components/hexagon-item/hexagon-item.component';
 import { AvatarComponent } from '../avatar/avatar.component';

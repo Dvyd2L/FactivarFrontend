@@ -1,3 +1,6 @@
+/**
+ * Componente principal de la aplicación.
+ */
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NgSwitch, NgSwitchDefault, NgSwitchCase } from '@angular/common';
@@ -33,16 +36,31 @@ import { FooterComponent } from './components/footer/footer.component';
   providers: [MessageService],
 })
 export class AppComponent {
+  /**
+   * Título de la aplicación.
+   */
   title = 'Factivar';
 
+  /**
+   * Verifica si la ruta actual es la página de inicio.
+   * @returns `true` si la ruta actual es '/home', de lo contrario `false`.
+   */
   isHome() {
     return window.location.pathname === '/home';
   }
 
+  /**
+   * Verifica si la ruta actual es la página de inicio de sesión.
+   * @returns `true` si la ruta actual es '/login', de lo contrario `false`.
+   */
   isLogin() {
     return window.location.pathname === '/login';
   }
 
+  /**
+   * Verifica si la ruta actual es la página de registro.
+   * @returns `true` si la ruta actual es '/register', de lo contrario `false`.
+   */
   isRegister() {
     return window.location.pathname === '/register';
   }

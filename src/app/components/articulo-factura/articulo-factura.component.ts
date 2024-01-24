@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
+/**
+ * Componente para mostrar un artículo de una factura.
+ */
 @Component({
   selector: 'app-articulo-factura',
   standalone: true,
@@ -8,14 +11,16 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrl: './articulo-factura.component.css',
 })
 export class ArticuloFacturaComponent {
+  /**
+   * Evento que se emite cuando se desea eliminar el artículo.
+   */
   @Output() pacos = new EventEmitter<void>();
 
   constructor() {}
 
-  // addArticle() {
-  //   this.event.emit(this.pacos);
-  // }
-
+  /**
+   * Método para eliminar el artículo.
+   */
   removeArticle() {
     this.pacos.emit();
   }

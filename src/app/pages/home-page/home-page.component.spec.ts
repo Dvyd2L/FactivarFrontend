@@ -2,6 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomePageComponent } from './home-page.component';
 
+/**
+ * Pruebas unitarias para el componente HomePageComponent.
+ */
 describe('HomePageComponent', () => {
   let component: HomePageComponent;
   let fixture: ComponentFixture<HomePageComponent>;
@@ -17,6 +20,9 @@ describe('HomePageComponent', () => {
     fixture.detectChanges();
   });
 
+  /**
+   * Verifica si el componente se crea correctamente.
+   */
   it('should create', () => {
     expect(component).toBeTruthy();
   });

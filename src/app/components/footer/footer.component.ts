@@ -1,3 +1,6 @@
+/**
+ * Componente de pie de página de la aplicación.
+ */
 import { Component } from '@angular/core';
 
 @Component({

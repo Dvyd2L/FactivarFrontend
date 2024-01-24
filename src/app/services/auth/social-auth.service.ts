@@ -1,3 +1,7 @@
+
+/**
+ * Servicio para autenticación social.
+ */
 import { Inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environment.development';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
@@ -12,6 +16,9 @@ import { RolesEnum } from '@app/interfaces/enums/roles.enum';
   providedIn: 'root',
 })
 export class SocialAuthService {
+  /**
+   * Configuración para autenticación con Google.
+   */
   private googleConfig: AuthConfig = {
     issuer: 'https://accounts.google.com',
     strictDiscoveryDocumentValidation: false,
@@ -20,6 +27,9 @@ export class SocialAuthService {
     scope: 'openid profile email',
   };
 
+  /**
+   * Configuración para autenticación con Facebook.
+   */
   private facebookConfig: AuthConfig = {
     issuer: 'https://www.facebook.com/v18.0/dialog/oauth',
     redirectUri: window.location.origin,
@@ -39,6 +49,9 @@ export class SocialAuthService {
     this.initGoogleLogin();
   }
 
+  /**
+   * Inicia el flujo de inicio de sesión.
+   */
   public login() {
     this.oauthService.initLoginFlow();
 
@@ -58,24 +71,43 @@ export class SocialAuthService {
     });
   }
 
+  /**
+   * Cierra la sesión actual.
+   */
   public logout() {
     this.oauthService.logOut();
     this.userService.clearUser();
   }
 
+  /**
+   * Obtiene el perfil del usuario autenticado.
+   * @returns El perfil del usuario.
+   */
   public getProfile() {
     return this.oauthService.getIdentityClaims();
   }
 
+  /**
+   * Obtiene el token de identificación del usuario autenticado.
+   * @returns El token de identificación.
+   */
   public getIdToken() {
     return this.oauthService.getIdToken();
   }
 
+  /**
+   * Verifica si el usuario ha iniciado sesión.
+   * @returns `true` si el usuario ha iniciado sesión, de lo contrario `false`.
+   */
   public getIsLoggedIn() {
     return this.oauthService.hasValidAccessToken();
   }
 
   // Google
+
+  /**
+   * Inicializa la autenticación con Google.
+   */
   public initGoogleLogin() {
     this.oauthService.configure(this.googleConfig);
     this.oauthService.setupAutomaticSilentRefresh();
@@ -83,6 +115,10 @@ export class SocialAuthService {
   }
 
   // Facebook
+
+  /**
+   * Inicializa la autenticación con Facebook.
+   */
   public initFacebookLogin() {
     this.oauthService.configure(this.facebookConfig);
     this.oauthService.setupAutomaticSilentRefresh();

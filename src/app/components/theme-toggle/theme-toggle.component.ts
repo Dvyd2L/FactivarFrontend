@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+/**
+ * Componente para alternar el tema de la aplicación.
+ */
 @Component({
   selector: 'app-theme-toggle',
   standalone: true,
@@ -8,6 +11,9 @@ import { Component } from '@angular/core';
   styleUrl: './theme-toggle.component.css',
 })
 export class ThemeToggleComponent {
+  /**
+   * Alterna el tema de la aplicación entre oscuro y claro.
+   */
   toggle = () => {
     const $body = document.body;
 

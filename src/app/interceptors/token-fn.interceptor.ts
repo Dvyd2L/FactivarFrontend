@@ -1,3 +1,9 @@
+/**
+ * Interceptor de autenticación para agregar el token de autenticación a las solicitudes HTTP.
+ * @param req - La solicitud HTTP entrante.
+ * @param next - El siguiente controlador de solicitudes HTTP en la cadena de interceptores.
+ * @returns La solicitud HTTP modificada con el token de autenticación agregado, o la solicitud original si no es necesario agregar el token.
+ */
 import { UserService } from '@app/services/user.service';
 import { IUserPayload } from '@app/interfaces/user';
 import {

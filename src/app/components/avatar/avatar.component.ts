@@ -1,3 +1,28 @@
+/**
+ * Componente Avatar.
+ * 
+ * Este componente muestra la imagen y la información del usuario actual.
+ * 
+ * @remarks
+ * Este componente depende de los siguientes módulos y servicios:
+ * - BotonAccesosComponent: componente para mostrar los botones de acceso.
+ * - AvatarModule: módulo de PrimeNG para mostrar la imagen del avatar.
+ * - BtnGrowComponent: componente para mostrar un botón de crecimiento.
+ * - UserService: servicio para obtener los datos del usuario.
+ * - AuthService: servicio para gestionar la autenticación.
+ * - SocialAuthService: servicio para gestionar la autenticación social.
+ * 
+ * @example
+ * ```html
+ * <app-avatar></app-avatar>
+ * ```
+ * 
+ * @example
+ * ```typescript
+ * const avatar = new AvatarComponent();
+ * avatar.cerrarSesion();
+ * ```
+ */
 import { Component, inject } from '@angular/core';
 import { BotonAccesosComponent } from '../boton-accesos/boton-accesos.component';
 import { IUserPayload } from '@app/interfaces/user';
@@ -17,13 +42,31 @@ import { BtnGrowComponent } from '../btn-grow/btn-grow.component';
   providers: [],
 })
 export class AvatarComponent {
+  /**
+   * Servicio para obtener los datos del usuario.
+   */
   private userService = inject(UserService<IUserPayload>);
+  
+  /**
+   * Servicio para gestionar la autenticación.
+   */
   private authService = inject(AuthService);
+  
+  /**
+   * Servicio para gestionar la autenticación social.
+   */
   private socialAuthService = inject(SocialAuthService);
+  
+  /**
+   * Datos del usuario actual.
+   */
   user!: IUserPayload;
 
+  /**
+   * Método que se ejecuta al inicializar el componente.
+   * Suscribe al Observable del usuario para obtener los datos del usuario actual.
+   */
   ngOnInit(): void {
-    // Suscribirse al Observable del usuario
     this.userService.getUser().subscribe({
       next: (data) => {
         this.user = data;
@@ -32,6 +75,11 @@ export class AvatarComponent {
     });
   }
 
+  /**
+   * Método para cerrar la sesión del usuario.
+   * Si el usuario ha iniciado sesión con una cuenta social, se realiza el cierre de sesión correspondiente.
+   * Si el usuario ha iniciado sesión con una cuenta de correo electrónico, se realiza el cierre de sesión correspondiente.
+   */
   cerrarSesion() {
     if (this.socialAuthService.getProfile()) {
       this.socialAuthService.logout();

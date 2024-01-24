@@ -1,3 +1,10 @@
+/**
+ * Convierte el contenido de un elemento HTML en un archivo PDF.
+ * @param {string} htmlElementId - El ID del elemento HTML que contiene el contenido a convertir.
+ * @param {Object} [config] - Opciones de configuración para la generación del PDF.
+ * @param {string} [config.filename] - El nombre del archivo PDF resultante.
+ * @returns {void}
+ */
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 

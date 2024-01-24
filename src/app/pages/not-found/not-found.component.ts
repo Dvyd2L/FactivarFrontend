@@ -1,3 +1,6 @@
+/**
+ * Componente para la página de "No encontrado".
+ */
 import { Component } from '@angular/core';
 
 @Component({

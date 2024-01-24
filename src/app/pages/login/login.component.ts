@@ -1,3 +1,6 @@
+/**
+ * Componente de inicio de sesión.
+ */
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -26,6 +29,9 @@ import { PasswordInputComponent } from '../../components/password-input/password
   providers: [MessageService, AuthService],
 })
 export class LoginComponent {
+  /**
+   * Información de inicio de sesión.
+   */
   infoLogin: ILoginUser = {
     email: '',
     password: '',
@@ -33,15 +39,26 @@ export class LoginComponent {
 
   constructor(private authService: AuthService) {}
 
+  /**
+   * Establece la contraseña del usuario.
+   * @param value - Valor de la contraseña.
+   */
   setPassword(value: string) {
     this.infoLogin.password = value;
   }
 
+  /**
+   * Realiza el inicio de sesión.
+   */
   login() {
     console.log(this.infoLogin);
     this.authService.login(this.infoLogin);
   }
 
+  /**
+   * Realiza el inicio de sesión con Google.
+   * @param idToken - Token de identificación de Google.
+   */
   loginWithGoogle(idToken: string) {
     this.authService.loginWithGoogle(idToken);
   }

@@ -1,3 +1,6 @@
+/**
+ * Pruebas unitarias para el componente DetailCustomerComponent.
+ */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DetailCustomerComponent } from './detail-customer.component';
@@ -17,6 +20,9 @@ describe('DetailClientComponent', () => {
     fixture.detectChanges();
   });
 
+  /**
+   * Verifica si el componente se crea correctamente.
+   */
   it('should create', () => {
     expect(component).toBeTruthy();
   });

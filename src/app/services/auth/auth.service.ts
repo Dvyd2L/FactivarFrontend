@@ -1,3 +1,6 @@
+/**
+ * Servicio de autenticación.
+ */
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '@environments/environment.development';
@@ -23,6 +26,10 @@ export class AuthService {
   private router = inject(Router)
   // private messageService = inject(MessageService);
 
+  /**
+   * Realiza el inicio de sesión.
+   * @param credenciales Las credenciales del usuario.
+   */
   public login(credenciales?: ILoginUser) {
     return this.http
       .post<ILoginResponse>(`${this.urlAPI}/login`, credenciales)
@@ -44,6 +51,10 @@ export class AuthService {
       });
   }
 
+  /**
+   * Realiza el inicio de sesión con Google.
+   * @param idToken El token de autenticación de Google.
+   */
   public loginWithGoogle(idToken?: string) {
     return this.http
       .post<ILoginResponse>(`${this.urlAPI}/google-authenticate`, idToken)
@@ -65,6 +76,11 @@ export class AuthService {
       });
   }
 
+  /**
+   * Cierra la sesión del usuario.
+   * @param email El correo electrónico del usuario.
+   * @returns Una solicitud HTTP para cerrar la sesión.
+   */
   public logout({ email }: { email: string }) {
     this.userService.clearUser();
     this.router.navigate(['/login']);
@@ -72,6 +88,11 @@ export class AuthService {
     return this.http.post(`${this.urlAPI}/logout`, { email });
   }
 
+  /**
+   * Registra un nuevo usuario.
+   * @param registro Los datos de registro del usuario.
+   * @returns Un observable con los datos del usuario registrado.
+   */
   public register(registro: IRegisterUser): Observable<IRegisterUser> {
     const formData = new FormData();
 
@@ -91,6 +112,10 @@ export class AuthService {
     return this.http.post<IRegisterUser>(`${this.urlAPI}/register`, formData);
   }
 
+  /**
+   * Actualiza el token de acceso.
+   * @returns Una solicitud HTTP para actualizar el token de acceso.
+   */
   public refreshToken() {
     const currentUser = this.userService.userValue;
     //const token = currentUser.refreshToken;  ARREGLAR ESTO
@@ -111,6 +136,9 @@ export class AuthService {
       // });
   }
 
+  /**
+   * Limpia los datos de usuario almacenados y redirige a la página de inicio de sesión.
+   */
   public clearStorage() {
     this.userService.clearUser();
     this.router.navigate(['/login']);

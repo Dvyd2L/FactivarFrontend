@@ -1,3 +1,6 @@
+/**
+ * Componente para iniciar sesión con Google.
+ */
 import { Component, EventEmitter, Output } from '@angular/core';
 import { SocialAuthService } from '@app/services/auth/social-auth.service';
 
@@ -10,10 +13,16 @@ import { SocialAuthService } from '@app/services/auth/social-auth.service';
   providers: [SocialAuthService],
 })
 export class GoogleSigninComponent {
+  /**
+   * Evento que se emite cuando se obtiene el token de identificación de Google.
+   */
   @Output() idToken = new EventEmitter<string>();
   
   constructor(private socialAuthService: SocialAuthService) {}
 
+  /**
+   * Inicia sesión con Google.
+   */
   loginWithGoogle() {
     this.socialAuthService.login();
     // window.location.reload();

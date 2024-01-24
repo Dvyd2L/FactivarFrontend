@@ -10,6 +10,9 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { Router } from '@angular/router';
 
+/**
+ * Componente de la tabla de datos.
+ */
 @Component({
   selector: 'app-data-table',
   standalone: true,
@@ -32,18 +35,51 @@ export class DataTableComponent {
 
   @Output() idSearch = new EventEmitter<string>();
   @Output() idDelete = new EventEmitter<string>();
-  
+
+  /**
+   * Indica si el diálogo de cliente está abierto o cerrado.
+   */
   clientDialog: boolean = false;
+  /**
+   * Lista de clientes.
+   */
   clients!: ICliente[];
+  /**
+   * Cliente seleccionado.
+   */
   client!: ICliente;
+  /**
+   * Clientes seleccionados.
+   */
   selectedClients!: ICliente[] | null;
+  /**
+   * Indica si se ha enviado el formulario.
+   */
   submitted: boolean = false;
+  /**
+   * Lista de estados.
+   */
   statuses!: any[];
 
+  /**
+   * Manejador de eventos para el cambio de valor en un campo de entrada.
+   * @param ev - Evento de cambio de valor.
+   */
   eventHandler = (ev: Event) => (ev.target as HTMLInputElement).value;
-  emitIdSearch = (cif:string) => this.idSearch.emit(cif);
-  emitIdDelete = (cif:string) => this.idDelete.emit(cif);
+  /**
+   * Emite el evento de búsqueda de cliente por ID.
+   * @param cif - ID del cliente a buscar.
+   */
+  emitIdSearch = (cif: string) => this.idSearch.emit(cif);
+  /**
+   * Emite el evento de eliminación de cliente por ID.
+   * @param cif - ID del cliente a eliminar.
+   */
+  emitIdDelete = (cif: string) => this.idDelete.emit(cif);
 
+  /**
+   * Método que se ejecuta al inicializar el componente.
+   */
   ngOnInit() {
     this.clientesService.getClientes().subscribe({
       next: (data) => {
@@ -62,6 +98,9 @@ export class DataTableComponent {
     ];
   }
 
+  /**
+   * Abre el diálogo para crear un nuevo cliente.
+   */
   openNew() {
     this.client = {
       cif: '',
@@ -75,6 +114,9 @@ export class DataTableComponent {
     this.clientDialog = true;
   }
 
+  /**
+   * Elimina los clientes seleccionados.
+   */
   deleteSelectedClients() {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete the selected clients?',
@@ -95,11 +137,19 @@ export class DataTableComponent {
     });
   }
 
+  /**
+   * Abre el diálogo para editar un cliente.
+   * @param client - Cliente a editar.
+   */
   editClient(client: ICliente) {
     this.client = { ...client };
     this.clientDialog = true;
   }
 
+  /**
+   * Elimina un cliente.
+   * @param client - Cliente a eliminar.
+   */
   deleteClient(client: ICliente) {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete ' + client.nombre + '?',
@@ -125,11 +175,17 @@ export class DataTableComponent {
     });
   }
 
+  /**
+   * Oculta el diálogo de cliente.
+   */
   hideDialog() {
     this.clientDialog = false;
     this.submitted = false;
   }
 
+  /**
+   * Guarda un cliente.
+   */
   saveClient() {
     this.submitted = true;
 
@@ -167,6 +223,11 @@ export class DataTableComponent {
     }
   }
 
+  /**
+   * Busca el índice de un cliente por su ID.
+   * @param id - ID del cliente.
+   * @returns El índice del cliente en la lista.
+   */
   findIndexById(id: string): number {
     let index = -1;
     for (let i = 0; i < this.clients.length; i++) {
@@ -179,6 +240,10 @@ export class DataTableComponent {
     return index;
   }
 
+  /**
+   * Crea un ID aleatorio para un cliente.
+   * @returns El ID generado.
+   */
   createId(): string {
     let id = '';
     var chars =
@@ -189,6 +254,11 @@ export class DataTableComponent {
     return id;
   }
 
+  /**
+   * Obtiene la gravedad de un estado.
+   * @param status - Estado del cliente.
+   * @returns La gravedad del estado.
+   */
   getSeverity(status: string) {
     switch (status) {
       case 'INSTOCK':

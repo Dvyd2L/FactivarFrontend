@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
 
+/**
+ * Componente que representa un elemento hexagonal.
+ */
 @Component({
   selector: 'app-hexagon-item',
   templateUrl: './hexagon-item.component.html',
@@ -9,5 +12,8 @@ import { Component, Input } from '@angular/core';
   providers: [],
 })
 export class HexagonItemComponent {
+  /**
+   * Título del elemento hexagonal.
+   */
   @Input() title: string = '';
 }

@@ -1,3 +1,6 @@
+/**
+ * Componente que representa la marca de Factivar.
+ */
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,3 +11,4 @@ import { Component } from '@angular/core';
   styleUrl: './factivar-brand.component.css',
 })
 export class FactivarBrandComponent {}
+

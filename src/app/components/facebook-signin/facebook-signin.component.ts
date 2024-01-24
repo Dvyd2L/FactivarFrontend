@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { SocialAuthService } from '@app/services/auth/social-auth.service';
 
+/**
+ * Componente para iniciar sesión con Facebook.
+ */
 @Component({
   selector: 'app-facebook-signin',
   standalone: true,
@@ -12,6 +15,9 @@ import { SocialAuthService } from '@app/services/auth/social-auth.service';
 export class FacebookSigninComponent {
   constructor(private socialAuthService: SocialAuthService) {}
   
+  /**
+   * Inicia sesión con Facebook.
+   */
   loginWithFacebook() {
     // this.socialAuthService.initFacebookLogin();
     this.socialAuthService.login();

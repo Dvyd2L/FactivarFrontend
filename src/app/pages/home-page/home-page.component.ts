@@ -1,3 +1,6 @@
+/**
+ * Componente de la página de inicio.
+ */
 import { Component } from '@angular/core';
 import { BotonAccesosComponent } from '../../components/boton-accesos/boton-accesos.component';
 import { RouterLink, RouterLinkActive } from '@angular/router';

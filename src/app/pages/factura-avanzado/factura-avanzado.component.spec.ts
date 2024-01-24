@@ -1,3 +1,6 @@
+/**
+ * Pruebas unitarias para el componente FacturaAvanzadoComponent.
+ */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FacturaAvanzadoComponent } from './factura-avanzado.component';
@@ -17,6 +20,9 @@ describe('FacturaAvanzadoComponent', () => {
     fixture.detectChanges();
   });
 
+  /**
+   * Verifica que el componente se haya creado correctamente.
+   */
   it('should create', () => {
     expect(component).toBeTruthy();
   });

@@ -1,3 +1,6 @@
+/**
+ * Componente para mostrar la lista de proveedores.
+ */
 import { Component } from '@angular/core';
 
 @Component({

@@ -7,6 +7,9 @@ import { AuthService } from '@app/services/auth/auth.service';
 import { IRegisterUser } from '@app/interfaces/user';
 import { PasswordInputComponent } from '../../components/password-input/password-input.component';
 
+/**
+ * Componente de registro de usuarios.
+ */
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -32,10 +35,18 @@ export class RegisterComponent {
   };
   password: string = '';
 
+  /**
+   * Establece la contraseña del usuario.
+   * @param input - Contraseña ingresada por el usuario.
+   */
   setPassword(input:string) {
     this.infoRegister.password = input;
   }
 
+  /**
+   * Establece la contraseña de repetición del usuario.
+   * @param input - Contraseña de repetición ingresada por el usuario.
+   */
   setRepeatPassword(input:string) {
     this.password = input;
   }
@@ -46,6 +57,10 @@ export class RegisterComponent {
     private messageService: MessageService
   ) {}
 
+  /**
+   * Maneja el evento de selección de archivo.
+   * @param event - Evento de selección de archivo.
+   */
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement)?.files?.[0];
 
@@ -54,6 +69,9 @@ export class RegisterComponent {
     }
   }
 
+  /**
+   * Realiza el registro del usuario.
+   */
   register() {
     this.authService.register(this.infoRegister).subscribe({
       next: (data) => {
@@ -71,6 +89,9 @@ export class RegisterComponent {
     });
   }
 
+  /**
+   * Valida si la contraseña y la contraseña de repetición coinciden.
+   */
   validPass() {
     if (this.infoRegister.password !== this.password) {
       console.log('Las contraseñas no coinciden');

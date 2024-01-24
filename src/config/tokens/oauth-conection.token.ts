@@ -1,8 +1,13 @@
+/**
+ * Configuración de conexión para proveedores de autenticación OAuth.
+ */
 import { InjectionToken } from '@angular/core';
 import { environment } from '@environments/environment.development';
 import { AuthConfig } from 'angular-oauth2-oidc';
 
-// Configurar los parámetros de conexión para cada proveedor
+/**
+ * Configuración de OAuth para Google.
+ */
 export const googleOAuthConfig: AuthConfig = {
   issuer: 'https://accounts.google.com',
   redirectUri: window.location.origin,
@@ -13,6 +18,9 @@ export const googleOAuthConfig: AuthConfig = {
   showDebugInformation: true,
 };
 
+/**
+ * Configuración de OAuth para Facebook.
+ */
 export const facebookOAuthConfig: AuthConfig = {
   issuer: 'https://www.facebook.com/v18.0/dialog/oauth',
   redirectUri: window.location.origin,
@@ -26,11 +34,16 @@ export const facebookOAuthConfig: AuthConfig = {
   requireHttps: false,
 };
 
-// Crear tokens para inyectar los servicios
+/**
+ * Token de inyección para la configuración de OAuth de Google.
+ */
 export const GOOGLE_OAUTH_CONFIG = new InjectionToken<AuthConfig>(
   'google-oauth-config'
 );
 
+/**
+ * Token de inyección para la configuración de OAuth de Facebook.
+ */
 export const FACEBOOK_OAUTH_CONFIG = new InjectionToken<AuthConfig>(
   'facebook-oauth-config'
 );

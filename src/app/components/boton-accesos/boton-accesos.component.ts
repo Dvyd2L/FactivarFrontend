@@ -1,3 +1,6 @@
+/**
+ * Componente de botón de accesos.
+ */
 import { Component, Input } from '@angular/core';
 
 @Component({
@@ -8,5 +11,8 @@ import { Component, Input } from '@angular/core';
   styleUrl: './boton-accesos.component.css'
 })
 export class BotonAccesosComponent {
+  /**
+   * Texto que se muestra en el botón.
+   */
   @Input() texto: string = 'continuar';
 }
