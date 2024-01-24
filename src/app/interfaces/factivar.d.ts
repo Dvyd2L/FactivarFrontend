@@ -1,4 +1,4 @@
-import { CuotasIvaEnum } from "./enums/cuotas-iva.enum";
+import { CuotasIvaEnum } from "./enums/cuotas-iva";
 
 /**
  * Represents an invoice.
