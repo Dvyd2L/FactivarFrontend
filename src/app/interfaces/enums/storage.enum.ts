@@ -5,13 +5,11 @@ export enum StorageKeyEnum {
   /**
    * Clave de almacenamiento para el usuario.
    */
-  User = 'usuario',
-  
+  User = 'usuario', 
   /**
    * Clave de almacenamiento para el token.
    */
   Token = 'token',
-  
   /**
    * Clave de almacenamiento para el rol.
    */

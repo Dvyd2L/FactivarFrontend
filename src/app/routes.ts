@@ -78,7 +78,6 @@ export const routes: Routes = [
   },
 
   // 404NotFound
-  // { path: '**', redirectTo: '/404', pathMatch: 'full' },
   {
     path: '**',
     title: '404 | Factivar',

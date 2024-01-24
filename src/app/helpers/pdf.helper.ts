@@ -9,7 +9,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
 /**
- * 
+ * utilidad que convierte un contenido de html a pdf
  * @param {string} htmlElementId id del elemento que contiene el contenido que deseamos convertir a pdf
  * @returns 
  */

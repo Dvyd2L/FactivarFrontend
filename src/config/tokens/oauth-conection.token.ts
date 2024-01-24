@@ -14,10 +14,7 @@ export const googleOAuthConfig: AuthConfig = {
   strictDiscoveryDocumentValidation: false,
   clientId: environment.googleClient.id,
   scope: 'openid profile email',
-  responseType: 'token',
-  showDebugInformation: true,
 };
-
 /**
  * Configuración de OAuth para Facebook.
  */
@@ -33,17 +30,19 @@ export const facebookOAuthConfig: AuthConfig = {
   oidc: false,
   requireHttps: false,
 };
-
 /**
  * Token de inyección para la configuración de OAuth de Google.
  */
 export const GOOGLE_OAUTH_CONFIG = new InjectionToken<AuthConfig>(
   'google-oauth-config'
 );
-
 /**
  * Token de inyección para la configuración de OAuth de Facebook.
  */
 export const FACEBOOK_OAUTH_CONFIG = new InjectionToken<AuthConfig>(
   'facebook-oauth-config'
 );
+/**
+ * Token de inyección para la configuración de OAuth.
+ */
+export const OAUTH_CONFIG = new InjectionToken<AuthConfig>('oauth-config');

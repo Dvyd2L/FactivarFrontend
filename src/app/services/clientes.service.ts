@@ -1,6 +1,3 @@
-/**
- * Servicio para gestionar los clientes.
- */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -8,6 +5,10 @@ import { ICliente } from '../interfaces/cliente.interface';
 import { environment } from 'src/environments/environment';
 import { UserService } from './user.service';
 import { IUserPayload } from '@app/interfaces/user';
+
+/**
+ * Servicio para gestionar los clientes.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -85,11 +86,4 @@ export class ClientesService {
   public deleteCliente(cif: string): Observable<ICliente> {
     return this.http.delete<ICliente>(`${this.urlAPI}/clientes/${cif}`);
   }
-
-  // private setHeaders() {
-  //   return {
-  //     'Content-Type': 'application/json',
-  //     Accept: 'application/json'
-  //   };
-  // }
 }

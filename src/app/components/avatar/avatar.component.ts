@@ -30,7 +30,7 @@ import { AuthService } from '@app/services/auth/auth.service';
 import { SocialAuthService } from '@app/services/auth/social-auth.service';
 import { UserService } from '@app/services/user.service';
 import { AvatarModule } from 'primeng/avatar';
-import { AvatarGroupModule } from 'primeng/avatargroup';
+// import { AvatarGroupModule } from 'primeng/avatargroup';
 import { BtnGrowComponent } from '../btn-grow/btn-grow.component';
 
 @Component({
@@ -46,21 +46,18 @@ export class AvatarComponent {
    * Servicio para obtener los datos del usuario.
    */
   private userService = inject(UserService<IUserPayload>);
-  
   /**
    * Servicio para gestionar la autenticación.
    */
   private authService = inject(AuthService);
-  
   /**
    * Servicio para gestionar la autenticación social.
    */
   private socialAuthService = inject(SocialAuthService);
-  
   /**
    * Datos del usuario actual.
    */
-  user!: IUserPayload;
+  public user!: IUserPayload;
 
   /**
    * Método que se ejecuta al inicializar el componente.
@@ -68,9 +65,7 @@ export class AvatarComponent {
    */
   ngOnInit(): void {
     this.userService.getUser().subscribe({
-      next: (data) => {
-        this.user = data;
-      },
+      next: (data) => this.user = data,
       error: (err) => console.error(err),
     });
   }
@@ -80,7 +75,7 @@ export class AvatarComponent {
    * Si el usuario ha iniciado sesión con una cuenta social, se realiza el cierre de sesión correspondiente.
    * Si el usuario ha iniciado sesión con una cuenta de correo electrónico, se realiza el cierre de sesión correspondiente.
    */
-  cerrarSesion() {
+  public cerrarSesion() {
     if (this.socialAuthService.getProfile()) {
       this.socialAuthService.logout();
     } else {

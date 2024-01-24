@@ -1,7 +1,4 @@
-/**
- * Configuración de la aplicación.
- */
-import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
   ApplicationConfig,
   LOCALE_ID,
@@ -14,7 +11,8 @@ import { routes } from '@app/routes';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { authInterceptorFn } from '@app/interceptors/token-fn.interceptor';
-import { errorInterceptorFn } from '@app/interceptors/error-fn.interceptor';
+import { OAUTH_CONFIG, googleOAuthConfig } from './tokens/oauth-conection.token';
+import { SocialAuthService } from '@app/services/auth/social-auth.service';
 
 /**
  * Configuración de la aplicación.
@@ -46,6 +44,10 @@ export const appConfig: ApplicationConfig = {
        * Valor del identificador de localización.
        */
       useValue: 'es-ES' /** default locale fixed to es-ES */,
+    },
+    {
+      provide: OAUTH_CONFIG,
+      useValue: googleOAuthConfig,
     },
   ],
 };

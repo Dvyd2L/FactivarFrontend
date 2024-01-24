@@ -1,14 +1,14 @@
-/**
- * Componente para la plantilla de la factura.
- */
 import { AsyncPipe, CurrencyPipe, JsonPipe, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { BtnGrowComponent } from '@app/components/btn-grow/btn-grow.component';
 import { FactivarBrandComponent } from '@app/components/factivar-brand/factivar-brand.component';
-import { pdfHelper } from '@app/helpers/pdfHelper';
+import { pdfHelper } from '@app/helpers/pdf.helper';
 import { IInvoice } from '@app/interfaces/factivar';
 import { getDataByPk } from '@app/services/data.service';
 
+/**
+ * Componente para la plantilla de la factura.
+ */
 @Component({
   selector: 'app-invoice-template',
   standalone: true,

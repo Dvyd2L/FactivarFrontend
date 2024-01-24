@@ -1,10 +1,7 @@
-/**
- * Servicio de autenticación.
- */
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '@environments/environment.development';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -14,17 +11,18 @@ import {
   IRegisterUser,
   IUserPayload,
 } from '@app/interfaces/user';
-import { MessageService } from 'primeng/api';
 
+/**
+ * Servicio de autenticación.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private urlAPI: string = environment.urlAPI + 'auth';
   private http = inject(HttpClient);
   private userService = inject(UserService<IUserPayload>);
   private router = inject(Router)
-  // private messageService = inject(MessageService);
+  private urlAPI: string = environment.urlAPI + 'auth';
 
   /**
    * Realiza el inicio de sesión.
@@ -69,9 +67,9 @@ export class AuthService {
             token: data.token,
           });
 
-          this.router.navigate(['/clientes']);
+          this.router.navigate(['/']);
         },
-        error: (err) => /* this.handleHttpError(err) */ console.error(err),
+        error: (err) => console.error(err),
         complete: () => {},
       });
   }
@@ -118,8 +116,8 @@ export class AuthService {
    */
   public refreshToken() {
     const currentUser = this.userService.userValue;
-    //const token = currentUser.refreshToken;  ARREGLAR ESTO
     const token = currentUser.token;
+    //const token = currentUser.refreshToken;  ARREGLAR ESTO
 
     return this.http
       .post<IUserPayload>(`${this.urlAPI}/auth/refreshtoken`, { token })
@@ -143,16 +141,4 @@ export class AuthService {
     this.userService.clearUser();
     this.router.navigate(['/login']);
   }
-
-  // private handleHttpError(error: HttpErrorResponse) {
-  //   console.error(error);
-
-  //   if (error instanceof HttpErrorResponse) {
-  //     this.messageService.add({
-  //       severity: 'error',
-  //       summary: 'Error',
-  //       detail: error.error.msg,
-  //     });
-  //   }
-  // }
 }

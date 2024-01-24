@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { StorageHelper } from '@app/helpers/storage';
+import { StorageHelper } from '@app/helpers/storage.helper';
 import { StorageKeyEnum } from '@app/interfaces/enums/storage.enum';
+import { IUserPayload } from '@app/interfaces/user';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 /**
@@ -10,8 +11,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService<T extends {token:string}> {
-  private currentUserSubject= new BehaviorSubject<T>(null!);
+export class UserService<T extends { token: string }> {
+  private currentUserSubject = new BehaviorSubject<T>(null!);
   public user$ = this.currentUserSubject.asObservable();
 
   /**
@@ -34,9 +35,12 @@ export class UserService<T extends {token:string}> {
    * @returns Token del usuario actual o null si no hay usuario.
    */
   public getToken(): string | null {
-    return this.userValue && this.userValue.token ? this.userValue.token : null;
+    return this.userValue && this.userValue.token
+      ? this.userValue.token
+      : StorageHelper.getItem<IUserPayload>(StorageKeyEnum.User)?.token ??
+          StorageHelper.getItem(StorageKeyEnum.Token) ?? null;
   }
-  
+
   /**
    * Actualiza la información del usuario.
    * @param user - Nuevo objeto de usuario.
@@ -53,21 +57,4 @@ export class UserService<T extends {token:string}> {
     StorageHelper.removeItem(StorageKeyEnum.User);
     this.currentUserSubject.next(null!);
   }
-
-  // public constructor() {
-  //   const storedUser = StorageHelper.getItem<T>(StorageKeyEnum.User, true);
-
-  //   this.currentUserSubject = new BehaviorSubject<T>(storedUser!);
-  //   this.user$ = this.currentUserSubject.asObservable();
-  // }
-
-  // creo k es inutil
-  // public getAvatar(): any {
-  //   const token = this.getToken() ?? '';
-  //   const helper = new JwtHelperService();
-  //   const tokenDecoded = helper.decodeToken(token);
-
-  //   return token === '' ? token : tokenDecoded['thumbprint']!;
-  // }
-
 }

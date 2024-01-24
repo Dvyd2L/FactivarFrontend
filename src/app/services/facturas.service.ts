@@ -2,7 +2,7 @@
  * Servicio para manejar las operaciones relacionadas con las facturas.
  */
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { IFacturaResponse, IFactura } from '@app/interfaces/factura.interface';
 import { environment } from '@environments/environment.development';
 import { Observable } from 'rxjs';
@@ -11,13 +11,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class FacturasService {
+  private http = inject(HttpClient);
   private urlAPI = environment.urlAPI + 'api';
-
-  /**
-   * Crea una instancia del servicio FacturasService.
-   * @param http El cliente HTTP para realizar las peticiones.
-   */
-  public constructor(private http: HttpClient) {}
 
   /**
    * Obtiene todas las facturas.

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SocialAuthService } from '@app/services/auth/social-auth.service';
 
 /**
@@ -13,12 +13,12 @@ import { SocialAuthService } from '@app/services/auth/social-auth.service';
   providers: [SocialAuthService],
 })
 export class FacebookSigninComponent {
-  constructor(private socialAuthService: SocialAuthService) {}
+  private socialAuthService = inject(SocialAuthService);
   
   /**
    * Inicia sesión con Facebook.
    */
-  loginWithFacebook() {
+  public loginWithFacebook() {
     // this.socialAuthService.initFacebookLogin();
     this.socialAuthService.login();
   }
