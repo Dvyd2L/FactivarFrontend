@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { OAuthProviderEnum } from '@app/interfaces/enums/oauth-providers.enum';
 import { SocialAuthService } from '@app/services/auth/social-auth.service';
 
 /**
@@ -19,7 +20,7 @@ export class FacebookSigninComponent {
    * Inicia sesión con Facebook.
    */
   public loginWithFacebook() {
-    // this.socialAuthService.initFacebookLogin();
+    this.socialAuthService.initProviderLogin(OAuthProviderEnum.Facebook);
     this.socialAuthService.login();
   }
 }

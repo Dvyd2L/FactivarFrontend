@@ -5,6 +5,7 @@ import { IUserPayload } from '@app/interfaces/user';
 import { OAUTH_CONFIG } from 'src/config/tokens/oauth-conection.token';
 import { StorageHelper } from '@app/helpers/storage.helper';
 import { StorageKeyEnum } from '@app/interfaces/enums/storage.enum';
+import { OAuthProviderEnum } from '@app/interfaces/enums/oauth-providers.enum';
 
 /**
  * Servicio para autenticación social.
@@ -17,8 +18,15 @@ export class SocialAuthService {
   private oauth = inject(OAuthService);
   private userService = inject(UserService<IUserPayload>);
 
-  constructor() {
-    this.initLogin(this.config);
+  public initProviderLogin(provider: OAuthProviderEnum) {
+    const config = this.config[provider];
+
+    if (config) {
+      this.initLogin(config);
+    } else {
+      // TODO: Manejar error -> Configuración no encontrada
+      throw new Error('Configuración no encontrada');
+    }
   }
   /**
    * Inicia el flujo de inicio de sesión.

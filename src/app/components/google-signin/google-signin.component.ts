@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { OAuthProviderEnum } from '@app/interfaces/enums/oauth-providers.enum';
 import { SocialAuthService } from '@app/services/auth/social-auth.service';
 
 /**
@@ -23,6 +24,7 @@ export class GoogleSigninComponent {
    * Inicia sesión con Google.
    */
   public loginWithGoogle() {
+    this.socialAuthService.initProviderLogin(OAuthProviderEnum.Google);
     this.socialAuthService.login();
     const googleIdToken = this.socialAuthService.getIdToken();
     this.idToken.emit(googleIdToken);
