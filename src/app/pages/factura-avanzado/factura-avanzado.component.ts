@@ -1,9 +1,9 @@
-import { Component, ViewChild, ViewContainerRef } from '@angular/core';
-import { ArticuloFacturaComponent } from '../../components/articulo-factura/articulo-factura.component';
-
 /**
  * Componente para la página de factura avanzada.
  */
+import { Component, ViewChild, ViewContainerRef } from '@angular/core';
+import { ArticuloFacturaComponent } from '../../components/articulo-factura/articulo-factura.component';
+
 @Component({
   selector: 'app-factura-avanzado',
   standalone: true,
