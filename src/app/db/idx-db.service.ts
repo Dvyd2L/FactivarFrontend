@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DbNameEnum, DbStoreNameEnum } from './types/enums';
-import { IIndexedDbStore } from './types/interfaces';
+import {
+  ICrudObservable,
+  IIndexedDbStore,
+  IidxDBentry,
+} from './types/interfaces';
 /**
  * @class IndexedDbService
  * @description Servicio para interactuar con IndexedDB.
@@ -9,7 +13,7 @@ import { IIndexedDbStore } from './types/interfaces';
 @Injectable({
   providedIn: 'root',
 })
-export class IdxDbService {
+export class IdxDbService implements ICrudObservable {
   /**
    * @private
    * @type {IDBDatabase}
@@ -18,7 +22,6 @@ export class IdxDbService {
   private db!: IDBDatabase;
   /**
    * @public
-   * @async
    * @method createDb
    * @description Crea la base de datos.
    * @param {DbNameEnum} name - El nombre de la base de datos.
@@ -43,21 +46,22 @@ export class IdxDbService {
   }
   /**
    * @public
-   * @async
    * @method createStore
    * @description Crea el almacén de objetos.
    * @param {IIndexedDbStore<T>} store - La configuración del almacén de objetos.
    * @returns {Observable<void>}
    */
-  public createStore<T>(store: IIndexedDbStore<T>): Observable<void> {
-    const request = indexedDB.open(store.name, store.version);
+  public createStore(db:DbNameEnum, {
+    name,
+    options = { autoIncrement: true },
+  }: IIndexedDbStore): Observable<IDBObjectStore> {
+    const request = indexedDB.open(db);
 
-    return new Observable<void>((observer) => {
+    return new Observable<IDBObjectStore>((observer) => {
       request.onupgradeneeded = (ev: IDBVersionChangeEvent) => {
-        const db = (ev.target as IDBOpenDBRequest).result;
-        db.createObjectStore(store.name, store.options);
+        const store = this.db.createObjectStore(name, options);
 
-        observer.next();
+        observer.next(store);
         observer.complete();
       };
       request.onerror = (ev: Event) =>
@@ -66,7 +70,6 @@ export class IdxDbService {
   }
   /**
    * @public
-   * @async
    * @method create
    * @template T - Tipo de los datos de los elementos almacenados
    * @description Agrega datos al almacén de objetos especificado.
@@ -74,23 +77,26 @@ export class IdxDbService {
    * @param {T} data - Los datos para agregar.
    * @returns {Observable<void>}
    */
-  public create<T>(storeName: DbStoreNameEnum, data: T): Observable<void> {
+  public create<T>(
+    storeName: DbStoreNameEnum,
+    { key, data }: IidxDBentry<T>
+  ): Observable<void> {
     return new Observable<void>((observer) => {
       const tx = this.db.transaction(storeName, 'readwrite');
       const store = tx.objectStore(storeName);
-      store.add(data);
+      store.add(data, key);
 
       tx.oncomplete = () => {
         observer.next();
         observer.complete();
       };
-      tx.onerror = (ev: Event) => observer.error((ev.target as IDBRequest).error);
+      tx.onerror = (ev: Event) =>
+        observer.error((ev.target as IDBRequest).error);
     });
   }
   /**
    * Método para obtener todos los datos de un almacén de objetos.
    * @public
-   * @async
    * @method read
    * @template T - Tipo de los datos de los elementos devueltos
    * @description Obtiene todos los datos del almacén de objetos especificado.
@@ -115,7 +121,6 @@ export class IdxDbService {
   }
   /**
    * @public
-   * @async
    * @method update
    * @template T - Tipo de los datos de los elementos almacenados
    * @description Actualiza un registro en el almacén de objetos especificado.
@@ -138,12 +143,12 @@ export class IdxDbService {
         observer.next((ev.target as IDBRequest).result);
         observer.complete();
       };
-      tx.onerror = (ev: Event) => observer.error((ev.target as IDBRequest).error);
+      tx.onerror = (ev: Event) =>
+        observer.error((ev.target as IDBRequest).error);
     });
   }
   /**
    * @public
-   * @async
    * @method delete
    * @description Elimina un registro del almacén de objetos especificado.
    * @param {DbStoreNameEnum} storeName - El nombre del almacén de objetos.
@@ -163,7 +168,8 @@ export class IdxDbService {
         observer.next((ev.target as IDBRequest).result);
         observer.complete();
       };
-      tx.onerror = (ev: Event) => observer.error((ev.target as IDBRequest).error);
+      tx.onerror = (ev: Event) =>
+        observer.error((ev.target as IDBRequest).error);
     });
   }
 }

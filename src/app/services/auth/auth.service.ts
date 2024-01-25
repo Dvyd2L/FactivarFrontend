@@ -11,6 +11,8 @@ import {
   IRegisterUser,
   IUserPayload,
 } from '@app/interfaces/user';
+import { IdxDbService } from '@app/db/idx-db.service';
+import { DbNameEnum, DbStoreNameEnum } from '@app/db/types/enums';
 
 /**
  * Servicio de autenticación.
@@ -19,10 +21,39 @@ import {
   providedIn: 'root',
 })
 export class AuthService {
+  private idxDB = inject(IdxDbService);
   private http = inject(HttpClient);
   private userService = inject(UserService<IUserPayload>);
-  private router = inject(Router)
+  private router = inject(Router);
   private urlAPI: string = environment.urlAPI + 'auth';
+  private authDB!: IDBDatabase;
+  private userStoreDB!: IDBObjectStore;
+  private tokenStoreDB!: IDBObjectStore;
+
+  constructor() {
+    this.idxDB.createDb(DbNameEnum.Auth).subscribe({
+      next: (idxDB) => (this.authDB = idxDB),
+      error: (err) => console.error(err),
+    });
+
+    this.idxDB
+      .createStore(DbNameEnum.Auth, {
+        name: DbStoreNameEnum.User,
+      })
+      .subscribe({
+        next: (idxDBObjectStore) => (this.userStoreDB = idxDBObjectStore),
+        error: (err) => console.error(err),
+      });
+
+    this.idxDB
+      .createStore(DbNameEnum.Auth, {
+        name: DbStoreNameEnum.Token,
+      })
+      .subscribe({
+        next: (idxDBObjectStore) => (this.tokenStoreDB = idxDBObjectStore),
+        error: (err) => console.error(err),
+      });
+  }
 
   /**
    * Realiza el inicio de sesión.
@@ -32,19 +63,45 @@ export class AuthService {
     return this.http
       .post<ILoginResponse>(`${this.urlAPI}/login`, credenciales)
       .subscribe({
-        next: (data) => {
+        next: ({ token }) => {
           const helper = new JwtHelperService();
-          const payload = helper.decodeToken(data.token) as IUserPayload;
+          const payload = helper.decodeToken(token) as IUserPayload;
+          console.log({ payload });
+          console.log({ token });
 
           this.userService.updateUser({
             ...payload,
-            token: data.token,
+            token,
           });
-          console.log({ payload });
-          console.log({ data });
-          this.router.navigate(['/clientes']);
+          this.idxDB
+            .create<IUserPayload>(DbStoreNameEnum.User, {
+              key: payload.Email,
+              data: { ...payload },
+            })
+            .subscribe({
+              next: (data) => console.log({ msg:'Datos creados en DbStore_User', data }),
+              error: (err) => console.error(err),
+            });
+          this.idxDB.read<IUserPayload>(DbStoreNameEnum.User).subscribe({
+            next: (data) => console.log({ msg:'Datos leidos en DbStore_User', data }),
+            error: (err) => console.error(err),
+          });
+          this.idxDB
+            .create<string>(DbStoreNameEnum.Token, {
+              key: payload.Email,
+              data: token,
+            })
+            .subscribe({
+              next: (data) => console.log({ msg:'Datos creados en DbStore_Token', data }),
+              error: (err) => console.error(err),
+            });
+          this.idxDB.read<IUserPayload>(DbStoreNameEnum.Token).subscribe({
+            next: (data) => console.log({ msg:'Datos leidos en DbStore_Token', data }),
+            error: (err) => console.error(err),
+          });
+          this.router.navigate(['/']);
         },
-        error: (err) => /* this.handleHttpError(err) */ console.error(err),
+        error: (err) => console.error(err),
         complete: () => {},
       });
   }
@@ -119,19 +176,20 @@ export class AuthService {
     const token = currentUser.token;
     //const token = currentUser.refreshToken;  ARREGLAR ESTO
 
-    return this.http
-      .post<IUserPayload>(`${this.urlAPI}/auth/refreshtoken`, { token })
-      // .subscribe({
-      //   next: (data) => {
-      //     this.userService.updateUser({
-      //       ...data,
-      //     });
+    return this.http.post<IUserPayload>(`${this.urlAPI}/auth/refreshtoken`, {
+      token,
+    });
+    // .subscribe({
+    //   next: (data) => {
+    //     this.userService.updateUser({
+    //       ...data,
+    //     });
 
-      //     this.router.navigate(['/clientes']);
-      //   },
-      //   error: (err) => this.handleHttpError(err),
-      //   complete: () => {},
-      // });
+    //     this.router.navigate(['/clientes']);
+    //   },
+    //   error: (err) => this.handleHttpError(err),
+    //   complete: () => {},
+    // });
   }
 
   /**

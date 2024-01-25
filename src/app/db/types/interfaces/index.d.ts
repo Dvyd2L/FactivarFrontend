@@ -1,10 +1,5 @@
-import { DbNameEnum, DbStoreNameEnum } from "@app/db/indexed-db.service";
-import { Observable } from "rxjs";
-
-export interface IIndexedDbData<T> {
-}
-
-export interface IIndexedDbDataItem<T> {}
+import { Observable } from 'rxjs';
+import { DbNameEnum, DbStoreNameEnum } from '../enums';
 
 export interface ICrudPromise<T> {
   create(data: T): Promise<void>;
@@ -13,22 +8,28 @@ export interface ICrudPromise<T> {
   delete(): Promise<void>;
 }
 
-export interface ICrudObservable<T> {
-  create(data: T): Observable<void>;
-  read(): Observable<T>;
-  update(data: T): Observable<void>;
-  delete(): Observable<void>;
+export interface ICrudObservable {
+  create<T>(storeName: DbStoreNameEnum, data: IidxDBentry<T>): Observable<void>;
+  read<T>(storeName: DbStoreNameEnum): Observable<T>;
+  update<T>(
+    storeName: DbStoreNameEnum,
+    key: IDBValidKey,
+    data: T
+  ): Observable<void>;
+  delete(storeName: DbStoreNameEnum, key: IDBValidKey): Observable<void>;
 }
-
-export interface IIndexedDb<T> {
+export interface IidxDBentry<T> {
+  key: IDBValidKey;
+  data: T;
+}
+export interface IIndexedDb {
   name: DbNameEnum;
   version?: number;
-  store: IIndexedDbStore<T>;
+  store: IIndexedDbStore;
 }
 
-export interface IIndexedDbStore<T> {
+export interface IIndexedDbStore {
   name: DbStoreNameEnum;
   version?: number;
   options?: IDBObjectStoreParameters;
-  data: T;
 }

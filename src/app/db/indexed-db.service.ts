@@ -50,7 +50,7 @@ export class IndexedDbService {
    * @param {IIndexedDbStore<T>} store - La configuración del almacén de objetos.
    * @returns {Promise<void>}
    */
-  public async createStore<T>(store: IIndexedDbStore<T>): Promise<void> {
+  public async createStore(store: IIndexedDbStore): Promise<void> {
     const request = indexedDB.open(store.name, store.version);
 
     request.onupgradeneeded = (ev: IDBVersionChangeEvent) => {
