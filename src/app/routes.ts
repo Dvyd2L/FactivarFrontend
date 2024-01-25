@@ -1,6 +1,18 @@
+
+/**
+ * @fileoverview Este archivo contiene la configuración de las rutas de la aplicación.
+ * Las rutas están definidas utilizando el enrutador de Angular.
+ * Algunas rutas están protegidas por el guardia de autenticación.
+ */
+
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
 
+/**
+ * Las rutas de la aplicación.
+ * Cada ruta tiene una URL, un título y un componente que se carga dinámicamente.
+ * Algunas rutas están protegidas por el guardia de autenticación.
+ */
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 
