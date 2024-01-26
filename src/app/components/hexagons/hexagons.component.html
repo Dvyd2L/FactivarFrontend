@@ -1,9 +1,9 @@
-<nav class="factivar-navbar">
+<header class="header">
   <a class="navbar-brand cursiv" routerLink="/home" routerLinkActive="active">
     <app-factivar-brand class="logo-factivar" />
   </a>
 
-  <div class="hexagon-menu">
+  <nav class="navigation">
     <app-hexagon-item
       title="Clientes"
       routerLink="/clientes"
@@ -31,7 +31,7 @@
       <!-- los slots se invocan con el nombre del select de ng-content sin el punto. -->
       <i class="fa fa-id-badge slot-icon"></i>
     </app-hexagon-item>
-  </div>
+  </nav>
   <!-- 
    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
       <symbol id="check2" viewBox="0 0 16 16">
@@ -83,6 +83,8 @@
         </li>
       </ul>
     </div> -->
-  <app-theme-toggle />
-  <app-avatar />
-</nav>
+  <menu class="menu">
+    <app-theme-toggle />
+    <app-avatar />
+  </menu>
+</header>

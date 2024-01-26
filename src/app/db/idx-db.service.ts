@@ -48,14 +48,15 @@ export class IdxDbService implements ICrudObservable {
    * @public
    * @method createStore
    * @description Crea el almacén de objetos.
-   * @param {IIndexedDbStore<T>} store - La configuración del almacén de objetos.
-   * @returns {Observable<void>}
+   * @param {IIndexedDbStore} store - La configuración del almacén de objetos.
+   * @returns {Observable<IDBObjectStore>}
    */
-  public createStore(db:DbNameEnum, {
-    name,
-    options = { autoIncrement: true },
-  }: IIndexedDbStore): Observable<IDBObjectStore> {
+  public createStore(
+    db: DbNameEnum,
+    store: IIndexedDbStore
+  ): Observable<IDBObjectStore> {
     const request = indexedDB.open(db);
+    const { name, options = { autoIncrement: true } } = store;
 
     return new Observable<IDBObjectStore>((observer) => {
       request.onupgradeneeded = (ev: IDBVersionChangeEvent) => {
@@ -75,19 +76,19 @@ export class IdxDbService implements ICrudObservable {
    * @description Agrega datos al almacén de objetos especificado.
    * @param {DbStoreNameEnum} storeName - El nombre del almacén de objetos.
    * @param {T} data - Los datos para agregar.
-   * @returns {Observable<void>}
+   * @returns {Observable<any>}
    */
   public create<T>(
     storeName: DbStoreNameEnum,
     { key, data }: IidxDBentry<T>
-  ): Observable<void> {
-    return new Observable<void>((observer) => {
+  ): Observable<any> {
+    return new Observable<any>((observer) => {
       const tx = this.db.transaction(storeName, 'readwrite');
       const store = tx.objectStore(storeName);
       store.add(data, key);
 
-      tx.oncomplete = () => {
-        observer.next();
+      tx.oncomplete = (ev: Event) => {
+        observer.next((ev.target as IDBRequest).result);
         observer.complete();
       };
       tx.onerror = (ev: Event) =>
@@ -127,17 +128,17 @@ export class IdxDbService implements ICrudObservable {
    * @param {DbStoreNameEnum} storeName - El nombre del almacén de objetos.
    * @param {IDBValidKey} key - La clave del registro a actualizar.
    * @param {T} data - Los nuevos datos para el registro.
-   * @returns {Observable<void>}
+   * @returns {Observable<any>}
    */
   public update<T>(
     storeName: DbStoreNameEnum,
     key: IDBValidKey,
     data: T
-  ): Observable<void> {
-    return new Observable<void>((observer) => {
-      const tx = this.db?.transaction(storeName, 'readwrite');
-      const store = tx?.objectStore(storeName);
-      store?.put(data, key);
+  ): Observable<any> {
+    return new Observable<any>((observer) => {
+      const tx = this.db.transaction(storeName, 'readwrite');
+      const store = tx.objectStore(storeName);
+      store.put(data, key);
 
       tx.oncomplete = (ev: Event) => {
         observer.next((ev.target as IDBRequest).result);
@@ -153,16 +154,13 @@ export class IdxDbService implements ICrudObservable {
    * @description Elimina un registro del almacén de objetos especificado.
    * @param {DbStoreNameEnum} storeName - El nombre del almacén de objetos.
    * @param {IDBValidKey} key - La clave del registro a eliminar.
-   * @returns {Observable<void>}
+   * @returns {Observable<any>}
    */
-  public delete(
-    storeName: DbStoreNameEnum,
-    key: IDBValidKey
-  ): Observable<void> {
-    return new Observable<void>((observer) => {
-      const tx = this.db?.transaction(storeName, 'readwrite');
-      const store = tx?.objectStore(storeName);
-      store?.delete(key);
+  public delete(storeName: DbStoreNameEnum, key: IDBValidKey): Observable<any> {
+    return new Observable<any>((observer) => {
+      const tx = this.db.transaction(storeName, 'readwrite');
+      const store = tx.objectStore(storeName);
+      store.delete(key);
 
       tx.oncomplete = (ev: Event) => {
         observer.next((ev.target as IDBRequest).result);
