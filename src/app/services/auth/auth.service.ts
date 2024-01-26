@@ -29,32 +29,6 @@ export class AuthService {
   private authDB!: IDBDatabase;
   private userStoreDB!: IDBObjectStore;
   private tokenStoreDB!: IDBObjectStore;
-
-  constructor() {
-    this.idxDB.createDb(DbNameEnum.Auth).subscribe({
-      next: (idxDB) => (this.authDB = idxDB),
-      error: (err) => console.error(err),
-    });
-
-    this.idxDB
-      .createStore(DbNameEnum.Auth, {
-        name: DbStoreNameEnum.User,
-      })
-      .subscribe({
-        next: (idxDBObjectStore) => (this.userStoreDB = idxDBObjectStore),
-        error: (err) => console.error(err),
-      });
-
-    this.idxDB
-      .createStore(DbNameEnum.Auth, {
-        name: DbStoreNameEnum.Token,
-      })
-      .subscribe({
-        next: (idxDBObjectStore) => (this.tokenStoreDB = idxDBObjectStore),
-        error: (err) => console.error(err),
-      });
-  }
-
   /**
    * Realiza el inicio de sesión.
    * @param credenciales Las credenciales del usuario.
@@ -66,6 +40,7 @@ export class AuthService {
         next: ({ token }) => {
           const helper = new JwtHelperService();
           const payload = helper.decodeToken(token) as IUserPayload;
+          
           console.log({ payload });
           console.log({ token });
 
@@ -73,32 +48,7 @@ export class AuthService {
             ...payload,
             token,
           });
-          this.idxDB
-            .create<IUserPayload>(DbStoreNameEnum.User, {
-              key: payload.Email,
-              data: { ...payload },
-            })
-            .subscribe({
-              next: (data) => console.log({ msg:'Datos creados en DbStore_User', data }),
-              error: (err) => console.error(err),
-            });
-          this.idxDB.read<IUserPayload>(DbStoreNameEnum.User).subscribe({
-            next: (data) => console.log({ msg:'Datos leidos en DbStore_User', data }),
-            error: (err) => console.error(err),
-          });
-          this.idxDB
-            .create<string>(DbStoreNameEnum.Token, {
-              key: payload.Email,
-              data: token,
-            })
-            .subscribe({
-              next: (data) => console.log({ msg:'Datos creados en DbStore_Token', data }),
-              error: (err) => console.error(err),
-            });
-          this.idxDB.read<IUserPayload>(DbStoreNameEnum.Token).subscribe({
-            next: (data) => console.log({ msg:'Datos leidos en DbStore_Token', data }),
-            error: (err) => console.error(err),
-          });
+          
           this.router.navigate(['/']);
         },
         error: (err) => console.error(err),

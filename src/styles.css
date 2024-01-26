@@ -121,7 +121,11 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
-
+/* @media (prefers-color-scheme: dark) {
+  .container12::before {
+    background-image: url("../src/assets/FondoFinal_dark.jpg");
+  }
+} */
 /* Aparece y desaparece el logo del registro y login */
 .fade-in {
   animation: fadeIn ease 5s;

@@ -4,7 +4,7 @@
 
 .form .input {
   width: 100%;
-  background: white;
+  /* background: white; */
   border: none;
   padding: 15px 20px;
   border-radius: 20px;
@@ -46,7 +46,7 @@
   display: block;
   text-align: center;
   font-size: 10px;
-  color: rgb(170, 170, 170);
+  /* color: rgb(170, 170, 170); */
 }
 
 .social-account-container .social-accounts {
@@ -97,3 +97,4 @@
 .title1 {
   font-size: 15px;
 }
+

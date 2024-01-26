@@ -21,6 +21,12 @@ export class IdxDbService implements ICrudObservable {
    */
   private db!: IDBDatabase;
   /**
+   * @private
+   * @type {Map<DbStoreNameEnum, IDBObjectStore>}
+   * @description Los ObjectStore de datos de esta IndexedDB.
+   */
+  private dbOStoreMap: Map<DbStoreNameEnum, IDBObjectStore> = new Map<DbStoreNameEnum, IDBObjectStore>();
+  /**
    * @public
    * @method createDb
    * @description Crea la base de datos.
@@ -52,19 +58,23 @@ export class IdxDbService implements ICrudObservable {
    * @returns {Observable<IDBObjectStore>}
    */
   public createStore(
-    db: DbNameEnum,
     store: IIndexedDbStore
   ): Observable<IDBObjectStore> {
-    const request = indexedDB.open(db);
-    const { name, options = { autoIncrement: true } } = store;
-
     return new Observable<IDBObjectStore>((observer) => {
+      const request = indexedDB.open(this.db.name);
+      const { name, options = { keyPath: 'Sid', autoIncrement: true } } = store;
+      
       request.onupgradeneeded = (ev: IDBVersionChangeEvent) => {
         const store = this.db.createObjectStore(name, options);
+        this.dbOStoreMap.set(name, store)
 
         observer.next(store);
         observer.complete();
       };
+
+      request.onsuccess = (ev: Event) =>
+        (this.db = (ev.target as IDBOpenDBRequest).result);
+
       request.onerror = (ev: Event) =>
         observer.error({ msg: 'Error opening indexedDB store', ev });
     });
@@ -84,13 +94,15 @@ export class IdxDbService implements ICrudObservable {
   ): Observable<any> {
     return new Observable<any>((observer) => {
       const tx = this.db.transaction(storeName, 'readwrite');
-      const store = tx.objectStore(storeName);
-      store.add(data, key);
-
+      // const store = tx.objectStore(storeName);
+      // store.add(data, key);
+      this.dbOStoreMap.get(storeName)?.add(data, key);
+      
       tx.oncomplete = (ev: Event) => {
         observer.next((ev.target as IDBRequest).result);
         observer.complete();
       };
+
       tx.onerror = (ev: Event) =>
         observer.error((ev.target as IDBRequest).error);
     });
@@ -144,6 +156,7 @@ export class IdxDbService implements ICrudObservable {
         observer.next((ev.target as IDBRequest).result);
         observer.complete();
       };
+
       tx.onerror = (ev: Event) =>
         observer.error((ev.target as IDBRequest).error);
     });
@@ -166,6 +179,7 @@ export class IdxDbService implements ICrudObservable {
         observer.next((ev.target as IDBRequest).result);
         observer.complete();
       };
+
       tx.onerror = (ev: Event) =>
         observer.error((ev.target as IDBRequest).error);
     });
