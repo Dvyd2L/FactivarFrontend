@@ -21,8 +21,8 @@ export class PruebaComponent {
   private idxDb = inject(IndexedDBService);
   public data = {
     id: crypto.randomUUID(),
-    nombre: 'Paco',
-    correo: 'paco@example.com',
+    name: 'Paco',
+    email: 'paco@example.com',
   };
 
   // Añadir un nuevo registro al almacén de objetos
@@ -38,9 +38,9 @@ export class PruebaComponent {
   // Añadir un nuevo registro al almacén de objetos
   leerDatos() {
     this.idxDb.read(this.data.id).subscribe({
-      next: (data) => console.log({ msg: 'Registro añadido con éxito', data }),
+      next: (data) => console.log({ msg: 'Registro obtenido con éxito', data }),
       error: (error) =>
-        console.error({ msg: 'Error al añadir el registro', error }),
+        console.error({ msg: 'Error al leer el registro', error }),
       complete: () => {},
     });
   }
