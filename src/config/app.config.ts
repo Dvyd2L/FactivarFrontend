@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { authInterceptorFn } from '@app/interceptors/token-fn.interceptor';
 import { provideOAuthProvidersConfig } from './oauth.config';
 import { provideLocale } from './locale.config';
+import { NgxIndexedDBModule } from 'ngx-indexed-db';
+import { dbConfig } from './indexed-db.config';
 
 /**
  * Configuración de la aplicación.
@@ -30,7 +32,11 @@ export const appConfig: ApplicationConfig = {
     /**
      * Importa los proveedores del módulo BrowserModule y BrowserAnimationsModule.
      */
-    importProvidersFrom(BrowserModule, BrowserAnimationsModule),
+    importProvidersFrom(
+      BrowserModule,
+      BrowserAnimationsModule,
+      NgxIndexedDBModule.forRoot(dbConfig) // Importa NgxIndexedDBModule y configúralo
+    ),
     provideLocale(), // custom method
   ],
 };

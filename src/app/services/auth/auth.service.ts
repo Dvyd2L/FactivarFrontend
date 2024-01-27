@@ -11,8 +11,6 @@ import {
   IRegisterUser,
   IUserPayload,
 } from '@app/interfaces/user';
-import { IdxDbService } from '@app/db/idx-db.service';
-import { DbNameEnum, DbStoreNameEnum } from '@app/db/types/enums';
 
 /**
  * Servicio de autenticación.
@@ -21,14 +19,10 @@ import { DbNameEnum, DbStoreNameEnum } from '@app/db/types/enums';
   providedIn: 'root',
 })
 export class AuthService {
-  private idxDB = inject(IdxDbService);
   private http = inject(HttpClient);
   private userService = inject(UserService<IUserPayload>);
   private router = inject(Router);
   private urlAPI: string = environment.urlAPI + 'auth';
-  private authDB!: IDBDatabase;
-  private userStoreDB!: IDBObjectStore;
-  private tokenStoreDB!: IDBObjectStore;
   /**
    * Realiza el inicio de sesión.
    * @param credenciales Las credenciales del usuario.
