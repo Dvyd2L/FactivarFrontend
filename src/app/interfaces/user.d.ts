@@ -36,7 +36,7 @@ export interface IUserPayload {
  * Interfaz extendida para un usuario completo.
  */
 export interface IFullUser extends IUserBase {
-  id?: Guid;
+  id?: UUID;
   avatar?: File;
   avatarUrl?: string | URL;
   password?: string;
@@ -83,7 +83,7 @@ export type Email = `${string}@${string}.${string}` | string;
 /**
  * Tipo para representar un identificador único global (GUID).
  */
-export type Guid = `${string}-${string}-${string}-${string}-${string}`;
+export type UUID = `${string}-${string}-${string}-${string}-${string}`;
 
 /**
  * Tipo para representar un token.

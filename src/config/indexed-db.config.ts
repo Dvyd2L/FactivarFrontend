@@ -1,3 +1,4 @@
+import { StoreEnum } from '@app/interfaces/enums/store.enum';
 import { DBConfig } from 'ngx-indexed-db';
 
 export const dbConfig: DBConfig = {
@@ -6,8 +7,8 @@ export const dbConfig: DBConfig = {
   objectStoresMeta: [
     // Define los almacenes de objetos que quieres crear
     {
-      store: 'people', // Nombre del almacén de objetos
-    //   storeConfig: { keyPath: ['id', 'name', 'email'], autoIncrement: true }, // Configuración del almacén de objetos
+      store: StoreEnum.USER, // Nombre del almacén de objetos
+    //   storeConfig: { keyPath: ['id', 'email'], autoIncrement: true }, // Configuración del almacén de objetos
       storeConfig: { keyPath: 'id', autoIncrement: true }, // Configuración del almacén de objetos
       storeSchema: [
         // Esquema del almacén de objetos
