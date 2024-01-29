@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '@environments/environment.development';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -11,6 +11,8 @@ import {
   IRegisterUser,
   IUserPayload,
 } from '@app/interfaces/user';
+import { IndexedDBService } from '@app/db/indexed-db.service';
+import { StoreEnum } from '@app/interfaces/enums/store.enum';
 
 /**
  * Servicio de autenticación.
@@ -21,6 +23,7 @@ import {
 export class AuthService {
   private http = inject(HttpClient);
   private userService = inject(UserService<IUserPayload>);
+  private idxDB = inject(IndexedDBService);
   private router = inject(Router);
   private urlAPI: string = environment.urlAPI + 'auth';
   /**
@@ -34,7 +37,7 @@ export class AuthService {
         next: ({ token }) => {
           const helper = new JwtHelperService();
           const payload = helper.decodeToken(token) as IUserPayload;
-          
+
           console.log({ payload });
           console.log({ token });
 
@@ -42,7 +45,10 @@ export class AuthService {
             ...payload,
             token,
           });
-          
+          this.userService
+            .getUser()
+            .subscribe({ next: (data) => console.log(data) });
+
           this.router.navigate(['/']);
         },
         error: (err) => console.error(err),
@@ -57,22 +63,23 @@ export class AuthService {
   public loginWithGoogle(idToken?: string) {
     return this.http
       .post<ILoginResponse>(`${this.urlAPI}/google-authenticate`, idToken)
-      .subscribe({
-        next: (data) => {
-          // const helper = new JwtHelperService();
-          // const payload = helper.decodeToken(data.token) as IUserPayload;
-
-          this.userService.updateUser({
-            // ...payload,
-            ...this.userService.userValue,
+      .pipe(
+        tap((data) => {
+          const helper = new JwtHelperService();
+          const payload = helper.decodeToken(data.token) as IUserPayload;
+          const user = {
+            ...payload,
+            // ...this.userService.userValue,
             token: data.token,
-          });
+          }
+
+          this.userService.updateUser(user);
+
+          this.idxDB.create<IUserPayload>(user, StoreEnum.USER)
 
           this.router.navigate(['/']);
-        },
-        error: (err) => console.error(err),
-        complete: () => {},
-      });
+        })
+      );
   }
 
   /**

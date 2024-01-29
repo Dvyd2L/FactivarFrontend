@@ -1,8 +1,8 @@
 /**
  * Componente Avatar.
- * 
+ *
  * Este componente muestra la imagen y la información del usuario actual.
- * 
+ *
  * @remarks
  * Este componente depende de los siguientes módulos y servicios:
  * - BotonAccesosComponent: componente para mostrar los botones de acceso.
@@ -11,12 +11,12 @@
  * - UserService: servicio para obtener los datos del usuario.
  * - AuthService: servicio para gestionar la autenticación.
  * - SocialAuthService: servicio para gestionar la autenticación social.
- * 
+ *
  * @example
  * ```html
  * <app-avatar></app-avatar>
  * ```
- * 
+ *
  * @example
  * ```typescript
  * const avatar = new AvatarComponent();
@@ -33,6 +33,8 @@ import { AvatarModule } from 'primeng/avatar';
 // import { AvatarGroupModule } from 'primeng/avatargroup';
 import { BtnGrowComponent } from '../btn-grow/btn-grow.component';
 import { RouterLink } from '@angular/router';
+import { IndexedDBService } from '@app/db/indexed-db.service';
+import { StoreEnum } from '@app/interfaces/enums/store.enum';
 
 @Component({
   selector: 'app-avatar',
@@ -50,6 +52,7 @@ export class AvatarComponent {
   /**
    * Servicio para gestionar la autenticación.
    */
+  private idxDB = inject(IndexedDBService);
   private authService = inject(AuthService);
   /**
    * Servicio para gestionar la autenticación social.
@@ -66,9 +69,22 @@ export class AvatarComponent {
    */
   ngOnInit(): void {
     this.userService.getUser().subscribe({
-      next: (data) => this.user = data,
+      next: (data) => (this.user = data),
       error: (err) => console.error(err),
     });
+
+    if (!this.user) {
+      this.idxDB.read<IUserPayload>(StoreEnum.USER).subscribe({
+        next: (data) => {
+          if (data instanceof Array) {
+            this.user = data[0]
+          } else {
+            this.user = data
+          }
+        },
+        error: (err) => console.error(err),
+      });
+    }
   }
 
   /**

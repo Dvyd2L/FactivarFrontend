@@ -114,8 +114,8 @@
             icon="pi pi-trash"
             class="p-button-rounded p-button-danger"
             (click)="emitDelete(client)"
-            ></button>
-            <!-- (click)="deleteClient(client)" -->
+          ></button>
+          <!-- (click)="deleteClient(client)" -->
         </td>
       </tr>
     </ng-template>
@@ -129,13 +129,32 @@
 <p-dialog
   [(visible)]="clientDialog"
   [style]="{ width: '450px' }"
-  header="Client Details"
+  header="Modificar datos de Cliente"
   [modal]="true"
   styleClass="p-fluid"
 >
   <ng-template pTemplate="content">
-    <!-- <img [src]="'https://primefaces.org/cdn/primeng/images/demo/client/' + client.image" [alt]="client.image" class="block m-auto pb-3" *ngIf="client.image" /> -->
-    <div class="form-floating">
+    <div class="form-floating mb-2">
+      <input
+        [readOnly]="true"
+        disabled
+        type="text"
+        pInputText
+        class="form-control"
+        name="cif"
+        [(ngModel)]="client.cif"
+        required
+        #cif="ngModel"
+        placeholder="CIF obligatorio"
+        autofocus
+      />
+      <label>CIF</label>
+      @if(!cif.valid && cif.touched){
+      <span class="form-text text-danger"> CIF obligatorio </span>
+      }
+    </div>
+
+    <div class="form-floating mb-2">
       <input
         placeholder="Escribe el nombre (obligatorio)"
         class="form-control"
@@ -151,28 +170,59 @@
       <small class="p-error">Nombre obligatorio.</small>
       }
     </div>
-    <div class="field">
-      <label for="description">Dirección</label>
-      <textarea
-        id="description"
-        pInputTextarea
+
+    <div class="form-floating mb-2">
+      <input
+        type="text"
+        pInputText
+        class="form-control"
+        name="direccion"
         [(ngModel)]="client.direccion"
         required
-        rows="3"
-        cols="20"
-      ></textarea>
+        #direccion="ngModel"
+        placeholder="Localidad obligatoria"
+        autofocus
+      />
+      <label>Direccion</label>
+      @if(!direccion.valid && direccion.touched){
+      <span class="form-text text-danger"> Dirección obligatoria </span>
+      }
     </div>
 
-    <div class="field">
-      <label for="inventoryStatus">Inventory Status</label>
-      <!-- <p-dropdown [(ngModel)]="client.inventoryStatus" inputId="inventoryStatus" [options]="statuses">
-                <ng-template pTemplate="selectedItem">
-                    <p-tag [value]="client.inventoryStatus.toUpperCase()" [severity]="getSeverity(client.inventoryStatus.toUpperCase())"></p-tag>
-                </ng-template>
-                <ng-template let-option pTemplate="item">
-                    <p-tag [value]="option.label" [severity]="getSeverity(option.label)"></p-tag>
-                </ng-template>
-            </p-dropdown> -->
+    <div class="form-floating mb-2">
+      <input
+        type="text"
+        pInputText
+        class="form-control"
+        name="telefono"
+        [(ngModel)]="client.telefono"
+        required
+        #telefono="ngModel"
+        placeholder="Teléfono obligatorio"
+        autofocus
+      />
+      <label>Teléfono</label>
+      @if(!telefono.valid && telefono.touched){
+      <span class="form-text text-danger"> Teléfono obligatorio </span>
+      }
+    </div>
+
+    <div class="form-floating mb-2">
+      <input
+        type="text"
+        pInputText
+        class="form-control"
+        name="email"
+        [(ngModel)]="client.email"
+        required
+        #email="ngModel"
+        placeholder="Email obligatorio"
+        autofocus
+      />
+      <label>Email</label>
+      @if (!email.valid && email.touched) {
+      <span class="form-text text-danger"> Email obligatorio </span>
+      }
     </div>
   </ng-template>
 
@@ -180,7 +230,7 @@
     <button
       pButton
       pRipple
-      label="Cancel"
+      label="Cancelar"
       icon="pi pi-times"
       class="p-button-text"
       (click)="hideDialog()"
@@ -188,7 +238,7 @@
     <button
       pButton
       pRipple
-      label="Save"
+      label="Guardar"
       icon="pi pi-check"
       class="p-button-text"
       (click)="saveClient()"
