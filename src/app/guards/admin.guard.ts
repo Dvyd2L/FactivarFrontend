@@ -17,6 +17,6 @@ export const adminGuard: CanActivateFn = (): boolean => {
   if (user?.Role === RolesEnum.Admin) {
     return true;
   }
-  router.navigate(['chat']);
+  router.navigate(['login']);
   return false;
 };

@@ -12,7 +12,8 @@ import { environment } from '@environments/environment.development';
 export const getData = <T>(controllerPath: string) => {
   const http = inject(HttpClient);
 
-  return http.get<T>(`${environment.urlAPI}api/${controllerPath}`);
+  return http.get<T>(`${environment.urlAPI}${controllerPath}`);
+  // return http.get<T>(`${environment.urlAPI}api/${controllerPath}`);
 };
 
 /**

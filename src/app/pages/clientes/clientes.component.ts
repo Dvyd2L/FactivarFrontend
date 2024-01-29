@@ -82,17 +82,7 @@ export class ClientesComponent implements OnInit {
   }
 
   buscarPorCif(cif: string) {
-    this.router.navigate([`clientes/${cif}`]);
-    // this.clientesService.getClienteById(this.cliente.cif).subscribe({
-    //   next: (data) => {
-    //     this.visibleError = false;
-    //     this.clientes = [data];
-    //   },
-    //   error: (err) => {
-    //     this.visibleError = true;
-    //     this.mensajeError = err.error.error;
-    //   },
-    // });
+    this.router.navigate(['clientes','detail', cif]);
   }
 
   buscarEntreFechas() {
@@ -111,16 +101,6 @@ export class ClientesComponent implements OnInit {
         })
         .replaceAll('/', '-')}`,
     ]);
-    // this.clientesService.getClienteEntreFechas(this.fechaInicio, this.fechaFin).subscribe({
-    //   next: (data) => {
-    //     this.visibleError = false;
-    //     this.clientes = data;
-    //   },
-    //   error: (err) => {
-    //     this.visibleError = true;
-    //     this.mensajeError = err.error.error;
-    //   },
-    // });
   }
 
   guardar() {
@@ -178,39 +158,36 @@ export class ClientesComponent implements OnInit {
     this.editar = false;
   }
 
-  confirmDelete(ev: Event, cliente: ICliente) {
+  confirmDelete(cliente: ICliente) {
     this.confirmationService.confirm({
-      target: ev.target as EventTarget,
       message: `¿Eliminar cliente ${cliente.nombre}?`,
       header: '¿Está seguro? Esta acción no se puede deshacer',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Sí',
       rejectLabel: 'No',
       acceptButtonStyleClass: 'btn btn-danger mx-1 p-button-text',
-      // acceptButtonStyleClass:"p-button-danger p-button-text",
       rejectButtonStyleClass: 'btn btn-primary mx-1 p-button-text',
-      // rejectButtonStyleClass:"p-button-text p-button-text",
       acceptIcon: 'none',
       rejectIcon: 'none',
       accept: () => {
         this.messageService.add({
           severity: 'info',
-          summary: 'Confirmed',
-          detail: 'Record deleted',
+          summary: 'Aceptado',
+          detail: 'Registro eliminado',
         });
         this.deleteCliente(cliente.cif);
       },
       reject: () => {
         this.messageService.add({
           severity: 'error',
-          summary: 'Rejected',
-          detail: 'You have rejected',
+          summary: 'Rechazado',
+          detail: 'Se ha cancelado la operación',
           life: 3000,
         });
       },
     });
   }
-
+  
   deleteCliente(cif: string) {
     this.clientesService.deleteCliente(cif).subscribe({
       next: (data) => {

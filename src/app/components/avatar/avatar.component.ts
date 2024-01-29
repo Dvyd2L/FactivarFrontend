@@ -32,11 +32,12 @@ import { UserService } from '@app/services/user.service';
 import { AvatarModule } from 'primeng/avatar';
 // import { AvatarGroupModule } from 'primeng/avatargroup';
 import { BtnGrowComponent } from '../btn-grow/btn-grow.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-avatar',
   standalone: true,
-  imports: [BotonAccesosComponent, AvatarModule, BtnGrowComponent],
+  imports: [BotonAccesosComponent, AvatarModule, BtnGrowComponent, RouterLink],
   templateUrl: './avatar.component.html',
   styleUrl: './avatar.component.css',
   providers: [],

@@ -1,7 +1,11 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { provideRouter } from '@angular/router';
+import {
+  provideRouter,
+  withDebugTracing,
+  withRouterConfig,
+} from '@angular/router';
 import { routes } from '@app/routes';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,7 +23,14 @@ export const appConfig: ApplicationConfig = {
     /**
      * Proveedor del enrutador de la aplicación.
      */
-    provideRouter(routes),
+    provideRouter(
+      routes,
+      withDebugTracing(),
+      withRouterConfig({
+        paramsInheritanceStrategy: 'always',
+        onSameUrlNavigation: 'reload',
+      })
+    ),
     /**
      * Proveedor del cliente HTTP con interceptores.
      */

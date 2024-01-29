@@ -86,7 +86,7 @@
             pRipple
             icon="pi pi-search"
             class="p-button-rounded p-button-primary mr-2"
-            (click)="emitIdSearch(client.cif)"
+            (click)="emitSearch(client.cif)"
           ></button>
         </td>
         <td>{{ client.nombre }}</td>
@@ -113,8 +113,9 @@
             pRipple
             icon="pi pi-trash"
             class="p-button-rounded p-button-danger"
-            (click)="deleteClient(client)"
-          ></button>
+            (click)="emitDelete(client)"
+            ></button>
+            <!-- (click)="deleteClient(client)" -->
         </td>
       </tr>
     </ng-template>

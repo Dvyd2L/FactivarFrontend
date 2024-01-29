@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ICliente } from '@app/interfaces/cliente.interface';
 import { ClientesService } from '@app/services/clientes.service';
@@ -29,12 +29,13 @@ import { Router } from '@angular/router';
   providers: [MessageService, ConfirmationService, ClientesService, Router],
 })
 export class DataTableComponent {
-  private clientesService = inject(ClientesService);
+  // private clientesService = inject(ClientesService);
   private messageService = inject(MessageService);
   private confirmationService = inject(ConfirmationService);
 
-  @Output() idSearch = new EventEmitter<string>();
-  @Output() idDelete = new EventEmitter<string>();
+  @Output() evSearch = new EventEmitter<string>();
+  @Output() evDelete = new EventEmitter<ICliente>();
+  @Output() evUpdate = new EventEmitter<ICliente>();
 
   /**
    * Indica si el diálogo de cliente está abierto o cerrado.
@@ -43,7 +44,7 @@ export class DataTableComponent {
   /**
    * Lista de clientes.
    */
-  clients!: ICliente[];
+  @Input() clients!: ICliente[];
   /**
    * Cliente seleccionado.
    */
@@ -70,33 +71,38 @@ export class DataTableComponent {
    * Emite el evento de búsqueda de cliente por ID.
    * @param cif - ID del cliente a buscar.
    */
-  emitIdSearch = (cif: string) => this.idSearch.emit(cif);
+  emitSearch = (cif: string) => this.evSearch.emit(cif);
   /**
-   * Emite el evento de eliminación de cliente por ID.
-   * @param cif - ID del cliente a eliminar.
+   * Emite el evento de eliminación de cliente.
+   * @param cliente - Cliente a eliminar.
    */
-  emitIdDelete = (cif: string) => this.idDelete.emit(cif);
+  emitDelete = (cliente: ICliente) => this.evDelete.emit(cliente);
+  /**
+   * Emite el evento de edicion de cliente.
+   * @param cliente - Cliente a editar.
+   */
+  emitUpdate = (cliente: ICliente) => this.evUpdate.emit(cliente);
 
   /**
    * Método que se ejecuta al inicializar el componente.
    */
-  ngOnInit() {
-    this.clientesService.getClientes().subscribe({
-      next: (data) => {
-        this.clients = data;
-        console.log(data);
-      },
-      error: (err) => {
-        console.error({ err });
-      },
-    });
+  // ngOnInit() {
+  //   this.clientesService.getClientes().subscribe({
+  //     next: (data) => {
+  //       this.clients = data;
+  //       console.log(data);
+  //     },
+  //     error: (err) => {
+  //       console.error({ err });
+  //     },
+  //   });
 
-    this.statuses = [
-      { label: 'INSTOCK', value: 'instock' },
-      { label: 'LOWSTOCK', value: 'lowstock' },
-      { label: 'OUTOFSTOCK', value: 'outofstock' },
-    ];
-  }
+  //   this.statuses = [
+  //     { label: 'INSTOCK', value: 'instock' },
+  //     { label: 'LOWSTOCK', value: 'lowstock' },
+  //     { label: 'OUTOFSTOCK', value: 'outofstock' },
+  //   ];
+  // }
 
   /**
    * Abre el diálogo para crear un nuevo cliente.

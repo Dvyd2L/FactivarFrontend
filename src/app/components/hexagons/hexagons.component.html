@@ -6,28 +6,28 @@
   <nav class="navigation">
     <app-hexagon-item
       title="Clientes"
-      routerLink="/clientes"
-      routerLinkActive="active"
+      [routerLink]="['clientes', 'overview']"
       aria-label="Clientes"
-    >
+      >
+      <!-- routerLinkActive="active" -->
       <!-- los slots se invocan con el nombre del select de ng-content sin el punto. -->
       <i class="fa fa-bullseye slot-icon"></i>
     </app-hexagon-item>
     <app-hexagon-item
       title="Facturas"
-      routerLink="/facturas"
-      routerLinkActive="active"
+      [routerLink]="['facturas', 'overview']"
       aria-label="Facturas"
-    >
+      >
+      <!-- routerLinkActive="active" -->
       <!-- los slots se invocan con el nombre del select de ng-content sin el punto. -->
       <i class="fa fa-braille slot-icon"></i>
     </app-hexagon-item>
     <app-hexagon-item
-      title="Proveedores"
-      routerLink="/proveedores"
-      routerLinkActive="active"
-      aria-label="Proveedores"
-    >
+      title="Usuarios"
+      [routerLink]="['usuarios']"
+      aria-label="Usuarios"
+      >
+      <!-- routerLinkActive="active" -->
       <!-- los slots se invocan con el nombre del select de ng-content sin el punto. -->
       <i class="fa fa-id-badge slot-icon"></i>
     </app-hexagon-item>
