@@ -1,7 +1,7 @@
 /**
  * Componente de inicio de sesión.
  */
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +12,9 @@ import { environment } from '@environments/environment';
 import { FacebookSigninComponent } from '../../components/facebook-signin/facebook-signin.component';
 import { GoogleSigninComponent } from '../../components/google-signin/google-signin.component';
 import { PasswordInputComponent } from '../../components/password-input/password-input.component';
+import { addMessage } from '@app/helpers/message.helper';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-login',
@@ -23,12 +26,15 @@ import { PasswordInputComponent } from '../../components/password-input/password
     PasswordInputComponent,
     GoogleSigninComponent,
     FacebookSigninComponent,
+    ToastModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   providers: [MessageService, AuthService],
 })
 export class LoginComponent {
+  private auth = inject(AuthService);
+  private messageService = inject(MessageService);
   /**
    * Información de inicio de sesión.
    */
@@ -37,7 +43,7 @@ export class LoginComponent {
     password: '',
   };
 
-  constructor(private authService: AuthService) {}
+  private errorMessage = addMessage;
 
   /**
    * Establece la contraseña del usuario.
@@ -51,8 +57,16 @@ export class LoginComponent {
    * Realiza el inicio de sesión.
    */
   login() {
-    console.log(this.infoLogin);
-    this.authService.login(this.infoLogin);
+    this.auth.login(this.infoLogin).subscribe({
+      next: (data) => console.log({ data }),
+      error: (err) => {
+        console.error({ err });
+
+        if (err instanceof HttpErrorResponse) {
+          this.errorMessage(err, this.messageService);
+        }
+      },
+    });
   }
 
   /**
@@ -60,6 +74,6 @@ export class LoginComponent {
    * @param idToken - Token de identificación de Google.
    */
   loginWithGoogle(idToken: string) {
-    this.authService.loginWithGoogle(idToken);
+    this.auth.loginWithGoogle(idToken);
   }
 }
