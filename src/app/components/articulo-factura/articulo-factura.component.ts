@@ -1,7 +1,12 @@
+import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { calculateImporteIva } from '@app/helpers/facturas.helper';
 import { IProduct } from '@app/interfaces/factivar';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
 
 /**
  * Componente para mostrar un artículo de una factura.
@@ -9,7 +14,12 @@ import { IProduct } from '@app/interfaces/factivar';
 @Component({
   selector: 'app-articulo-factura',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, DatePipe,
+    FormsModule,
+    DialogModule,
+    TableModule,
+    ToastModule,
+    ButtonModule,],
   templateUrl: './articulo-factura.component.html',
   styleUrl: './articulo-factura.component.css',
 })
