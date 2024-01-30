@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NgSwitch, NgSwitchDefault, NgSwitchCase } from '@angular/common';
 import { FacturaAvanzadoComponent } from './pages/factura-avanzado/factura-avanzado.component';
-import { HomePageComponent } from './pages/home-page/home-page.component';
+import { HomePageComponent } from './pages/home/home-page.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';

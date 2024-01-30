@@ -21,7 +21,7 @@ export const routes: Routes = [
     path: 'home',
     title: 'Inicio | Factivar',
     loadComponent: () =>
-      import('./pages/home-page/home-page.component').then(
+      import('./pages/home/home-page.component').then(
         (c) => c.HomePageComponent
       ),
   },
