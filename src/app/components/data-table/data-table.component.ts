@@ -29,7 +29,6 @@ import { Router } from '@angular/router';
   providers: [MessageService, ConfirmationService, ClientesService, Router],
 })
 export class DataTableComponent {
-  // private clientesService = inject(ClientesService);
   private messageService = inject(MessageService);
   private confirmationService = inject(ConfirmationService);
 
@@ -83,26 +82,6 @@ export class DataTableComponent {
    */
   emitUpdate = (cliente: ICliente) => this.evUpdate.emit(cliente);
 
-  /**
-   * Método que se ejecuta al inicializar el componente.
-   */
-  // ngOnInit() {
-  //   this.clientesService.getClientes().subscribe({
-  //     next: (data) => {
-  //       this.clients = data;
-  //       console.log(data);
-  //     },
-  //     error: (err) => {
-  //       console.error({ err });
-  //     },
-  //   });
-
-  //   this.statuses = [
-  //     { label: 'INSTOCK', value: 'instock' },
-  //     { label: 'LOWSTOCK', value: 'lowstock' },
-  //     { label: 'OUTOFSTOCK', value: 'outofstock' },
-  //   ];
-  // }
 
   /**
    * Abre el diálogo para crear un nuevo cliente.
@@ -119,7 +98,6 @@ export class DataTableComponent {
     this.submitted = false;
     this.clientDialog = true;
   }
-
   /**
    * Elimina los clientes seleccionados.
    */
@@ -142,7 +120,6 @@ export class DataTableComponent {
       },
     });
   }
-
   /**
    * Abre el diálogo para editar un cliente.
    * @param client - Cliente a editar.
@@ -151,36 +128,34 @@ export class DataTableComponent {
     this.client = { ...client };
     this.clientDialog = true;
   }
-
   /**
    * Elimina un cliente.
    * @param client - Cliente a eliminar.
    */
-  deleteClient(client: ICliente) {
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + client.nombre + '?',
-      header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.clients = this.clients.filter((val) => val.cif !== client.cif);
-        this.client = {
-          cif: '',
-          direccion: '',
-          email: '',
-          nombre: '',
-          telefono: '',
-          fechaAlta: '',
-        };
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Client Deleted',
-          life: 3000,
-        });
-      },
-    });
-  }
-
+  // deleteClient(client: ICliente) {
+  //   this.confirmationService.confirm({
+  //     message: 'Are you sure you want to delete ' + client.nombre + '?',
+  //     header: 'Confirm',
+  //     icon: 'pi pi-exclamation-triangle',
+  //     accept: () => {
+  //       this.clients = this.clients.filter((val) => val.cif !== client.cif);
+  //       this.client = {
+  //         cif: '',
+  //         direccion: '',
+  //         email: '',
+  //         nombre: '',
+  //         telefono: '',
+  //         fechaAlta: '',
+  //       };
+  //       this.messageService.add({
+  //         severity: 'success',
+  //         summary: 'Successful',
+  //         detail: 'Client Deleted',
+  //         life: 3000,
+  //       });
+  //     },
+  //   });
+  // }
   /**
    * Oculta el diálogo de cliente.
    */
@@ -188,7 +163,6 @@ export class DataTableComponent {
     this.clientDialog = false;
     this.submitted = false;
   }
-
   /**
    * Guarda un cliente.
    */
@@ -205,7 +179,7 @@ export class DataTableComponent {
           life: 3000,
         });
       } else {
-        this.client.cif = this.createId();
+        // this.client.cif = this.createId();
         // this.client.image = 'client-placeholder.svg';
         this.clients.push(this.client);
         this.messageService.add({
@@ -228,7 +202,6 @@ export class DataTableComponent {
       };
     }
   }
-
   /**
    * Busca el índice de un cliente por su ID.
    * @param id - ID del cliente.
@@ -245,21 +218,19 @@ export class DataTableComponent {
 
     return index;
   }
-
   /**
    * Crea un ID aleatorio para un cliente.
    * @returns El ID generado.
    */
-  createId(): string {
-    let id = '';
-    var chars =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (var i = 0; i < 5; i++) {
-      id += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return id;
-  }
-
+  // createId(): string {
+  //   let id = '';
+  //   var chars =
+  //     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  //   for (var i = 0; i < 5; i++) {
+  //     id += chars.charAt(Math.floor(Math.random() * chars.length));
+  //   }
+  //   return id;
+  // }
   /**
    * Obtiene la gravedad de un estado.
    * @param status - Estado del cliente.

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -6,6 +6,9 @@ import { BotonAccesosComponent } from '../../components/boton-accesos/boton-acce
 import { AuthService } from '@app/services/auth/auth.service';
 import { IRegisterUser } from '@app/interfaces/user';
 import { PasswordInputComponent } from '../../components/password-input/password-input.component';
+import { ToastModule } from 'primeng/toast';
+import { HttpErrorResponse } from '@angular/common/http';
+import { addMessage } from '@app/helpers/message.helper';
 
 /**
  * Componente de registro de usuarios.
@@ -18,12 +21,16 @@ import { PasswordInputComponent } from '../../components/password-input/password
     BotonAccesosComponent,
     PasswordInputComponent,
     RouterLink,
+    ToastModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
-  providers: [MessageService, AuthService],
+  providers: [MessageService, AuthService, Router],
 })
 export class RegisterComponent {
+  private router = inject(Router);
+  private auth = inject(AuthService);
+  private messageService = inject(MessageService);
   @ViewChild('fRegister') fRegister!: NgForm;
   infoRegister: IRegisterUser = {
     nombre: '',
@@ -34,12 +41,13 @@ export class RegisterComponent {
     password: '',
   };
   password: string = '';
-
+  
+  private errorMessage = addMessage
   /**
    * Establece la contraseña del usuario.
    * @param input - Contraseña ingresada por el usuario.
    */
-  setPassword(input:string) {
+  setPassword(input: string) {
     this.infoRegister.password = input;
   }
 
@@ -47,15 +55,9 @@ export class RegisterComponent {
    * Establece la contraseña de repetición del usuario.
    * @param input - Contraseña de repetición ingresada por el usuario.
    */
-  setRepeatPassword(input:string) {
+  setRepeatPassword(input: string) {
     this.password = input;
   }
-  
-  constructor(
-    private router: Router,
-    private authService: AuthService,
-    private messageService: MessageService
-  ) {}
 
   /**
    * Maneja el evento de selección de archivo.
@@ -69,22 +71,20 @@ export class RegisterComponent {
     }
   }
 
+
   /**
    * Realiza el registro del usuario.
    */
   register() {
-    this.authService.register(this.infoRegister).subscribe({
+    this.auth.register(this.infoRegister).subscribe({
       next: (data) => {
         console.log(data);
         this.router.navigateByUrl('login');
       },
       error: (err) => {
-        console.error(err);
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: err.error.msg,
-        });
+        if (err instanceof HttpErrorResponse) {
+          this.errorMessage(err, this.messageService);
+        }
       },
     });
   }

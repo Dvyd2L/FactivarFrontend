@@ -33,8 +33,8 @@ export class AuthService {
   public login(credenciales?: ILoginUser) {
     return this.http
       .post<ILoginResponse>(`${this.urlAPI}/login`, credenciales)
-      .subscribe({
-        next: ({ token }) => {
+      .pipe(
+        tap(({ token }) => {
           const helper = new JwtHelperService();
           const payload = helper.decodeToken(token) as IUserPayload;
 
@@ -50,10 +50,8 @@ export class AuthService {
             .subscribe({ next: (data) => console.log(data) });
 
           this.router.navigate(['/']);
-        },
-        error: (err) => console.error(err),
-        complete: () => {},
-      });
+        })
+      );
   }
 
   /**
@@ -71,11 +69,11 @@ export class AuthService {
             ...payload,
             // ...this.userService.userValue,
             token: data.token,
-          }
+          };
 
           this.userService.updateUser(user);
 
-          this.idxDB.create<IUserPayload>(user, StoreEnum.USER)
+          this.idxDB.create<IUserPayload>(user, StoreEnum.USER);
 
           this.router.navigate(['/']);
         })
