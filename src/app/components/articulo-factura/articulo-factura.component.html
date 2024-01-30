@@ -27,11 +27,12 @@
         type="text"
         name="invoice[items_attributes][0][quantity]"
         id="invoice_items_attributes_0_quantity"
-        value="1.0"
+        [(ngModel)]="article.unidades"
         placeholder="Cant."
         class="form-control form-control-sm quantity"
         tabindex="225899972"
         maxlength="100"
+        (ngModelChange)="calculaImporte()"
       />
     </div>
 
@@ -42,7 +43,7 @@
         placeholder="Descripción"
         class="form-control form-control-sm description"
         rows="2"
-        tabindex="225899972"
+        [(ngModel)]="article.descripcion"
         maxlength="5000"
       ></textarea>
     </div>
@@ -52,20 +53,21 @@
         type="text"
         name="invoice[items_attributes][0][price]"
         id="invoice_items_attributes_0_price"
-        value="0.0"
+        [(ngModel)]="article.pUnitario"
         placeholder="Precio unitario"
         class="form-control form-control-sm price"
         tabindex="225899972"
         maxlength="100"
+        (ngModelChange)="calculaImporte()"
       />
     </div>
-
+<!-- ############################################################################# -->
     <div class="col-2 form-group">
-      <input
+      <input 
         type="text"
         name="invoice[items_attributes][0][amount]"
         id="invoice_items_attributes_0_amount"
-        value="0.0"
+        [(ngModel)]="article.importe"
         placeholder="Importe"
         class="form-control form-control-sm amount"
         tabindex="225899972"
@@ -89,7 +91,7 @@
         autocomplete="off"
       />
 
-      <select class="form-control" id="iva" name="iva">
+      <select class="form-control" id="iva" name="iva" [(ngModel)]="article.iva">
         <option value="0">0%</option>
         <option value="4">4%</option>
         <option value="5">5%</option>
@@ -99,16 +101,10 @@
     </div>
 
     <div class="col-1 form-group text-nowrap" style="margin-top: 7px">
-      <input
-        type="hidden"
-        name="invoice[items_attributes][0][_destroy]"
-        id="invoice_items_attributes_0__destroy"
-        autocomplete="off"
-      />
-
       <i
         class="fas fa-times-circle delete-item acts-as-link text-danger fs-5"
         title="Borrar artículo"
+        (click)="removeArticle()"
       ></i>
     </div>
   </div>
@@ -119,10 +115,13 @@
         type="button"
         class="btn btn-info btn-sm w-100"
         id="add-item"
-        (click)="removeArticle()"
+        (click)="emiteArticle()"
       >
-        Eliminar artículo
+        Añadir artículo
       </button>
     </div>
   </div>
+  <table>
+    <th></th>
+  </table>
 </div>
