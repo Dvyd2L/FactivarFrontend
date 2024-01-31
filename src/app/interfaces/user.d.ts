@@ -19,7 +19,7 @@ export interface IUserPayload {
   // telefono?: number | string;
   // avatarUrl?: string | URL;
   // rol: number | string
-  Sid: string;
+  Sid: UUID;
   Email: string;
   Name: string;
   Surname: string;
