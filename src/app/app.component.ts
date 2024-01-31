@@ -12,7 +12,6 @@ import { ListasDeClienteComponent } from './components/listas-de-cliente/listas-
 import { MessageService } from 'primeng/api';
 import { HexagonsComponent } from '@app/components/hexagons/hexagons.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { GistComponent } from './components/gist.component';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +30,6 @@ import { GistComponent } from './components/gist.component';
     ListasDeClienteComponent,
     HexagonsComponent,
     FooterComponent,
-    GistComponent
   ],
   providers: [MessageService],
 })
