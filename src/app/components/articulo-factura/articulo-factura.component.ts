@@ -45,11 +45,10 @@ export class ArticuloFacturaComponent {
   /**
    * Evento que se emite cuando se desea eliminar el artículo.
    */
-  @Output() pacos = new EventEmitter<void>();
+  @Output() pacos = new EventEmitter<number>();
   @Output() articulos = new EventEmitter<IProduct>();
 
   emiteArticle(){
-    console.log(this.article);
     this.articulos.emit({...this.article});
     this.articles.push({...this.article});
     this.article.unidades = 0;
@@ -57,12 +56,17 @@ export class ArticuloFacturaComponent {
     this.article.pUnitario = 0;
     this.article.importe = 0;
     this.article.iva = 0;
-    console.log(this.articles);
   }
   /**
    * Método para eliminar el artículo.
    */
-  removeArticle() {
-    this.pacos.emit();
+  // removeArticle(art: IProduct) {
+  //   this.pacos.emit(art);
+  //   this.articles = this.articles.filter(p => p !== art);
+  // }
+
+  removeArticle(art: number) {
+    this.pacos.emit(art);
+    this.articles.splice(art,1);
   }
 }

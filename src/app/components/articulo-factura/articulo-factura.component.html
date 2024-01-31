@@ -73,6 +73,7 @@
         tabindex="225899972"
         maxlength="100"
         readonly
+        disabled
       />
     </div>
 
@@ -105,13 +106,6 @@
       </select>
     </div>
 
-    <div class="col-1 form-group text-nowrap" style="margin-top: 7px">
-      <i
-        class="fas fa-times-circle delete-item acts-as-link text-danger fs-5"
-        title="Borrar artículo"
-        (click)="removeArticle()"
-      ></i>
-    </div>
   </div>
   <div class="row">
     <div class="col-12">
@@ -134,16 +128,19 @@
         <th>Precio Unitario</th>
         <th>Importe</th>
         <th>IVA</th>
+        <th></th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-article>
-      @for (art of articles; track $index) {
+    <ng-template pTemplate="body" let-art let-i="rowIndex">
+      <!-- @for (art of articles; track $index) { -->
         <tr>
           <td>
             <input
               type="text"
               [value]="art.unidades"
               class="form-control"
+              disabled
+              readonly
             />
           </td>
           <td>
@@ -151,6 +148,8 @@
             [value]="art.descripcion"
               class="form-control"
               rows="2"
+              disabled
+              readonly
             ></textarea>
           </td>
           <td>
@@ -158,6 +157,8 @@
               type="text"
               [value]="art.pUnitario"
               class="form-control"
+              disabled
+              readonly
             />
           </td>
           <td>
@@ -166,13 +167,21 @@
               [value]="art.importe"
               class="form-control"
               readonly
+              disabled
             />
           </td>
           <td>
-            <input type="text" [value]="art.iva" class="form-control" />
+            <input type="text" [value]="art.iva" class="form-control" disabled  readonly/>
+          </td>
+          <td>
+            <i
+              class="fas fa-times-circle delete-item acts-as-link text-danger fs-5"
+              title="Borrar artículo"
+              (click)="removeArticle(i)"
+            ></i>
           </td>
         </tr>
-      }
+      <!-- } -->
     </ng-template>
   </p-table>
 </div>

@@ -42,8 +42,18 @@ export class FacturaAvanzadoComponent {
   /**
    * Elimina el artículo del componente ArticuloFactura.
    */
-  removeArticle() {
-    this.articuloFactura.remove();
+  // removeArticle(item: IProduct) {
+  //   console.log(this.listaArticulos);
+  //   this.listaArticulos = this.listaArticulos.filter(p => {
+  //     console.log(p.descripcion !== item.descripcion);
+  //     return p.descripcion !== item.descripcion;
+  //   });
+  //   console.log(this.listaArticulos);
+  //   this.ricias = calculateImportes(this.listaArticulos);
+  // }
+
+  removeArticle(item: number) {
+    this.listaArticulos.splice(item,1);
     this.ricias = calculateImportes(this.listaArticulos);
   }
 }
