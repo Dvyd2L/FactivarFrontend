@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { calculateImporteIva } from '@app/helpers/facturas.helper';
 import { IProduct } from '@app/interfaces/factivar';
@@ -34,6 +34,8 @@ export class ArticuloFacturaComponent {
     importe : 0,
     iva : 0
   };
+
+  @Input() articles! : IProduct[];
 
 
 
