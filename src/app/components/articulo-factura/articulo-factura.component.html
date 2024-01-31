@@ -1,15 +1,15 @@
 <div class="row">
-  <div class="col-2 form-label">Cant.</div>
+  <label class="col-2 form-label" aria-label="cantidad" for="invoice_items_attributes_0_quantity">Cant.</label>
 
-  <div class="col-3 form-label">Descripción</div>
+  <label class="col-3 form-label" aria-label="descripcion">Descripción</label>
 
-  <div class="col-2 form-label">Precio unitario</div>
+  <label class="col-2 form-label" aria-label="precio unitario">Precio unitario</label>
 
-  <div class="col-2 form-label">Importe</div>
+  <label class="col-2 form-label" aria-label="importe">Importe</label>
 
-  <div class="col-2 form-label">Tipo de IVA</div>
+  <label class="col-2 form-label" aria-label="iva">Tipo de IVA</label>
 
-  <div class="col-1"></div>
+  <label class="col-1"></label>
 </div>
 
 <div id="items">
@@ -137,6 +137,7 @@
           <td>
             <input
               type="text"
+              id="unidades"
               [value]="art.unidades"
               class="form-control"
               disabled
@@ -144,17 +145,19 @@
             />
           </td>
           <td>
-            <textarea
-            [value]="art.descripcion"
+            <input
+              type="text"
+              id="descripcion"
+              [value]="art.descripcion"
               class="form-control"
-              rows="2"
               disabled
               readonly
-            ></textarea>
+            />
           </td>
           <td>
             <input
               type="text"
+              id="pUnitario"
               [value]="art.pUnitario"
               class="form-control"
               disabled
@@ -164,6 +167,7 @@
           <td>
             <input
               type="text"
+              id="importe"
               [value]="art.importe"
               class="form-control"
               readonly
@@ -171,7 +175,14 @@
             />
           </td>
           <td>
-            <input type="text" [value]="art.iva" class="form-control" disabled  readonly/>
+            <input
+              type="text"
+              id="iva"
+              [value]="art.iva"
+              class="form-control"
+              disabled
+              readonly
+            />
           </td>
           <td>
             <i
