@@ -30,6 +30,7 @@ export const appConfig: ApplicationConfig = {
       withRouterConfig({
         paramsInheritanceStrategy: 'always',
         onSameUrlNavigation: 'reload',
+        urlUpdateStrategy: 'deferred',
       })
     ),
     /**
@@ -47,7 +48,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       BrowserModule,
       BrowserAnimationsModule,
-      NgxIndexedDBModule.forRoot(dbConfig), // Importa NgxIndexedDBModule y configúralo
+      NgxIndexedDBModule.forRoot(dbConfig) // Importa NgxIndexedDBModule y configúralo
       // NgxGistModule // Importa NgxGistModule
     ),
     provideLocale(), // custom method

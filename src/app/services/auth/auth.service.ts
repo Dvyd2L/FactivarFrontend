@@ -43,9 +43,9 @@ export class AuthService {
             token,
           });
 
-          // this.userService
-          //   .getUser()
-          //   .subscribe({ next: (data) => console.log(data) });
+          this.userService
+            .getUser()
+            .subscribe({ next: (data) => console.log(data) });
 
           this.router.navigate(['/']);
         })
