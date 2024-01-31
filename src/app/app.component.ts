@@ -8,13 +8,11 @@ import { FacturaAvanzadoComponent } from './pages/factura-avanzado/factura-avanz
 import { HomePageComponent } from './pages/home/home-page.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
 import { ListasDeClienteComponent } from './components/listas-de-cliente/listas-de-cliente.component';
 import { MessageService } from 'primeng/api';
 import { HexagonsComponent } from '@app/components/hexagons/hexagons.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { PruebaComponent } from './prueba/prueba.component';
+import { GistComponent } from './components/gist.component';
 
 @Component({
   selector: 'app-root',
@@ -33,7 +31,7 @@ import { PruebaComponent } from './prueba/prueba.component';
     ListasDeClienteComponent,
     HexagonsComponent,
     FooterComponent,
-    PruebaComponent
+    GistComponent
   ],
   providers: [MessageService],
 })
