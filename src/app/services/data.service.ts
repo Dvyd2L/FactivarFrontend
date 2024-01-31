@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '@environments/environment.development';
+import { Observable } from 'rxjs';
 
 /**
  * Obtiene los datos de una API mediante una solicitud GET.
@@ -29,3 +30,17 @@ export const getDataByPk = <T>(controllerPath: string) => {
 
   return http.get<T>(`${environment.urlAPI}api/${controllerPath}/${pk}`);
 };
+
+export const scriptLoader = (url: string, elementID:string): Observable<void> =>
+  new Observable<void>((observer) => {
+    const $parent = document.getElementById(elementID);
+    const $script = document.createElement('script');
+
+    $script.src = url;
+    $script.onload = () => observer.next();
+    $script.onerror = (error) => observer.error(error);
+
+    $parent?.appendChild($script);
+
+    observer.complete();
+  });

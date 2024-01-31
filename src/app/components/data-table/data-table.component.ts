@@ -8,6 +8,8 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { ToolbarModule } from 'primeng/toolbar';
+import { FileUploadModule } from 'primeng/fileupload';
 import { Router } from '@angular/router';
 
 /**
@@ -23,6 +25,8 @@ import { Router } from '@angular/router';
     TableModule,
     ToastModule,
     ButtonModule,
+    ToolbarModule,
+    FileUploadModule
   ],
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.css',

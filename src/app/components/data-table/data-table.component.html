@@ -1,16 +1,4 @@
 <div>
-  <!-- <p-toolbar styleClass="mb-4 gap-2">
-        <ng-template pTemplate="left">
-            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-            <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedClients()" [disabled]="!selectedClients || !selectedClients.length"></button>
-        </ng-template>
-
-        <ng-template pTemplate="right">
-            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
-            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
-        </ng-template>
-    </p-toolbar> -->
-
   <p-table
     #dt
     [value]="clients"
@@ -32,19 +20,43 @@
     [showCurrentPageReport]="true"
   >
     <ng-template pTemplate="caption">
-      <div class="flex align-items-center justify-content-between">
-        <h5 class="m-0">Clientes</h5>
-        <span class="p-input-icon-right">
-          <i class="pi pi-search"></i>
-          <input
-            pInputText
-            type="text"
-            class="form-control"
-            (input)="dt.filterGlobal(eventHandler($event), 'contains')"
-            placeholder="Buscar..."
-          />
-        </span>
-      </div>
+      <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+          <div class="flex align-items-center justify-content-between">
+            <h5 class="m-0">Clientes</h5>
+            <span class="p-input-icon-right">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                class="form-control"
+                (input)="dt.filterGlobal(eventHandler($event), 'contains')"
+                placeholder="Buscar..."
+              />
+            </span>
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="right">
+          <button
+            pButton
+            pRipple
+            label="Nuevo"
+            icon="pi pi-plus"
+            class="p-button-success mr-2"
+            (click)="openNew()"
+          ></button>
+          <button
+            pButton
+            pRipple
+            label="Eliminar"
+            icon="pi pi-trash"
+            class="p-button-danger"
+            (click)="deleteSelectedClients()"
+            [disabled]="!selectedClients || !selectedClients.length"
+          ></button>
+        </ng-template>
+      </p-toolbar>
     </ng-template>
 
     <ng-template pTemplate="header">

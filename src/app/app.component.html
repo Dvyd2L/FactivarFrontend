@@ -2,13 +2,13 @@
 <app-home-page />
 <app-footer class="factivar-footer" />
 } @else if (isLogin()) {
+  <app-gist />
 <app-login />
 } @else if (isRegister()) {
 <app-register />
 } @else {
 <main class="factivar-layout">
   <app-hexagons />
-
   <div class="factivar-content">
     <router-outlet />
   </div>
@@ -16,4 +16,3 @@
   <app-footer class="factivar-footer" />
 </main>
 }
-<app-prueba />
