@@ -137,40 +137,42 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-article>
-      <tr>
-        <td>
-          <input
-            type="text"
-            [(ngModel)]="article.unidades"
-            class="form-control"
-          />
-        </td>
-        <td>
-          <textarea
-            [(ngModel)]="article.descripcion"
-            class="form-control"
-            rows="2"
-          ></textarea>
-        </td>
-        <td>
-          <input
-            type="text"
-            [(ngModel)]="article.pUnitario"
-            class="form-control"
-          />
-        </td>
-        <td>
-          <input
-            type="text"
-            [(ngModel)]="article.importe"
-            class="form-control"
-            readonly
-          />
-        </td>
-        <td>
-          <input type="text" [(ngModel)]="article.iva" class="form-control" />
-        </td>
-      </tr>
+      @for (art of articles; track $index) {
+        <tr>
+          <td>
+            <input
+              type="text"
+              [value]="art.unidades"
+              class="form-control"
+            />
+          </td>
+          <td>
+            <textarea
+            [value]="art.descripcion"
+              class="form-control"
+              rows="2"
+            ></textarea>
+          </td>
+          <td>
+            <input
+              type="text"
+              [value]="art.pUnitario"
+              class="form-control"
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              [value]="art.importe"
+              class="form-control"
+              readonly
+            />
+          </td>
+          <td>
+            <input type="text" [value]="art.iva" class="form-control" />
+          </td>
+        </tr>
+      }
     </ng-template>
   </p-table>
 </div>

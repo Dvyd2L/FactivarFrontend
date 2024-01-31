@@ -34,9 +34,7 @@ export class FacturaAvanzadoComponent {
   // }
 
   addArticulo(item: IProduct){
-    console.log(item);
     this.listaArticulos.push(item);
-    console.log(this.listaArticulos);
     this.ricias = calculateImportes(this.listaArticulos);
   }
 

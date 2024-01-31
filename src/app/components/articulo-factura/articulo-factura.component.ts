@@ -1,6 +1,6 @@
-import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { CommonModule, DatePipe } from '@angular/common';
+import { Component, EventEmitter, Input, NgModule, Output } from '@angular/core';
+import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { calculateImporteIva } from '@app/helpers/facturas.helper';
 import { IProduct } from '@app/interfaces/factivar';
 import { ButtonModule } from 'primeng/button';
@@ -19,7 +19,7 @@ import { ToastModule } from 'primeng/toast';
     DialogModule,
     TableModule,
     ToastModule,
-    ButtonModule,],
+    ButtonModule],
   templateUrl: './articulo-factura.component.html',
   styleUrl: './articulo-factura.component.css',
 })
@@ -35,8 +35,8 @@ export class ArticuloFacturaComponent {
     iva : 0
   };
 
-  @Input() articles! : IProduct[];
-
+ articles : IProduct[] = [];
+ cantidad = "";
 
 
   calculaImporte(){
@@ -49,7 +49,15 @@ export class ArticuloFacturaComponent {
   @Output() articulos = new EventEmitter<IProduct>();
 
   emiteArticle(){
-    this.articulos.emit(this.article);
+    console.log(this.article);
+    this.articulos.emit({...this.article});
+    this.articles.push({...this.article});
+    this.article.unidades = 0;
+    this.article.descripcion = "";
+    this.article.pUnitario = 0;
+    this.article.importe = 0;
+    this.article.iva = 0;
+    console.log(this.articles);
   }
   /**
    * Método para eliminar el artículo.
