@@ -16,6 +16,7 @@
   width: 100%;
 }
 .sticky-parallax-header {
+ /* en el top y en la position, tenemos el probelma del footer del homePage */
   position: fixed;
   top: 0;
   animation: sticky-parallax-header-move-and-size linear forwards;
