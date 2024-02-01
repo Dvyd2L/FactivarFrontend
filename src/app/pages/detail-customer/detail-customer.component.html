@@ -18,6 +18,10 @@
       </p>
       <p class="card-text">Dirección: {{ c.direccion }}</p>
     </div>
+    <div class="card-body">
+      <pre>{{c.facturaClientes | json }}</pre>
+      <pre>{{c.facturaProveedors | json }}</pre>
+    </div>
   </article>
 } @loading  (after 100ms; minimum 1s) {
   <app-loader/>

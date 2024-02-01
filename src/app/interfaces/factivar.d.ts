@@ -74,6 +74,8 @@ export interface ICustomer {
    * The date of registration of the customer.
    */
   fechaAlta: string;
+  facturaClientes?: IInvoice[];
+  facturaProveedors?: IInvoice[];
 }
 
 /**
