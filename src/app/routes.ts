@@ -14,11 +14,11 @@ import { adminGuard } from './guards/admin.guard';
  * Algunas rutas están protegidas por el guardia de autenticación.
  */
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  // { path: '', redirectTo: '/', pathMatch: 'full' },
 
   // Rutas no protegidas por el guard
   {
-    path: 'home',
+    path: '',
     title: 'Inicio | Factivar',
     loadComponent: () =>
       import('./pages/home/home-page.component').then(

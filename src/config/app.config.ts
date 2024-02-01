@@ -30,7 +30,7 @@ export const appConfig: ApplicationConfig = {
       withRouterConfig({
         paramsInheritanceStrategy: 'always',
         onSameUrlNavigation: 'reload',
-        urlUpdateStrategy: 'deferred',
+        // urlUpdateStrategy: 'deferred',
       })
     ),
     /**

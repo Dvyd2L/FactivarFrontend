@@ -14,4 +14,8 @@ export enum StorageKeyEnum {
    * Clave de almacenamiento para el rol.
    */
   Role = 'rol',
+    /**
+   * Clave de almacenamiento para el proveedor de identidad oauth.
+   */
+  OAuth2 = 'oauth2',
 }

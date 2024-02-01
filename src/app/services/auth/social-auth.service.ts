@@ -33,7 +33,7 @@ export class SocialAuthService {
    */
   public login() {
     this.oauth.initLoginFlow();
-    StorageHelper.setItem(StorageKeyEnum.Token, this.getIdToken());
+    StorageHelper.setItem(StorageKeyEnum.OAuth2, this.getIdToken());
   }
   /**
    * Cierra la sesión actual.
