@@ -18,13 +18,10 @@ export const authInterceptorFn: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ) => {
-  console.log('patata');
-
   if (req.url.includes(environment.urlAPI)) {
     const userService = inject(UserService<IUserPayload>);
     const token = userService.getToken();
     const authReq = addTokenToRequest(req, token);
-    console.log({ token });
 
     return next(authReq);
   }

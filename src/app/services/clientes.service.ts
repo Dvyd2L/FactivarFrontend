@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICliente } from '../interfaces/cliente.interface';
@@ -30,7 +30,11 @@ export class ClientesService {
    * @returns Un Observable que emite un array de objetos de tipo ICliente.
    */
   public getClientes(): Observable<ICliente[]> {
-    return this.http.get<ICliente[]>(`${this.urlAPI}/clientes/all`);
+    const headers = this.setHeaders();
+    
+    return this.http.get<ICliente[]>(`${this.urlAPI}/clientes/all`, {
+      headers,
+    });
   }
 
   /**
@@ -86,4 +90,10 @@ export class ClientesService {
   public deleteCliente(cif: string): Observable<ICliente> {
     return this.http.delete<ICliente>(`${this.urlAPI}/clientes/${cif}`);
   }
+
+  private setHeaders = () =>
+    new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.userService.getToken()}`,
+    });
 }
