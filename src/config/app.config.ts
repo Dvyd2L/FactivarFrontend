@@ -10,10 +10,11 @@ import { routes } from '@app/routes';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { authInterceptorFn } from '@app/interceptors/token-fn.interceptor';
-import { provideOAuthProvidersConfig } from './oauth.config';
+
 import { provideLocale } from './locale.config';
 import { NgxIndexedDBModule } from 'ngx-indexed-db';
 import { dbConfig } from './indexed-db.config';
+import { provideOAuthProvidersConfig } from './oauth.config';
 // import { NgxGistModule } from '@proangular/ngx-gist';
 
 /**

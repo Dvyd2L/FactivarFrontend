@@ -7,6 +7,15 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
+// import { HomePageComponent } from './pages/home/home-page.component';
+// import { ClientesComponent } from './pages/clientes/clientes.component';
+// import { DetailCustomerComponent } from './pages/detail-customer/detail-customer.component';
+// import { FacturaAvanzadoComponent } from './pages/factura-avanzado/factura-avanzado.component';
+// import { InvoiceTemplateComponent } from './pages/invoice-template/invoice-template.component';
+// import { LoginComponent } from './pages/login/login.component';
+// import { NotFoundComponent } from './pages/not-found/not-found.component';
+// import { RegisterComponent } from './pages/register/register.component';
+// import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 
 /**
  * Las rutas de la aplicación.
@@ -20,6 +29,7 @@ export const routes: Routes = [
   {
     path: '',
     title: 'Inicio | Factivar',
+    // component: HomePageComponent,
     loadComponent: () =>
       import('./pages/home/home-page.component').then(
         (c) => c.HomePageComponent
@@ -28,12 +38,14 @@ export const routes: Routes = [
   {
     path: 'login',
     title: 'Login | Factivar',
+    // component: LoginComponent,
     loadComponent: () =>
       import('./pages/login/login.component').then((c) => c.LoginComponent),
   },
   {
     path: 'register',
     title: 'Register | Factivar',
+    // component: RegisterComponent,
     loadComponent: () =>
       import('./pages/register/register.component').then(
         (c) => c.RegisterComponent
@@ -48,6 +60,7 @@ export const routes: Routes = [
       {
         path: 'overview',
         title: 'Clientes | Factivar',
+        // component: ClientesComponent,
         loadComponent: () =>
           import('./pages/clientes/clientes.component').then(
             (c) => c.ClientesComponent
@@ -56,6 +69,7 @@ export const routes: Routes = [
       {
         path: 'detail/:pk',
         title: 'Detalles del Cliente | Factivar',
+        // component: DetailCustomerComponent,
         loadComponent: () =>
           import('./pages/detail-customer/detail-customer.component').then(
             (c) => c.DetailCustomerComponent
@@ -67,6 +81,7 @@ export const routes: Routes = [
     path: 'usuarios',
     title: 'Usuarios | Factivar',
     canActivate: [adminGuard],
+    // component: UsuariosComponent,
     loadComponent: () =>
       import('./pages/usuarios/usuarios.component').then(
         (c) => c.UsuariosComponent
@@ -79,6 +94,7 @@ export const routes: Routes = [
       {
         path: 'overview',
         title: 'Facturas | Factivar',
+        // component: FacturaAvanzadoComponent,
         loadComponent: () =>
           import('./pages/factura-avanzado/factura-avanzado.component').then(
             (c) => c.FacturaAvanzadoComponent
@@ -87,6 +103,7 @@ export const routes: Routes = [
       {
         path: 'detail/:pk',
         title: 'Detalles de la Factura | Factivar',
+        // component: InvoiceTemplateComponent,
         loadComponent: () =>
           import('./pages/invoice-template/invoice-template.component').then(
             (c) => c.InvoiceTemplateComponent
@@ -99,6 +116,7 @@ export const routes: Routes = [
   {
     path: '**',
     title: '404 | Factivar',
+    // component: NotFoundComponent,
     loadComponent: () =>
       import('./pages/not-found/not-found.component').then(
         (c) => c.NotFoundComponent

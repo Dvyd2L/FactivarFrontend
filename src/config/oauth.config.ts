@@ -7,7 +7,7 @@ import { OAUTH_CONFIG } from './tokens/oauth-conection.token';
  */
 const googleOAuthConfig: AuthConfig = {
   issuer: 'https://accounts.google.com',
-  redirectUri: window.location.origin + '/',
+  redirectUri: window.location.origin,
   strictDiscoveryDocumentValidation: false,
   clientId: environment.googleClient.id,
   scope: 'openid profile email',
@@ -17,7 +17,7 @@ const googleOAuthConfig: AuthConfig = {
  */
 const facebookOAuthConfig: AuthConfig = {
   issuer: 'https://www.facebook.com/v18.0/dialog/oauth',
-  redirectUri: window.location.origin + '/',
+  redirectUri: window.location.origin,
   clientId: environment.facebookClient.id,
   dummyClientSecret: environment.facebookClient.secret,
   tokenEndpoint: 'https://graph.facebook.com/v18.0/oauth/access_token',
