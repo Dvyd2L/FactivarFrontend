@@ -4,6 +4,7 @@ import { CuotasIvaEnum } from "./enums/cuotas-iva";
  * Represents an invoice.
  */
 export interface IInvoice {
+  facturaId: number;
   /**
    * The invoice number.
    */
