@@ -24,12 +24,7 @@ import { LoaderComponent } from '@app/components/loader/loader.component';
   ],
   templateUrl: './clientes.component.html',
   styleUrl: './clientes.component.css',
-  providers: [
-    ClientesService,
-    ConfirmationService,
-    MessageService,
-    Router,
-  ],
+  providers: [ClientesService, ConfirmationService, MessageService, Router],
 })
 export class ClientesComponent implements OnInit {
   private router = inject(Router);
@@ -82,7 +77,7 @@ export class ClientesComponent implements OnInit {
   }
 
   buscarPorCif(cif: string) {
-    this.router.navigate(['clientes','detail', cif]);
+    this.router.navigate(['clientes', 'detail', cif]);
   }
 
   buscarEntreFechas() {
@@ -110,6 +105,7 @@ export class ClientesComponent implements OnInit {
           this.visibleError = false;
           this.formulario.reset();
           this.getClientes();
+          console.log(data);
         },
         error: (err) => {
           console.error({ err });
@@ -187,7 +183,7 @@ export class ClientesComponent implements OnInit {
       },
     });
   }
-  
+
   deleteCliente(cif: string) {
     this.clientesService.deleteCliente(cif).subscribe({
       next: (data) => {
@@ -213,4 +209,3 @@ export class ClientesComponent implements OnInit {
     });
   }
 }
-

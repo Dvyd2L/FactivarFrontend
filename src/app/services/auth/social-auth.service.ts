@@ -33,7 +33,7 @@ export class SocialAuthService {
    */
   public login() {
     this.oauth.initLoginFlow();
-    StorageHelper.setItem(StorageKeyEnum.Token, this.getIdToken());
+    StorageHelper.setItem(StorageKeyEnum.OAuth2, this.getIdToken());
   }
   /**
    * Cierra la sesión actual.
@@ -71,6 +71,9 @@ export class SocialAuthService {
   private initLogin(config: AuthConfig) {
     this.oauth.configure(config);
     this.oauth.setupAutomaticSilentRefresh();
-    this.oauth.loadDiscoveryDocumentAndTryLogin();
+    this.oauth
+      .loadDiscoveryDocumentAndTryLogin()
+      .then((res) => console.log(res)) //false, por que
+      .catch((err) => console.error(err));
   }
 }

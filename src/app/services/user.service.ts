@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { IndexedDBService } from '@app/db/indexed-db.service';
 import { StorageHelper } from '@app/helpers/storage.helper';
 import { StorageKeyEnum } from '@app/interfaces/enums/storage.enum';
-import { IUserPayload } from '@app/interfaces/user';
+import { StoreEnum } from '@app/interfaces/enums/store.enum';
+import { IUserPayload, UUID } from '@app/interfaces/user';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 /**
@@ -11,7 +13,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService<T extends { token: string }> {
+export class UserService<T extends { Sid: UUID; token: string }> {
+  private idxDB = inject(IndexedDBService);
   private currentUserSubject = new BehaviorSubject<T>(null!);
   public user$ = this.currentUserSubject.asObservable();
 
@@ -38,7 +41,8 @@ export class UserService<T extends { token: string }> {
     return this.userValue && this.userValue.token
       ? this.userValue.token
       : StorageHelper.getItem<IUserPayload>(StorageKeyEnum.User)?.token ??
-          StorageHelper.getItem(StorageKeyEnum.Token) ?? null;
+          StorageHelper.getItem(StorageKeyEnum.Token) ??
+          null;
   }
 
   /**
@@ -47,6 +51,9 @@ export class UserService<T extends { token: string }> {
    */
   public updateUser(user: T) {
     StorageHelper.setItem(StorageKeyEnum.User, user);
+    this.userValue
+      ? this.idxDB.create<T>(user, StoreEnum.USER)
+      : this.idxDB.update<T>(user, StoreEnum.USER);
     this.currentUserSubject.next(user);
   }
 
@@ -55,6 +62,7 @@ export class UserService<T extends { token: string }> {
    */
   public clearUser() {
     StorageHelper.removeItem(StorageKeyEnum.User);
+    this.idxDB.delete<T>(this.userValue.Sid, StoreEnum.USER);
     this.currentUserSubject.next(null!);
   }
 }

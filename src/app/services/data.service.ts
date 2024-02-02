@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '@environments/environment.development';
-import { Observable } from 'rxjs';
 
 /**
  * Obtiene los datos de una API mediante una solicitud GET.
@@ -10,12 +9,8 @@ import { Observable } from 'rxjs';
  * @returns Una promesa que se resuelve con los datos obtenidos de la API.
  * @template T - Tipo de datos esperado en la respuesta de la API.
  */
-export const getData = <T>(controllerPath: string) => {
-  const http = inject(HttpClient);
-
-  return http.get<T>(`${environment.urlAPI}${controllerPath}`);
-  // return http.get<T>(`${environment.urlAPI}api/${controllerPath}`);
-};
+export const getData = <T>(controllerPath: string, http = inject(HttpClient)) =>
+  http.get<T>(`${environment.urlAPI}${controllerPath}`);
 
 /**
  * Obtiene los datos de un recurso específico de una API mediante una solicitud GET.
@@ -30,17 +25,3 @@ export const getDataByPk = <T>(controllerPath: string) => {
 
   return http.get<T>(`${environment.urlAPI}api/${controllerPath}/${pk}`);
 };
-
-export const scriptLoader = (url: string, elementID:string): Observable<void> =>
-  new Observable<void>((observer) => {
-    const $parent = document.getElementById(elementID);
-    const $script = document.createElement('script');
-
-    $script.src = url;
-    $script.onload = () => observer.next();
-    $script.onerror = (error) => observer.error(error);
-
-    $parent?.appendChild($script);
-
-    observer.complete();
-  });

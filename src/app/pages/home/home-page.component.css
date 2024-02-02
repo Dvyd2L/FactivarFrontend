@@ -3,20 +3,21 @@
   padding: 0;
   box-sizing: border-box;
 }
-.pacoBar {
+/* .pacoBar {
   animation: hide-navbar linear forwards;
   animation-timeline: scroll();
   animation-range: 0vh 90vh;
   filter: none;
-  /* background-color: #fff; */
+ 
   backdrop-filter: blur(1rem);
   position: fixed;
   z-index: 1;
   top: 0;
   width: 100%;
-}
+} */
 .sticky-parallax-header {
-  position: fixed;
+ /* en el top y en la position, tenemos el probelma del footer del homePage */
+  position: absolute;
   top: 0;
   animation: sticky-parallax-header-move-and-size linear forwards;
   animation-timeline: scroll();

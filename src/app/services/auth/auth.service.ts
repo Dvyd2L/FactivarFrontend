@@ -23,7 +23,7 @@ import { StoreEnum } from '@app/interfaces/enums/store.enum';
 export class AuthService {
   private http = inject(HttpClient);
   private userService = inject(UserService<IUserPayload>);
-  private idxDB = inject(IndexedDBService);
+  // private idxDB = inject(IndexedDBService);
   private router = inject(Router);
   private urlAPI: string = environment.urlAPI + 'auth';
   /**
@@ -38,13 +38,11 @@ export class AuthService {
           const helper = new JwtHelperService();
           const payload = helper.decodeToken(token) as IUserPayload;
 
-          console.log({ payload });
-          console.log({ token });
-
           this.userService.updateUser({
             ...payload,
             token,
           });
+
           this.userService
             .getUser()
             .subscribe({ next: (data) => console.log(data) });
@@ -64,8 +62,8 @@ export class AuthService {
       .pipe(
         tap((data) => {
           const helper = new JwtHelperService();
-          const payload = helper.decodeToken(data.token) as IUserPayload;
-          const user = {
+          const payload = helper.decodeToken(data.token);
+          const user: IUserPayload = {
             ...payload,
             // ...this.userService.userValue,
             token: data.token,
@@ -73,7 +71,7 @@ export class AuthService {
 
           this.userService.updateUser(user);
 
-          this.idxDB.create<IUserPayload>(user, StoreEnum.USER);
+          // this.idxDB.create<IUserPayload>(user, StoreEnum.USER);
 
           this.router.navigate(['/']);
         })

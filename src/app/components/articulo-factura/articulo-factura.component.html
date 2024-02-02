@@ -68,7 +68,7 @@
         (ngModelChange)="calculaImporte()"
       />
     </div>
-    <!-- ############################################################################# -->
+
     <div class="col-2 form-group">
       <input
         type="text"
@@ -150,7 +150,7 @@
       aria-label="iva"
       for="invoice_items_attributes_0_tax_rate_id_2"
     ></label>
-    
+
     <button
       name="button"
       type="button"
@@ -173,59 +173,62 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-art let-i="rowIndex">
-      <!-- @for (art of articles; track $index) { -->
       <tr>
         <td>
-          <input
-            type="text"
+          <div
             id="unidades"
-            [value]="art.unidades"
             class="form-control"
-            disabled
-            readonly
-          />
+            contenteditable="false"
+            style="width: auto"
+          >
+            {{ art.unidades }}
+          </div>
         </td>
+
         <td>
-          <input
-            type="text"
+          <div
             id="descripcion"
-            [value]="art.descripcion"
             class="form-control"
-            style="width: auto;"
-            disabled
-            readonly
-          />
+            contenteditable="false"
+            style="width: auto"
+          >
+            {{ art.descripcion }}
+          </div>
         </td>
+
         <td>
-          <input
-            type="text"
+          <div
             id="pUnitario"
-            [value]="art.pUnitario"
             class="form-control"
-            disabled
-            readonly
-          />
+            contenteditable="false"
+            style="width: auto"
+          >
+            {{ art.pUnitario }}
+          </div>
         </td>
+
         <td>
-          <input
-            type="text"
+          <div
             id="importe"
-            [value]="art.importe"
             class="form-control"
-            readonly
-            disabled
-          />
+            contenteditable="false"
+            style="width: auto"
+          >
+            {{ art.importe }}
+          </div>
         </td>
+
         <td>
-          <input
-            type="text"
+          <div
             id="iva"
-            [value]="art.iva"
             class="form-control"
-            disabled
-            readonly
-          />
+            contenteditable="false"
+            style="width: auto"
+          >
+            {{ art.iva }}
+          </div>
         </td>
+
         <td>
           <i
             class="fas fa-times-circle delete-item acts-as-link text-danger fs-5"
@@ -234,7 +237,6 @@
           ></i>
         </td>
       </tr>
-      <!-- } -->
     </ng-template>
   </p-table>
 </div>
