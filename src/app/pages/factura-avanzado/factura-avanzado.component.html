@@ -113,10 +113,12 @@
                     maxlength="100"
                     autocomplete="off"
                     size="100"
-                    type="text"
-                    value="10.01.2024"
+                    type="date"
+                    [(ngModel)]="fecha"
                     name="invoice[date_issued_string]"
                     id="FechaEmision"
+                    readonly
+                    disabled="true"
                   />
                 </div>
 
@@ -130,7 +132,8 @@
                     class="form-control form-control-sm datepicker hasDatepicker"
                     id="fechaCobro"
                     name="fechaCobro"
-                    value="2024-01-23"
+                    [(ngModel)]="fechaCobro"
+                    (ngModelChange)="comprobarFecha()"
                   />
                 </div>
 
@@ -143,9 +146,10 @@
                     class="form-control form-control-sm datepicker hasDatepicker"
                     id="pendientePago"
                     name="pendientePago"
+                    [(ngModel)]="fechaCorrecta"
                   >
-                    <option value="true">Sí</option>
-                    <option value="false">No</option>
+                    <option value="true">No</option>
+                    <option value="false">Sí</option>
                   </select>
                 </div>
               </div>
@@ -200,6 +204,15 @@
           </form>
         </div>
       </div>
+      <button
+      name="button"
+      type="button"
+      class="btn btn-info btn-sm w-100"
+      id="add-item"
+      (click)="crearFactura()"
+    >
+      Añadir Factura
+    </button>
     </div>
   </div>
 </div>

@@ -6,6 +6,8 @@ import { ArticuloFacturaComponent } from '../../components/articulo-factura/arti
 import { calculateImportes } from '@app/helpers/facturas.helper';
 import { FormsModule } from '@angular/forms';
 import { IProduct } from '@app/interfaces/factivar';
+import { IFacturaResponse } from '@app/interfaces/factura.interface';
+import { DateTimeProvider } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-factura-avanzado',
@@ -16,6 +18,10 @@ import { IProduct } from '@app/interfaces/factivar';
 })
 export class FacturaAvanzadoComponent {
   listaArticulos: IProduct[] = [];
+  fecha = new Date().toISOString().split('T')[0];
+  fechaCobro = new Date().toISOString().split('T')[0];
+  fechaCorrecta = false;
+  nuevaFactu! : IFacturaResponse;
   /**
    * Referencia al contenedor de vista del componente ArticuloFactura.
    */
@@ -38,7 +44,13 @@ export class FacturaAvanzadoComponent {
     this.ricias = calculateImportes(this.listaArticulos);
   }
 
-
+  comprobarFecha(){
+    console.log(this.fecha);
+    console.log(this.fechaCobro);
+    
+    console.log(this.fechaCobro >= this.fecha);
+    this.fechaCorrecta = this.fechaCobro >= this.fecha;
+  }
   /**
    * Elimina el artículo del componente ArticuloFactura.
    */
@@ -55,5 +67,10 @@ export class FacturaAvanzadoComponent {
   removeArticle(item: number) {
     this.listaArticulos.splice(item,1);
     this.ricias = calculateImportes(this.listaArticulos);
+  }
+
+  crearFactura(){
+    
+    console.log("creando factura");
   }
 }
