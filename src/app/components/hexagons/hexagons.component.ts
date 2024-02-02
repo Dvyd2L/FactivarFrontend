@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { HexagonItemComponent } from '@app/components/hexagon-item/hexagon-item.component';
 import { AvatarComponent } from '../avatar/avatar.component';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
 import { FactivarBrandComponent } from '../factivar-brand/factivar-brand.component';
 
@@ -21,6 +21,18 @@ import { FactivarBrandComponent } from '../factivar-brand/factivar-brand.compone
     RouterLinkActive,
     FactivarBrandComponent,
   ],
-  providers: [],
+  providers: [Router],
 })
-export class HexagonsComponent {}
+export class HexagonsComponent {
+  router = inject(Router);
+
+  toClientes() {
+    this.router.navigate(['clientes', 'overview']);
+  }
+  toFacturas() {
+    this.router.navigate(['facturas', 'overview']);
+  }
+  toUsuarios() {
+    this.router.navigate(['usuarios']);
+  }
+}

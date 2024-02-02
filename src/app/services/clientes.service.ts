@@ -31,7 +31,7 @@ export class ClientesService {
    */
   public getClientes(): Observable<ICliente[]> {
     const headers = this.setHeaders();
-    
+
     return this.http.get<ICliente[]>(`${this.urlAPI}/clientes/all`, {
       headers,
     });
@@ -56,8 +56,12 @@ export class ClientesService {
     fechamin: string | Date,
     fechamax: string | Date
   ): Observable<ICliente[]> {
+    const headers = this.setHeaders();
     return this.http.get<ICliente[]>(
-      `${this.urlAPI}/clientes/alta-entre-fechas/${fechamin}/${fechamax}`
+      `${this.urlAPI}/clientes/alta-entre-fechas/${fechamin}/${fechamax}`,
+      {
+        headers,
+      }
     );
   }
 
@@ -67,7 +71,10 @@ export class ClientesService {
    * @returns Un Observable que emite un objeto de tipo ICliente.
    */
   public addCliente(cliente: ICliente): Observable<ICliente> {
-    return this.http.post<ICliente>(`${this.urlAPI}/clientes`, cliente);
+    const headers = this.setHeaders();
+    return this.http.post<ICliente>(`${this.urlAPI}/clientes`, cliente, {
+      headers,
+    });
   }
 
   /**
@@ -76,9 +83,13 @@ export class ClientesService {
    * @returns Un Observable que emite un objeto de tipo ICliente.
    */
   public updateCliente(cliente: ICliente): Observable<ICliente> {
+    const headers = this.setHeaders();
     return this.http.put<ICliente>(
       `${this.urlAPI}/clientes` /* /${cliente.cif} */,
-      cliente
+      cliente,
+      {
+        headers,
+      }
     );
   }
 
@@ -88,7 +99,10 @@ export class ClientesService {
    * @returns Un Observable que emite un objeto de tipo ICliente.
    */
   public deleteCliente(cif: string): Observable<ICliente> {
-    return this.http.delete<ICliente>(`${this.urlAPI}/clientes/${cif}`);
+    const headers = this.setHeaders();
+    return this.http.delete<ICliente>(`${this.urlAPI}/clientes/${cif}`, {
+      headers,
+    });
   }
 
   private setHeaders = () =>

@@ -17,6 +17,7 @@
       <a href="mailto:{{ c.email }}" class="card-link">{{ c.email }}</a>
     </p>
     <p class="card-text">Dirección: {{ c.direccion }}</p>
+
     <ul *ngIf="c.facturaClientes">
       @for (item of c.facturaClientes; track $index) {
       <li>
@@ -31,6 +32,7 @@
       <pre>{{ item | json }}</pre>
       }
     </ul>
+    
     <ul *ngIf="c.facturaProveedors">
       @for (item of c.facturaProveedors; track $index) {
         <li>
